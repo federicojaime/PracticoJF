@@ -1,0 +1,74 @@
+#btn1 {
+    background-image: url("../img/iniPpal/btnLocal.png");
+}
+
+#btn2 {
+    background-image: url("../img/iniPpal/btnChef.png");
+}
+
+#btn3 {
+    background-image: url("../img/iniPpal/btnMoto.png");
+}
+
+#btn4 {
+    background-image: url("../img/iniPpal/btnHelado.png");
+}
+
+#btn5 {
+    background-image: url("../img/iniPpal/btnSushi.png");
+}
+
+#btn6 {
+    background-image: url("../img/iniPpal/btnPiza.png");
+}
+
+#btn7 {
+    background-image: url("../img/iniPpal/btnMenu.png");
+}
+
+#btn8 {
+    background-image: url("../img/iniPpal/btnCelu.png");
+}
+
+#circulito {
+    background-image: url("../img/iniPpal/circulito.png");
+    background-size: 80% 80%;
+    background-repeat: no-repeat;
+    background-position: 57% 53%;
+}
+
+#fondo {
+    background-image: url("../img/iniPpal/fondoPpal.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+}
+
+
+/*CLASSs*/
+
+.btnTemplatePpal {
+    border-radius: 50%;
+    background-position: center center;
+    background-color: transparent;
+    vertical-align: middle;
+    margin: 5%;
+}
+
+.centradoVertical {
+    top: 20%;
+}
+
+.btnGrande {
+    padding: 50%;
+    background-size: 140%;
+}
+
+.btnMediano {
+    padding: 40%;
+    background-size: 115%;
+}
+
+.btnChico {
+    padding: 30%;
+    background-size: cover;
+}
