@@ -17,7 +17,19 @@ angular.module('starter.controllers', ['ionic.cloud'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {})
 
-.controller('PlaylistsCtrl', function($scope) {})
+.controller('inicioPpalCtrl', function($scope, $state) {
+    $scope.toLista = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('app.listadoRestaurantes');
+    }
+})
+
+.controller('loginCtrl', function($scope, $state) {
+    $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('principal');
+    }
+})
+
+.controller('listRestaurantesCtrl', function($scope) {})
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
     // Called to navigate to the main app
@@ -33,11 +45,13 @@ angular.module('starter.controllers', ['ionic.cloud'])
     // Called each time the slide changes
     $scope.slideChanged = function(index) {
         $scope.slideIndex = index;
+        console.log($scope.slideIndex);
     };
+
     //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
 
     $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('app.principal');
+        $state.go('login');
     }
 })
 

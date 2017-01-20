@@ -80,3 +80,6 @@ body {
 .logoLocal img{
 border: gray 5px solid;
 }
+.icon ion-record{
+  color: white;
+}
