@@ -42,15 +42,27 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         controller: 'AppCtrl'
       })
 
-      .state('app.principal', { //Pantalla inicio, donde aparecen los restaurantes. 
+      .state('principal', { //Pantalla inicio, donde aparecen la ruleta con las opciones. 
         url: '/principal',
+        templateUrl: 'templates/inicio-principal.html',
+        controller: 'inicioPpalCtrl'
+      })
+      
+      .state('login', { //Pantalla login. 
+        url: '/login',
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+      })
+      .state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
+        url: '/listadoRestaurantes',
         views: {
           'menuContent': {
-            templateUrl: 'templates/inicio-principal.html',
-            controller: 'PlaylistsCtrl'
+            templateUrl: 'templates/inicio-listadoRestaurantes.html',
+            controller: 'listRestaurantesCtrl'
           }
         }
       })
+
 
     $urlRouterProvider.otherwise("/");// Determina en que templates va a empezar la app. 
 
