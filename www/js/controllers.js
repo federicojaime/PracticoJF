@@ -1,36 +1,50 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', ['ionic.cloud'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+.controller('MyCtrl', function($scope, $ionicAuth, $ionicUser) {
+
 })
 
-.controller('PlaylistsCtrl', function($scope) {
+.controller('MyCtrl2', function($scope, $ionicFacebookAuth, $ionicUser) {
+    /*
+    $ionicFacebookAuth.login().then( ... );
+    var full_name = $ionicUser.social.facebook.data.full_name
+    var profile_picture = $ionicUser.social.facebook.data.profile_picture
+    var facebook_raw_data = $ionicUser.social.facebook.data.raw_data;
+    $ionicFacebookAuth.logout();
+
+    */
 })
+
+.controller('AppCtrl', function($scope, $ionicModal, $timeout) {})
+
+.controller('PlaylistsCtrl', function($scope) {})
+
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
-  // Called to navigate to the main app
-  $scope.startApp = function() {
-    $state.go('main');
-  };
-  $scope.next = function() {
-    $ionicSlideBoxDelegate.next();
-  };
-  $scope.previous = function() {
-    $ionicSlideBoxDelegate.previous();
-  };
-  // Called each time the slide changes
-  $scope.slideChanged = function(index) {
-    $scope.slideIndex = index;
-  };
-  //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
+    // Called to navigate to the main app
+    $scope.startApp = function() {
+        $state.go('main');
+    };
+    $scope.next = function() {
+        $ionicSlideBoxDelegate.next();
+    };
+    $scope.previous = function() {
+        $ionicSlideBoxDelegate.previous();
+    };
+    // Called each time the slide changes
+    $scope.slideChanged = function(index) {
+        $scope.slideIndex = index;
+    };
+    //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
 
-   $scope.toPrincipal = function(){ //Redirecciona a la parte principal de la app. 
-    $state.go('app.principal');
-  }
+    $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('app.principal');
+    }
 })
 
 .controller('MainCtrl', function($scope, $state) {
-  console.log('MainCtrl');
-  
-  $scope.toIntro = function(){
-    $state.go('intro');
-  }
+    console.log('MainCtrl');
+
+    $scope.toIntro = function() {
+        $state.go('intro');
+    }
 });

@@ -10,6 +10,11 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.controllers'])
     $ionicCloudProvider.init({
         "core": {
             "app_id": "d5f187ac"
+        },
+        "auth": {
+            "facebook": {
+                "scope": ["permission1", "permission2"]
+            }
         }
     });
 })
