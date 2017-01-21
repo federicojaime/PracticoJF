@@ -9,5 +9,17 @@
     height: 20%;
     display: block;
     margin: 0 auto 0 auto;
-    padding: 5% 3% 5% 3%;
+    padding: 0% 10% 0% 10%;
+}
+
+.card {
+    margin: 5% 10% 10% 10%;
+    background-color: transparent;
+    border-radius: 5%;
+}
+
+.boton {
+    margin: 2% 0% 4% 0%;
+    width: 75%;
+    border-radius: 5%;
 }

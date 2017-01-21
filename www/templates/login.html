@@ -1,39 +1,41 @@
 <link href="css/login.css" rel="stylesheet">
-<ion-view title=''>
-    <ion-content id="fondo">
+<ion-view id="fondo">
+    <ion-content>
         <br>
         <img id="logo" src="img/logo.png" height="100%">
         <div class="card">
             <div class="item item-divider">
-                <center> Inicio Sessión</center>
+                <center>Inicio Sessión</center>
             </div>
             <div class="item item-text-wrap">
                 <div class="list">
                     <label class="item item-input item-floating-label">
-                        <span class="input-label">Correo</span>
                         <input type="text" placeholder="Correo">
                     </label>
                     <label class="item item-input item-floating-label">
-                        <span class="input-label">Contraseña</span>
                         <input type="password" placeholder="Contraseña">
                     </label>
                 </div>
             </div>
         </div>
-        <button class="button button-full button-balanced" ng-click="toPrincipal()">
-            Iniciar sessión
-        </button>
-        <button class="button  button-full button-positive icon ion-social-facebook" ng-click="toPrincipal()"> iniciar sessión con Faceboook</button>
+        <center>
+            <div id="btnLogin" class="button button-balanced icon ion-log-in boton" ng-click="toPrincipal()">
+                Iniciar sesión
+            </div>
+            <div id="btnLoginFb" class="button button-positive icon ion-social-facebook boton" ng-click="toPrincipal()">
+                Inicia sesión con Faceboook
+            </div>
+        </center>
         <div class="list">
             <center>
-                <div class="button item item-divider" ng-click="toPrincipal()">
+                <div id="btnNewAcount" class="button button-clear button-light boton" ng-click="toPrincipal()">
                     Crear cuenta nueva
                 </div>
             </center>
         </div>
-        <div class="bar bar-footer bar-dark">
+        <div id="btnTermCond" class="bar bar-footer bar-dark">
             <div class="title">
-                <p>Terminos y condiciones</p>
+                <p>Términos y condiciones</p>
             </div>
         </div>
     </ion-content>
