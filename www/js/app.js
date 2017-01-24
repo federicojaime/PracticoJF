@@ -6,64 +6,77 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers'])
 
-  .run(function ($ionicPlatform) {
-    $ionicPlatform.ready(function () {
-      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-      // for form inputs)
-      if (window.cordova && window.cordova.plugins.Keyboard) {
-        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-        cordova.plugins.Keyboard.disableScroll(true);
+.run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+        // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+        // for form inputs)
+        if (window.cordova && window.cordova.plugins.Keyboard) {
+            cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            cordova.plugins.Keyboard.disableScroll(true);
 
-      }
-      if (window.StatusBar) {
-        // org.apache.cordova.statusbar required
-        StatusBar.styleDefault();
-      }
+        }
+        if (window.StatusBar) {
+            // org.apache.cordova.statusbar required
+            StatusBar.styleDefault();
+        }
     });
-  })
+})
 
-  .config(function ($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-      .state('intro', {
-        url: '/',
-        templateUrl: 'templates/intro.html',
-        controller: 'IntroCtrl'
-      })
-      .state('main', {
-        url: '/main',
-        templateUrl: 'templates/main.html',
-        controller: 'MainCtrl'
-      })
+        .state('intro', {
+            url: '/',
+            templateUrl: 'templates/intro.html',
+            controller: 'IntroCtrl'
+        })
+        .state('main', {
+            url: '/main',
+            templateUrl: 'templates/main.html',
+            controller: 'MainCtrl'
+        })
 
-      .state('app', {
+    .state('app', {
         url: '/app',
         abstract: true,
         templateUrl: 'templates/menu.html',
         controller: 'AppCtrl'
-      })
+    })
 
-      .state('principal', { //Pantalla inicio, donde aparecen la ruleta con las opciones. 
+    .state('principal', { //Pantalla inicio, donde aparecen la ruleta con las opciones. 
         url: '/principal',
         templateUrl: 'templates/inicio-principal.html',
         controller: 'inicioPpalCtrl'
-      })
-      
-      .state('login', { //Pantalla login. 
+    })
+
+    .state('login', { //Pantalla login. 
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'loginCtrl'
-      })
-      .state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
+    })
+
+    .state('registro', { // Pantalla de Registro de nuevo usuario.
+        url: '/registro',
+        templateUrl: 'templates/registro.html',
+        controller: 'registroCtrl'
+    })
+
+    .state('terminosCondiciones', { //Pantalla login. 
+        url: '/terminosCondiciones',
+        templateUrl: 'templates/terminosCondiciones.html',
+        controller: 'terminosCondicionesCtrl'
+    })
+
+    .state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
         url: '/listadoRestaurantes',
         views: {
-          'menuContent': {
-            templateUrl: 'templates/inicio-listadoRestaurantes.html',
-            controller: 'listRestaurantesCtrl'
-          }
+            'menuContent': {
+                templateUrl: 'templates/inicio-listadoRestaurantes.html',
+                controller: 'listRestaurantesCtrl'
+            }
         }
-      })
+    })
 
 
-    $urlRouterProvider.otherwise("/");// Determina en que templates va a empezar la app. 
+    $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
 
-  })
+})
