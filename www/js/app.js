@@ -76,6 +76,15 @@ angular.module('starter', ['ionic', 'starter.controllers'])
         }
     })
 
+    .state('app.mapa', {
+        url: '/mapa',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/mapa.html',
+                controller: 'mapaCtrl'
+            }
+        }
+    })
 
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
 
