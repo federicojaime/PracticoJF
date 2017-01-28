@@ -6,6 +6,8 @@ angular.module('starter.controllers', ['ngCordova'])
     }
 
 
+
+
 })
 
 .controller('mapa2', function($scope, $state) {
