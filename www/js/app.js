@@ -80,6 +80,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                     }
                 }
             })
+            .state('app.favoritos', {
+                url: '/favoritos',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/favoritos.html',
+                        controller: 'favoritosCtrl'
+                    }
+                }
+            })
 
             .state('app.mapa', {
                 url: '/mapa',
@@ -90,7 +99,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                     }
                 }
             })
-             .state('app.misPedidos', {
+            .state('app.misPedidos', {
                 url: '/misPedidos',
                 views: {
                     'menuContent': {
@@ -106,20 +115,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                 controller: 'MapCtrl'
             })
 
-<<<<<<< HEAD
+
         $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
-=======
-    .state('app.favoritos', {
-        url: '/favoritos',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/favoritos.html',
-                controller: 'favoritosCtrl'
-            }
-        }
-    })
-
-    $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
->>>>>>> f7b1760b99a6c07eb0d681fd3851ed5bf8ce4e89
-
     })
