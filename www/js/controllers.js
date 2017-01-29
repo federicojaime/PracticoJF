@@ -55,6 +55,10 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.toLista = function() { //Redirecciona a la parte principal de la app. 
         $state.go('app.listadoRestaurantes');
     }
+
+    $scope.toDatosPedido = function() {
+        $state.go('datosPedido')
+    }
 })
 
 .controller('loginCtrl', function($scope, $state) {
@@ -290,13 +294,17 @@ angular.module('starter.controllers', ['ngCordova'])
     };
 })
 
-
-
 .controller('somosCtrl', function($scope, $state) {
     $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
         $state.go('principal');
     }
 
+})
+
+.controller('datosPedidoCtrl', function($scope, $state) {
+    $scope.confirmo = function() {
+        console.log('CONFIRMO');
+    }
 })
 
 .controller('MainCtrl', function($scope, $state) {

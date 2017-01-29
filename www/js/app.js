@@ -72,42 +72,44 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
     })
 
     .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
-            url: '/contactanos',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/admin-contactanos.html',
-                    controller: 'contactanosCtrl'
-                }
+        url: '/contactanos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/admin-contactanos.html',
+                controller: 'contactanosCtrl'
             }
-        })
-        .state('app.favoritos', {
-            url: '/favoritos',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/favoritos.html',
-                    controller: 'favoritosCtrl'
-                }
+        }
+    })
+
+    .state('app.favoritos', {
+        url: '/favoritos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/favoritos.html',
+                controller: 'favoritosCtrl'
             }
-        })
+        }
+    })
 
     .state('app.mapa', {
-            url: '/mapa',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/mapa.html',
-                    controller: 'mapaCtrl'
-                }
+        url: '/mapa',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/mapa.html',
+                controller: 'mapaCtrl'
             }
-        })
-        .state('app.misPedidos', {
-            url: '/misPedidos',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/misPedidos.html',
-                    controller: 'misPedidosCtrl'
-                }
+        }
+    })
+
+    .state('app.misPedidos', {
+        url: '/misPedidos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/misPedidos.html',
+                controller: 'misPedidosCtrl'
             }
-        })
+        }
+    })
 
     .state('mapa2', {
         url: '/mapa2',
@@ -129,6 +131,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
         url: 'somos',
         templateUrl: 'templates/somos.html',
         controller: 'somosCtrl'
+    })
+
+    .state('datosPedido', {
+        url: 'datosPedido',
+        templateUrl: 'templates/datosPedido.html',
+        controller: 'datosPedidoCtrl'
     })
 
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
