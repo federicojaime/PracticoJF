@@ -5,8 +5,23 @@ angular.module('starter.controllers', ['ngCordova'])
         $state.go('principal');
     }
 
+    $scope.toFavoritos = function() { //Redirecciona al template de favoritos.
+        $state.go('app.favoritos');
+    }
 
 
+
+})
+
+.controller('favoritosCtrl', function($scope, $state) {
+    $scope.buscar = false;
+    $scope.buscador = function() {
+        if ($scope.buscar == true) {
+            $scope.buscar = false;
+        } else {
+            $scope.buscar = true;
+        }
+    }
 
 })
 
@@ -48,11 +63,10 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 .controller('listRestaurantesCtrl', function($scope, $state) {
-    $scope.buscar = false;
     $scope.toMapa = function() {
         $state.go('mapa2');
     }
-
+    $scope.buscar = false;
     $scope.buscador = function() {
         if ($scope.buscar == true) {
             $scope.buscar = false;
@@ -60,6 +74,7 @@ angular.module('starter.controllers', ['ngCordova'])
             $scope.buscar = true;
         }
     }
+
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
@@ -185,10 +200,15 @@ angular.module('starter.controllers', ['ngCordova'])
 
     })
 */
-    .controller('MainCtrl', function($scope, $state) {
-        console.log('MainCtrl');
 
-        $scope.toIntro = function() {
-            $state.go('intro');
-        }
-    });
+.controller('buscadorCtrl', function($scope, $state) {
+
+})
+
+.controller('MainCtrl', function($scope, $state) {
+    console.log('MainCtrl');
+
+    $scope.toIntro = function() {
+        $state.go('intro');
+    }
+});

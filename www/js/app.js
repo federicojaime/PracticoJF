@@ -87,6 +87,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
         controller: 'MapCtrl'
     })
 
+    .state('app.favoritos', {
+        url: '/favoritos',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/favoritos.html',
+                controller: 'favoritosCtrl'
+            }
+        }
+    })
+
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
 
 })
