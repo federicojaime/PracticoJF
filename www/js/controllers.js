@@ -89,6 +89,10 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.aceptarTerminos = function() {
         if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
     }
+
+    $scope.toLogin = function() {
+        $state.go('login');
+    }
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
