@@ -4,33 +4,46 @@
             <img class="button button-clear" src="img/listRest/joniFood.png" style="padding: 1% 20% 1% 0%;">
 </center>
 </ion-nav-title>
-<ion-content>
-    <div class="text-box light">
-        Please Read Carefully Before Using This Website: The following terms of service (“Terms of Service”) govern your use of the
-        Stamplay Website (the “Site”) and the Stamplay web-based, application integration and data linking service accessed
-        through the Site (“Service”), both of which are operated by Stamplay LTD. (“Stamplay”). By using the Site and/or
-        the Service, you irrevocably agree that such use is subject to these Terms of Service. If you do not agree to these
-        Terms of Service, you may not use the Site or the Service. If you are entering into these Terms of Service on behalf
-        of an entity, you represent that you have the actual authority to bind such entity to these Terms of Service. Stamplay
-        expressly reserves the right to modify the Terms of Service at any time in its sole discretion, and without prior
-        notice to you, by including such alteration and/or modification in these Terms of Service, along with a notice of
-        the effective date of such modified Terms of Service. Any continued use by you of the Site or the Service after the
-        posting of such modified Terms of Service shall be deemed to indicate your irrevocableagreement to such modified
-        Terms of Service. Accordingly, if at any time you do not agree to be subject to any modified Terms of Service, you
-        may no longer use the Site or Service.
+<ion-content class="has-header">
+    <div class="list">
+        <a class="item item-avatar" href="#">
+            <i class="icon ion-home"></i>
+            <h2>Venkman</h2>
+            <p>Back off, man. I'm a scientist.</p>
+        </a>
     </div>
-        <ion-tabs class="tabs-top tabs-icon-top tabs-secondary tabs-assertive">
-            <ion-tab title="Negocios" icon="ion-home">
-                <ion-view title="Home">
-                    <ion-content> </ion-content>
-                </ion-view>
-            </ion-tab>
-            <ion-tab title="Promociones" icon="ion-ios-heart">
-                <ion-view title="About">
-                    <ion-content>
-                    </ion-content>
-                </ion-view>
-            </ion-tab>
-        </ion-tabs>
-    </ion-content>
+    <ion-tabs class="tabs-top tabs-icon-top tabs-secondary tabs-dark">
+        <ion-tab title="Perfil" icon="ion-person">
+            <ion-view title="Home">
+                <ion-content>
+                    <div class="padding">
+                        <ion-item class="item descrip" id="asd">
+                            <img style="min-height: 50px;min-width: 50px" src={{datosComercio["pathimg"]}}>
+<center>
+    <p style="font-size:20px"><b>{{datosComercio["nombre"]}}</b></p>
+<div class="estrellas">
+    <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
+    <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
+</div>
+<p><b>Teléfono:</b> {{datosComercio["telefono"]}}</p>
+<p><b>Dirección: </b>{{datosComercio["domicilio"]}}</p>
+<p><b>Medio de Pago:</b> Efectivo</p>
+<p><b>Horarios:</b> {{datosComercio["horarios"]}}</p>
+<p><b>descripción:</b> {{datosComercio["descripcion"]}}</p>
+<img class="full-image" src="img\Descr-Carta\mapa.png">
+<button class="button a button-full button-energized" ng-click="modal.show()">Calificar</button>
+</center>
+</ion-item>
+</div>
+</ion-content>
+</ion-view>
+</ion-tab>
+<ion-tab title="Carta" icon="ion-clipboard">
+    <ion-view title="About">
+        <ion-content>
+        </ion-content>
+    </ion-view>
+</ion-tab>
+</ion-tabs>
+</ion-content>
 </ion-view>

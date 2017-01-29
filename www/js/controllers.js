@@ -271,11 +271,24 @@ angular.module('starter.controllers', ['ngCordova'])
     })
     .controller('descr-cartaCtrl', function ($scope, $state) {
 
-        $scope.perfil = {
-            nombre:"La farola",
-            telefono:"011-323252",
-            horario:"lunes a viernes 12 a 00",
-            descripcion:"Somos un resto que hace comida fina, podra en contrar shows especiales y mucha modernidad en nuetro local."
+        $scope.datosComercio = {
+            nombre: "La Farola",
+            telefono: "011-323252",
+            domicilio: 'La Madrid 430',
+            horarios: "lunes a viernes 12 a 00",
+            descripcion: "Somos un resto que hace comida fina, podra en contrar shows especiales y mucha modernidad en nuetro local."
+        }
+
+        $scope.estrella = []; //arreglo utilizado para generar el codigo. 
+        $scope.estrellaVacias = [];
+        $scope.rating = 3;
+        if ($scope.rating > 0)
+        { $scope.votos = "true"; }
+        for (var i = 0; i < $scope.rating; i++) {
+            $scope.estrella.push({});
+        }
+        while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
+            $scope.estrellaVacias.push({});
         }
 
     });
