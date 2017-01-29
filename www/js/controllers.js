@@ -203,11 +203,37 @@ angular.module('starter.controllers', ['ngCordova'])
     })
 */
 
-.controller('buscadorCtrl', function($scope, $state) {
-
-})
-
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
+    $scope.provincias = [];
+    for (var i = 0; i < 10; i++) {
+        $scope.provincias[i] = {
+            name: i,
+            localidades: []
+        };
+        for (var j = 0; j < 3; j++) {
+            $scope.provincias[i].localidades.push(i + '-' + j);
+        }
+    }
+
+    /*
+     * if given group is the selected group, deselect it
+     * else, select the given group
+     */
+    $scope.toggleprovincias = function(provincias) {
+        if ($scope.isprovinciashown(provincias)) {
+            $scope.shownprovincias = null;
+        } else {
+            $scope.shownprovincias = provincias;
+        }
+    };
+    $scope.isprovinciashown = function(provincias) {
+        return $scope.shownprovincias === provincias;
+    };
+
+    $scope.toLocalidad = function(localidad) {
+
+    }
+
     $scope.doRefresh = function() { //Se activa cuando en el celular scrollea hacia abajo.
         $scope.refrescar();
         $timeout(function() {
