@@ -29,6 +29,23 @@ angular.module('starter.controllers', ['ngCordova'])
             }
         }
 
+        $scope.restaurantes = [
+            { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
+            { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/lafarola.jpg' },
+            { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
+        ];
+        $scope.estrella = []; //arreglo utilizado para generar el codigo. 
+        $scope.estrellaVacias = [];
+        $scope.rating = 3;
+        if ($scope.rating > 0)
+        { $scope.votos = "true"; }
+        for (var i = 0; i < $scope.rating; i++) {
+            $scope.estrella.push({});
+        }
+        while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
+            $scope.estrellaVacias.push({});
+        }
+
     })
 
     .controller('inicioPpalCtrl', function ($scope, $state) {
