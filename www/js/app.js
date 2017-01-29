@@ -70,6 +70,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                     }
                 }
             })
+            .state('app.descr-carta', { //Pantalla inicio, donde aparecen los restaurantes. 
+                url: '/descr-carta',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/descr-carta.html',
+                        controller: 'descr-cartaCtrl'
+                    }
+                }
+            })
+
 
             .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
                 url: '/contactanos',

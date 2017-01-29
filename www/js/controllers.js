@@ -212,6 +212,10 @@ angular.module('starter.controllers', ['ngCordova'])
         while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
             $scope.estrellaVacias.push({});
         }
+
+        $scope.toPerfilRes = function () { //Redirecciona a la parte principal de la app. 
+            $state.go('app.descr-carta');
+        }
     })
 
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate) {
@@ -264,5 +268,15 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.toIntro = function () {
             $state.go('intro');
         }
+    })
+    .controller('descr-cartaCtrl', function ($scope, $state) {
+
+        $scope.perfil = {
+            nombre:"La farola",
+            telefono:"011-323252",
+            horario:"lunes a viernes 12 a 00",
+            descripcion:"Somos un resto que hace comida fina, podra en contrar shows especiales y mucha modernidad en nuetro local."
+        }
+
     });
 

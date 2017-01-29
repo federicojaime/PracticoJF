@@ -25,7 +25,7 @@
     </div>
     <div class="list" style="padding: 1% 0% 0% 0%;">
 <ion-list>
-    <ion-item class="item logoLocal descrip" ng-click="" ng-repeat="restaurante in restaurantes | filter : filtro">
+    <ion-item class="item logoLocal descrip" ng-click="toPerfilRes()" ng-repeat="restaurante in restaurantes | filter : filtro">
         <a style="float:left">
 <img src={{restaurante.img}}>
 </a>
@@ -47,7 +47,7 @@
 </div>
 <div ng-if="buscar == false" class="list" style="padding: 10% 0% 0% 0%;">
 <ion-list>
-    <ion-item class="item logoLocal descrip" ng-click="" ng-repeat="restaurante in restaurantes | filter : filtro">
+    <ion-item class="item logoLocal descrip" ng-click="toPerfilRes()" ng-repeat="restaurante in restaurantes | filter : filtro">
         <a style="float:left">
 <img src={{restaurante.img}}>
 </a>
