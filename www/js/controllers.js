@@ -287,9 +287,10 @@ angular.module('starter.controllers', ['ngCordova'])
 
     //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
 
-    $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
+    $scope.toLogin = function() { //Redirecciona a la parte principal de la app. 
         $state.go('login');
     }
+
 })
 
 .controller('MapCtrl', function($timeout, $scope, $ionicLoading, $cordovaGeolocation, $compile, $ionicPopup, $http, $stateParams) {
@@ -316,6 +317,9 @@ angular.module('starter.controllers', ['ngCordova'])
 .controller('datosPedidoCtrl', function($scope, $state) {
     $scope.confirmo = function() {
         console.log('CONFIRMO');
+    }
+    $scope.toPrincipal = function() {
+        $state.go('principal');
     }
 })
 
