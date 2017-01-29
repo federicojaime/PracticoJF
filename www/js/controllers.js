@@ -9,7 +9,9 @@ angular.module('starter.controllers', ['ngCordova'])
         $state.go('app.favoritos');
     }
 
-
+    $scope.toCambiarCdad = function() { //Redirecciona al template de cambiarCdad
+        $state.go('app.cambiarCdad');
+    }
 
 })
 
@@ -203,6 +205,26 @@ angular.module('starter.controllers', ['ngCordova'])
 
 .controller('buscadorCtrl', function($scope, $state) {
 
+})
+
+.controller('cambiarCdadCtrl', function($scope, $state, $http) {
+    $scope.doRefresh = function() { //Se activa cuando en el celular scrollea hacia abajo.
+        $scope.refrescar();
+        $timeout(function() {
+            $scope.$broadcast('scroll.refreshComplete');
+        }, 1000);
+    };
+    $scope.ciudades = [{}];
+
+    $scope.refrescar = function() { // Actualiza todas las llamadas de la app. 
+        $http.get("http://alaordenapp.com/alaorden/php/localidades.php?idprovincia=1").success(function(dato) { //Solo San Luis
+            $scope.ciudades = dato;
+        });
+    }
+
+    $http.get("http://alaordenapp.com/alaorden/php/localidades.php?idprovincia=1").success(function(dato) { //Solo San Luis
+        $scope.ciudades = dato;
+    });
 })
 
 .controller('MainCtrl', function($scope, $state) {

@@ -97,6 +97,16 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
         }
     })
 
+    .state('app.cambiarCdad', {
+        url: '/cambiarCdad',
+        views: {
+            'menuContent': {
+                templateUrl: 'templates/cambiarCdad.html',
+                controller: 'cambiarCdadCtrl'
+            }
+        }
+    })
+
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
 
 })
