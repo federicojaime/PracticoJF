@@ -55,7 +55,6 @@ angular.module('starter.controllers', ['ngCordova'])
             $state.go('app.listadoRestaurantes');
         }
     })
-
     .controller('loginCtrl', function ($scope, $state) {
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
             $state.go('principal');
