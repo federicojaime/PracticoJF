@@ -1,9 +1,39 @@
 angular.module('starter.controllers', ['ngCordova'])
 
+<<<<<<< HEAD
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state) {
         $scope.toInicio = function () { //Redirecciona a la parte principal de la app. 
             $state.go('principal');
         }
+=======
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+    $scope.toInicio = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('principal');
+    }
+
+    $scope.toFavoritos = function() { //Redirecciona al template de favoritos.
+        $state.go('app.favoritos');
+    }
+
+
+
+})
+
+.controller('favoritosCtrl', function($scope, $state) {
+    $scope.buscar = false;
+    $scope.buscador = function() {
+        if ($scope.buscar == true) {
+            $scope.buscar = false;
+        } else {
+            $scope.buscar = true;
+        }
+    }
+
+})
+
+.controller('mapa2', function($scope, $state) {
+    $scope.posisionar = function() {
+>>>>>>> f7b1760b99a6c07eb0d681fd3851ed5bf8ce4e89
 
         $scope.toContactanos = function () { //Redirecciona a la parte principal de la app. 
             $state.go('app.contactanos');
@@ -43,6 +73,7 @@ angular.module('starter.controllers', ['ngCordova'])
 
     .controller('registroCtrl', function ($scope, $state) { })
 
+<<<<<<< HEAD
     .controller('misPedidosCtrl', function ($ionicPlatform, $state, $ionicHistory, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
         $ionicHistory.clearHistory();
         $ionicPlatform.registerBackButtonAction(function (event) {
@@ -69,6 +100,56 @@ angular.module('starter.controllers', ['ngCordova'])
                 }
             });
         };
+=======
+.controller('listRestaurantesCtrl', function($scope, $state) {
+    $scope.toMapa = function() {
+        $state.go('mapa2');
+    }
+    $scope.buscar = false;
+    $scope.buscador = function() {
+        if ($scope.buscar == true) {
+            $scope.buscar = false;
+        } else {
+            $scope.buscar = true;
+        }
+    }
+
+})
+
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+    // Called to navigate to the main app
+    $scope.startApp = function() {
+        $state.go('main');
+    };
+    $scope.next = function() {
+        $ionicSlideBoxDelegate.next();
+    };
+    $scope.previous = function() {
+        $ionicSlideBoxDelegate.previous();
+    };
+    // Called each time the slide changes
+    $scope.slideChanged = function(index) {
+        $scope.slideIndex = index;
+        console.log($scope.slideIndex);
+    };
+
+    //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
+
+    $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('login');
+    }
+})
+
+.controller('mapaCtrl', function($scope, $state) {
+    $scope.buscar = false;
+    $scope.buscador = function() {
+        if ($scope.buscar == true) {
+            $scope.buscar = false;
+        } else {
+            $scope.buscar = true;
+        }
+    }
+>>>>>>> f7b1760b99a6c07eb0d681fd3851ed5bf8ce4e89
 
         $scope.clientSideList = [
             { text: "El pedido nunca llegó a mi casa.", value: "2" },
@@ -180,6 +261,7 @@ angular.module('starter.controllers', ['ngCordova'])
             $scope.estrellaVacias.push({});
         }
     })
+<<<<<<< HEAD
 
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate) {
         // Called to navigate to the main app
@@ -219,3 +301,18 @@ angular.module('starter.controllers', ['ngCordova'])
             ]
         };
     })
+=======
+*/
+
+.controller('buscadorCtrl', function($scope, $state) {
+
+})
+
+.controller('MainCtrl', function($scope, $state) {
+    console.log('MainCtrl');
+
+    $scope.toIntro = function() {
+        $state.go('intro');
+    }
+});
+>>>>>>> f7b1760b99a6c07eb0d681fd3851ed5bf8ce4e89

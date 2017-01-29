@@ -1,0 +1,84 @@
+<ion-view>
+    <ion-nav-title>
+        <img class="button button-clear" src="img/listRest/btnSerch.png" style="padding: 1% 0% 1% 0%; float: right;" ng-click="buscador()">
+        <center>
+            <img class="button button-clear" src="img/listRest/joniFood.png">
+        </center>
+    </ion-nav-title>
+    <ion-content>
+        <div class="bar bar-header bar-dark">
+            <div class="title">
+                Tus Favoritos:
+            </div>
+        </div>
+        <div id="barraBuscar" ng-if="buscar == true">
+            <div class="bar bar-header item-input-inset bar-assertive">
+                <label class="item-input-wrapper">
+             <i class="icon ion-ios-search placeholder-icon"></i>
+              <input type="search" placeholder="Buscar" ng-model="filtro">
+                </label>
+            </div>
+            <div class="list card assertive" ng-repeat="ciudad in ciudades | filter : filtro">
+                <a href="#/app/{{ciudad.id}}" class="item item-icon-left">
+                    <i class="icon  ion-ios-location"></i>
+                    <h2>{{ciudad.nombre}}</h2>
+                </a>
+            </div>
+        </div>
+
+        <div class="list logoLocal" style="padding: 10% 0% 0% 0%;">
+            <div>
+                <a class="item item-thumbnail-left " href="# ">
+                    <img class=" " src="img/lafarola.jpg ">
+                    <h2>La Farola de Palermo</h2>
+                    <p>Pizzas - Milanesas - Parrilla </p>
+                    <p>60-90 min | $10 | $150 Minimo </p>
+                </a>
+                <a class="button button-small button-light icon ion-star energized" ng-class="{'ion-star  button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked;agregarFav(comercio.id)" style="float: right;"></a>
+            </div>
+
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+            <a class="item item-thumbnail-left " href="# ">
+                <img src="img/lafarola.jpg ">
+                <h2>La Farola de Palermo</h2>
+                <p>Pizzas - Milanesas - Parrilla </p>
+                <p>60-90 min | $10 | $150 Minimo </p>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>
