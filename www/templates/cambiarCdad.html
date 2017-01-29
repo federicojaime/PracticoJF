@@ -9,8 +9,6 @@
         <div class="item item-assertive item-divider">
             <center> Elige tu ciudad</center>
         </div>
-        <ion-refresher on-refresh="doRefresh()">
-        </ion-refresher>
         <ion-list>
             <div ng-repeat="provincia in provincias">
                 <ion-item class="item-stable" ng-click="toggleprovincias(provincia)" ng-class="{active: isprovinciashown(provincia)}">
@@ -21,21 +19,5 @@
                 </ion-item>
             </div>
         </ion-list>
-        <!--
-        <div>
-            <div class="bar bar-header item-input-inset bar-assertive">
-                <label class="item-input-wrapper">
-             <i class="icon ion-ios-search placeholder-icon"></i>
-              <input type="search" placeholder="Buscar" ng-model="filtro">
-                </label>
-            </div>
-            <div class="list card assertive" ng-repeat="ciudad in ciudades | filter : filtro">
-                <a href="#/app/{{ciudad.id}}" class="item item-icon-left">
-                    <i class="icon  ion-ios-location"></i>
-                    <h2>{{ciudad.nombre}}</h2>
-                </a>
-            </div>
-        </div>
--->
     </ion-content>
 </ion-view>

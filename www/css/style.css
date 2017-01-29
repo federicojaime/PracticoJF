@@ -90,6 +90,38 @@ body {
     color: white;
 }
 
+.logoLocal img {
+    float: left;
+    width: 100px;
+    height: 100px;
+}
+
+.estrellas i {
+    font-size: 20px;
+}
+
+.btnFav {
+    float: right;
+    margin-top: -10px;
+    margin-right: -11px;
+}
+
+.descrip p {
+    white-space: normal
+}
+
+.descrip h2 {
+    white-space: normal
+}
+
+.descrip h3 {
+    white-space: normal
+}
+
+.descrip h4 {
+    white-space: normal
+}
+
 
 /*HOJA DE ESTILO PARA 'cambiarCdad'*/
 

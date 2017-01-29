@@ -71,30 +71,48 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
         }
     })
 
-    .state('app.mapa', {
-        url: '/mapa',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/mapa.html',
-                controller: 'mapaCtrl'
+    .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
+            url: '/contactanos',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/admin-contactanos.html',
+                    controller: 'contactanosCtrl'
+                }
             }
-        }
-    })
+        })
+        .state('app.favoritos', {
+            url: '/favoritos',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/favoritos.html',
+                    controller: 'favoritosCtrl'
+                }
+            }
+        })
+
+    .state('app.mapa', {
+            url: '/mapa',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/mapa.html',
+                    controller: 'mapaCtrl'
+                }
+            }
+        })
+        .state('app.misPedidos', {
+            url: '/misPedidos',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/misPedidos.html',
+                    controller: 'misPedidosCtrl'
+                }
+            }
+        })
 
     .state('mapa2', {
         url: '/mapa2',
         templateUrl: 'templates/mapa2.html',
         controller: 'MapCtrl'
-    })
-
-    .state('app.favoritos', {
-        url: '/favoritos',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/favoritos.html',
-                controller: 'favoritosCtrl'
-            }
-        }
     })
 
     .state('app.cambiarCdad', {
@@ -108,5 +126,4 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
     })
 
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
-
 })
