@@ -1,0 +1,31 @@
+<ion-view>
+    <ion-nav-title>
+        <center>
+            <img class="button button-clear" src="img/listRest/joniFood.png" style="padding: 1% 20% 1% 0%;">
+</center>
+</ion-nav-title>
+<ion-content>
+    <div class="item item-assertive item-divider">
+        <center><b>Contáctanos</b></center>
+    </div>
+    <div class="list">
+        <div>
+            <label class="item item-input item-floating-label">
+    <span class="input-label"><b>Teléfono:</b></span>
+    <input type="tel" placeholder="Teléfono:" ng-model="form.telefono">
+  </label>
+        </div>
+        <div>
+            <label class="item item-input item-floating-label">
+       <span class="input-label"><b>Mensaje:</b></span>
+    <textarea placeholder="Mensaje" maxlength="200" ng-model="form.mensaje"></textarea>
+  </label>
+        </div>
+    </div>
+</ion-content>
+  <div class="bar bar-footer bar-dark" style="margin-bottom: 0%">
+            <div class="title">
+                <button class="button button-clear" ng-click="toTerminosCondiciones()">Enviar</button>
+            </div>
+        </div>
+</ion-view>
