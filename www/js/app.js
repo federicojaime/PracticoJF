@@ -125,5 +125,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
         }
     })
 
+    .state('somos', {
+        url: 'somos',
+        templateUrl: 'templates/somos.html',
+        controller: 'somosCtrl'
+    })
+
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
 })

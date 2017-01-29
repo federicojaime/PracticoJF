@@ -1,14 +1,14 @@
 <ion-view>
     <ion-nav-title>
         <center>
-            <img class="button button-clear" src="img/listRest/joniFood.png" style="padding: 1% 20% 1% 0%;">
-</center>
-</ion-nav-title>
-<ion-content ng-init="time()">
-    <ion-refresher on-refresh="doRefresh()">
-    </ion-refresher>
-    <div class="item  item-divider item-Dark">
-        <center><b>Mis Pedidos<b></center>
+            <img class="button button-clear" src="img/listRest/joniFood.png" style="padding: 1% 20% 1% 0%;" ng-click="toSomos()">
+        </center>
+    </ion-nav-title>
+    <ion-content ng-init="time()">
+        <ion-refresher on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="item  item-divider item-Dark">
+            <center><b>Mis Pedidos<b></center>
         </div>
         <div class="padding">
             <div class="bar bar-header item-input-inset ">
@@ -25,17 +25,17 @@
                 </ion-item>
                 <ion-item class="item descrip" ng-repeat="pedido in pedidos | filter : filtro" ng-if="hayPed">
                         <h2><b>{{pedido.nombre}}</b></h2>
-            <b><p>{{pedido.fecha}} A las {{pedido.hora}}</p></b>
-            <p>Total pagado: $ {{pedido.total | number:2}}</p>
-            <a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 1" class="button button-royal" ng-click="abrir(pedido);modal.show()">Pendiente</a>
-<a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 2" class="button button-balanced" ng-click="abrir(pedido);modal.show()">En Preparación</a>
-<a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 3" class="button button-balanced" ng-click="abrir(pedido);modal.show()">En Camino</a>
-<a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 4" class="button button-assertive">Rechazado</a>
-<a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 5" class="button button-energized" ng-click="abrir(pedido);modal.show()">Cobrado</a>
-</ion-item>
-</ion-list>
-</ion-content>
-<script id="templates/Pedidos.html" type="text/ng-template">
+                <b><p>{{pedido.fecha}} A las {{pedido.hora}}</p></b>
+                <p>Total pagado: $ {{pedido.total | number:2}}</p>
+                <a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 1" class="button button-royal" ng-click="abrir(pedido);modal.show()">Pendiente</a>
+                <a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 2" class="button button-balanced" ng-click="abrir(pedido);modal.show()">En Preparación</a>
+                <a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 3" class="button button-balanced" ng-click="abrir(pedido);modal.show()">En Camino</a>
+                <a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 4" class="button button-assertive">Rechazado</a>
+                <a style="margin-top: -60px; float: right;" ng-if="pedido.idestado == 5" class="button button-energized" ng-click="abrir(pedido);modal.show()">Cobrado</a>
+                </ion-item>
+                </ion-list>
+    </ion-content>
+    <script id="templates/Pedidos.html" type="text/ng-template">
         <ion-modal-view>
             <ion-content>
                 <ion-list>
@@ -49,7 +49,7 @@
                         <center>
                             <b><h2>{{pedidoitems.descripcion}}</b></h2> <br>
                             <h4><b> Cantidad: </b> {{pedidoitems.cantidad}}
-                        <b> Costo: $ </b> {{pedidoitems.costo}}</h4>
+                                <b> Costo: $ </b> {{pedidoitems.costo}}</h4>
                         </center>
                     </ion-item>
                 </ion-list>
