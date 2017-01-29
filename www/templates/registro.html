@@ -24,11 +24,13 @@
                     <label class="item item-input item-floating-label">
                         <input id="pass2" type="password" placeholder="Confirmar Contraseña">
                     </label>
+
+                    <input id="terms" type="checkbox" class="peque" ng-click="aceptarTerminos()"><a href="#/terminosCondiciones">Acepto los términos y condiciones.</a></input>
                 </div>
             </div>
         </div>
         <center>
-            <div id="btnRegistrarse" class="button button-royal icon ion-ios-plus-outline boton" ng-click="toPrincipal()">
+            <div id="btnRegistrarse" class="button button-royal icon ion-ios-plus-outline boton" ng-click="toPrincipal()" ng-if="acepto == true">
                 Registrarse
             </div>
         </center>

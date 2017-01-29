@@ -1,6 +1,7 @@
 angular.module('starter.controllers', ['ngCordova'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+
     $scope.toInicio = function() { //Redirecciona a la parte principal de la app. 
         $state.go('principal');
     }
@@ -73,15 +74,22 @@ angular.module('starter.controllers', ['ngCordova'])
     $scope.toRegistro = function() { //Redirecciona a la parte principal de la app. 
         $state.go('registro');
     }
+
 })
 
 .controller('terminosCondicionesCtrl', function($scope, $state) {
-    $scope.toLogin = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('login');
+    $scope.toRegistro = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('registro');
     }
 })
 
-.controller('registroCtrl', function($scope, $state) {})
+.controller('registroCtrl', function($scope, $state) {
+    $scope.acepto = false;
+
+    $scope.aceptarTerminos = function() {
+        if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
+    }
+})
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
     $scope.provincias = [];
