@@ -111,9 +111,13 @@ body {
 }
 
 .descrip p {
-    white-space: normal
+    white-space: normal;
 }
 
+.descrip{
+    white-space: normal;
+    
+}
 .descrip h2 {
     white-space: normal
 }
@@ -125,6 +129,17 @@ body {
 .descrip h4 {
     white-space: normal
 }
+
+
+.item-avatar i:first-child, .item-avatar .item-img {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-size: 36px;
+    max-width: 40px;
+    max-height: 40px;
+    width: 100%;
+    border-radius: 4px; }
 
 
 /*HOJA DE ESTILO PARA 'cambiarCdad'*/
@@ -143,4 +158,8 @@ body {
 .list .item.item-accordion.ng-hide-add,
 .list .item.item-accordion.ng-hide-remove {
     display: block !important;
+}
+
+.combo select{
+    width: 20%
 }
