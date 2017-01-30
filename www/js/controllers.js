@@ -11,7 +11,7 @@ angular.module('starter.controllers', ['ngCordova'])
     }
 
     $scope.toContactanos = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('app.contactanos');
+        $state.go('contactanos');
     }
 
     $scope.toMisPedidos = function() { //Redirecciona a misPedidos. 
@@ -230,7 +230,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
 })
 
-.controller('contactanosCtrl', function($scope, $state) {})
+.controller('contactanosCtrl', function($scope, $state) {
+    $scope.toSomos = function() {
+        $state.go('somos');
+    }
+})
 
 .controller('listRestaurantesCtrl', function($scope, $state, $http) {
     $scope.buscar = false;

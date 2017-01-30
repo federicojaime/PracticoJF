@@ -71,14 +71,10 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
         }
     })
 
-    .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
+    .state('contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
         url: '/contactanos',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/admin-contactanos.html',
-                controller: 'contactanosCtrl'
-            }
-        }
+        templateUrl: 'templates/admin-contactanos.html',
+        controller: 'contactanosCtrl'
     })
 
     .state('app.favoritos', {
