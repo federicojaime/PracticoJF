@@ -1,77 +1,75 @@
 <ion-view>
     <ion-nav-title>
         <img class="button button-clear" src="img/listRest/btnSerch.png" style="padding: 1% 0% 1% 0%; float: right;" ng-click="buscador()">
-<center>
-    <img class="button button-clear" src="img/listRest/joniFood.png">
-</center>
-</ion-nav-title>
-<ion-content>
-    <div class="bar bar-header bar-dark">
-        <div class="title">
-            Tus Favoritos:
+        <center>
+            <img class="button button-clear" src="img/listRest/joniFood.png" ng-click="toSomos()">
+        </center>
+    </ion-nav-title>
+    <ion-content>
+        <div class="bar bar-header bar-dark">
+            <div class="title">
+                Tus Favoritos:
+            </div>
         </div>
-    </div>
-    <div id="barraBuscar" ng-if="buscar == true">
-        <div class="bar bar-header item-input-inset bar-assertive">
-            <label class="item-input-wrapper">
+        <div id="barraBuscar" ng-if="buscar == true">
+            <div class="bar bar-header item-input-inset bar-assertive">
+                <label class="item-input-wrapper">
              <i class="icon ion-ios-search placeholder-icon"></i>
               <input type="search" placeholder="Buscar" ng-model="filtro">
                 </label>
+            </div>
+            <div class="list card assertive" ng-repeat="ciudad in ciudades | filter : filtro">
+                <a href="#/app/{{ciudad.id}}" class="item item-icon-left">
+                    <i class="icon  ion-ios-location"></i>
+                    <h2>{{ciudad.nombre}}</h2>
+                </a>
+            </div>
+            <div class="list logoLocal" style="padding: 1% 0% 0% 0%;">
+                <div ng-if="buscar == true" class="list" style="padding: 1% 0% 0% 0%;">
+                    <ion-list>
+                        <ion-item class="item logoLocal descrip" ng-click="" ng-repeat="restaurante in restaurantes | filter : filtro">
+                            <a style="float:left">
+                                <img src={{restaurante.img}}>
+                            </a>
+                            <a class="btnFav button button-small button-energized icon " ng-class="{'ion-star button-energized': !liked, 'ion-star energized ': liked}" ng-click="liked=!liked">
+                            </a>
+                            <center>
+                                <h2>{{restaurante.nombre}}</h2>
+                                <div class="estrellas">
+                                    <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
+                                    <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
+                                </div>
+                                <p>{{restaurante.descripcion}}</p>
+                                <p>{{restaurante.tiempo}} | {{restaurante.precioDelivery}} |{{restaurante.compraMinima}} Minimo </p>
+                            </center>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </div>
         </div>
-        <div class="list card assertive" ng-repeat="ciudad in ciudades | filter : filtro">
-            <a href="#/app/{{ciudad.id}}" class="item item-icon-left">
-                <i class="icon  ion-ios-location"></i>
-                <h2>{{ciudad.nombre}}</h2>
-            </a>
+
+        <div class="list logoLocal" style="padding: 10% 0% 0% 0%;">
+            <div ng-if="buscar == false" class="list" style="padding: 5% 0% 0% 0%;">
+                <ion-list>
+                    <ion-item class="item logoLocal descrip" ng-click="" ng-repeat="restaurante in restaurantes | filter : filtro">
+                        <a style="float:left">
+                            <img src={{restaurante.img}}>
+                        </a>
+                        <a class="btnFav button button-small button-energized icon " ng-class="{'ion-star button-energized': !liked, 'ion-star energized ': liked}" ng-click="liked=!liked">
+                        </a>
+                        <center>
+                            <h2>{{restaurante.nombre}}</h2>
+                            <div class="estrellas">
+                                <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
+                                <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
+                            </div>
+                            <p>{{restaurante.descripcion}}</p>
+                            <p>{{restaurante.tiempo}} | {{restaurante.precioDelivery}} |{{restaurante.compraMinima}} Minimo </p>
+                        </center>
+                    </ion-item>
+                </ion-list>
+            </div>
         </div>
-        <div class="list logoLocal" style="padding: 1% 0% 0% 0%;">
-<div ng-if="buscar == true" class="list" style="padding: 1% 0% 0% 0%;">
-<ion-list>
-    <ion-item class="item logoLocal descrip" ng-click="" ng-repeat="restaurante in restaurantes | filter : filtro">
-        <a style="float:left">
-<img src={{restaurante.img}}>
-</a>
-<a class="btnFav button button-small button-energized icon " ng-class="{'ion-star button-energized': !liked, 'ion-star energized ': liked}"
-    ng-click="liked=!liked">
-</a>
-<center>
-    <h2>{{restaurante.nombre}}</h2>
-    <div class="estrellas">
-        <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
-        <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
-    </div>
-    <p>{{restaurante.descripcion}}</p>
-    <p>{{restaurante.tiempo}} | {{restaurante.precioDelivery}} |{{restaurante.compraMinima}} Minimo </p>
-</center>
-</ion-item>
-</ion-list>
-</div>
-</div>
-</div>
 
-<div class="list logoLocal" style="padding: 10% 0% 0% 0%;">
-<div ng-if="buscar == false" class="list" style="padding: 5% 0% 0% 0%;">
-<ion-list>
-    <ion-item class="item logoLocal descrip" ng-click="" ng-repeat="restaurante in restaurantes | filter : filtro">
-        <a style="float:left">
-<img src={{restaurante.img}}>
-</a>
-<a class="btnFav button button-small button-energized icon " ng-class="{'ion-star button-energized': !liked, 'ion-star energized ': liked}"
-    ng-click="liked=!liked">
-</a>
-<center>
-    <h2>{{restaurante.nombre}}</h2>
-    <div class="estrellas">
-        <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
-        <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
-    </div>
-    <p>{{restaurante.descripcion}}</p>
-    <p>{{restaurante.tiempo}} | {{restaurante.precioDelivery}} |{{restaurante.compraMinima}} Minimo </p>
-</center>
-</ion-item>
-</ion-list>
-</div>
-</div>
-
-</ion-content>
+    </ion-content>
 </ion-view>

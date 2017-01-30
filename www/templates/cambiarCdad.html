@@ -1,0 +1,23 @@
+<ion-view>
+    <ion-nav-title>
+        <center>
+            <img class="button button-clear" src="img/listRest/joniFood.png" style="padding: 1% 20% 1% 0%;" ng-click="toSomos()">
+        </center>
+    </ion-nav-title>
+
+    <ion-content>
+        <div class="item item-assertive item-divider">
+            <center> Elige tu ciudad</center>
+        </div>
+        <ion-list>
+            <div ng-repeat="provincia in provincias">
+                <ion-item class="item-stable" ng-click="toggleprovincias(provincia)" ng-class="{active: isprovinciashown(provincia)}">
+                    <i class="icon" ng-class="isprovinciashown(provincia) ? 'ion-log-out' : 'ion-log-in'"></i> &nbsp; Provincia {{provincia.name}}
+                </ion-item>
+                <ion-item class="item-accordion" ng-repeat="localidad in provincia.localidades" ng-show="isprovinciashown(provincia)" ng-click="toLocalidad(localidad)">
+                    &nbsp; Localidad {{localidad}}
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

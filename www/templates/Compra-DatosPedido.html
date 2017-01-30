@@ -1,0 +1,43 @@
+<ion-modal-view>
+  <ion-content>
+    <div class="item item-assertive item-divider">
+      <center>
+        <img class="button button-clear" src="img/listRest/joniFood.png" ng-click="toSomos()">
+</center>
+</div>
+<div class="item item-dark item-divider">
+  <center>Tu Pedido:</center>
+</div>
+<ion-item class="item" ng-if="!hayPedido">
+  <center>
+    <p>Aún no tienes pedidos.</p>
+  </center>
+</ion-item>
+<ion-list>
+  <ion-item class="item descrip item-icon-left item-icon-right" ng-if="hayPedido" ng-repeat="pedido in pedidos">
+    <center>
+      <br>
+      <b><h2 class="dark">{{pedido.name}}</b> </h2>
+      <h3> $ {{pedido.costo}}</h3>
+      <h3>Cantidad pedida : &nbsp; {{pedido.cantidad}}</h3>
+    </center>
+    <button class="button button-small button-assertive icon ion-minus-round" ng-click="borrar(pedido)"></button>
+  </ion-item>
+</ion-list>
+<div class="footerBarra" ng-if="hayPedido">
+  <hr>
+  <center>
+    <h5>El precio del delivery no esta incluido.</h5>
+    <hr>
+    <h4>Total pedido: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${{precioTotales}} </h4>
+  </center>
+</div>
+</div>
+</ion-content>
+<ion-footer-bar class="bar-stable  button-footer-bar">
+  <div class="button-bar">
+    <a class="button button-dark button-primary" ng-click="modale.hide()">Volver</a>
+    <a class="button button-assertive" ng-click="modale.hide();goConfirmar()">Confirmar</a>
+  </div>
+</ion-footer-bar>
+</ion-modal-view>

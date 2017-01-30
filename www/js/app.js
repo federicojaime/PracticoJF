@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives'])
+angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives', 'ion-cool-profile'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -61,6 +61,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                 controller: 'terminosCondicionesCtrl'
             })
 
+            .state('app.confirmacionPed', {
+                url: '/datosPedido',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/Compra-DatosPedido.html',
+                        controller: 'datosPedidoCtrl'
+                    }
+                }
+            })
             .state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
                 url: '/listadoRestaurantes',
                 views: {
@@ -70,6 +79,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                     }
                 }
             })
+
+
             .state('app.descr-carta', { //Pantalla inicio, donde aparecen los restaurantes. 
                 url: '/descr-carta',
                 views: {
@@ -90,6 +101,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                     }
                 }
             })
+
             .state('app.favoritos', {
                 url: '/favoritos',
                 views: {
@@ -125,6 +137,21 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.directives']
                 controller: 'MapCtrl'
             })
 
+            .state('app.cambiarCdad', {
+                url: '/cambiarCdad',
+                views: {
+                    'menuContent': {
+                        templateUrl: 'templates/cambiarCdad.html',
+                        controller: 'cambiarCdadCtrl'
+                    }
+                }
+            })
+
+            .state('somos', {
+                url: 'somos',
+                templateUrl: 'templates/somos.html',
+                controller: 'somosCtrl'
+            })
 
         $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
     })
