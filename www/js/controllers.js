@@ -11,7 +11,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
 
         $scope.toContactanos = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('contactanos');
+            $state.go('app.contactanos');
         }
 
         $scope.toMisPedidos = function () { //Redirecciona a misPedidos. 
