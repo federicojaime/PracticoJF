@@ -2,7 +2,7 @@
     <ion-nav-title>
         <img class="button button-clear" src="img/listRest/btnSerch.png" style="padding: 1% 0% 1% 0%; float: right;" ng-click="buscador()">
         <center>
-             <img class="button button-clear" src="img/listRest/joniFood.png" ng-click="toSomos()">
+            <img class="button button-clear" src="img/Logo.png" ng-click="toSomos()">
         </center>
     </ion-nav-title>
     <ion-tabs class="tabs-top tabs-icon-top tabs-secondary tabs-dark">
@@ -15,11 +15,11 @@
                                 <div class="list">
                                     <div class="item">
                                         <img src="img/lafarola.jpg">
-                                            <h2>{{datosComercio["nombre"]}}</h2>
-                                            <div class="estrellas">
-                                                <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
-                                                <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
-                                            </div>
+                                        <h2>{{datosComercio["nombre"]}}</h2>
+                                        <div class="estrellas">
+                                            <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
+                                            <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -35,49 +35,49 @@
                     </div>
                 </ion-content>
             </ion-view>
-       </ion-tab>
+        </ion-tab>
         <ion-tab title="Carta" icon="ion-ios-bookmarks-outline">
             <ion-view title="About">
-                 <ion-content>
+                <ion-content>
                     <div class="list ">
-                         <div class="item item-divider item-dark">
+                        <div class="item item-divider item-dark">
                             Promos del día
-                         </div>
-                     <div class="item item-thumbnail-left">
-                        <img src="img\Descr-Carta\promo.png">
+                        </div>
+                        <div class="item item-thumbnail-left">
+                            <img src="img\Descr-Carta\promo.png">
                             <center>
                                 <h2>Promo Burger 2x1 </h2>
                                 <p style=" white-space: normal;">Dos hamburguesas mas vaso de gaseosa</p>
                                 <p>$200</p>
                             </center>
-                            <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)"></a>    
-                                    <div class="list lista">
-                                        <label class="item item-input item-select">                           Cantidad:
+                            <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)"></a>
+                            <div class="list lista">
+                                <label class="item item-input item-select">                           Cantidad:
                                             <div class="input-label"></div>
                                             <select name="mySelect" id="mySelect" style="float:left;" ng-options="option.id for option in numerosCantidad.availableOptions track by option.id" ng-model="numerosCantidad.selectedOption"></select>
-                                        </label>                                  
-                                    </div>
-                    </div>
+                                        </label>
+                            </div>
+                        </div>
                     </div>
                     <ion-list>
                         <div class="item item-divider item-dark">
-                              Menú
+                            Menú
                         </div>
                         <div ng-repeat="categoria in catComidas">
                             <ion-item class="item-stable icon icon-left" ng-click="togglecategorias(categoria)" ng-class="{active: iscategoriashown(categoria)}">
-                                 <i class="icon-right">
+                                <i class="icon-right">
                                     {{categoria[0].descripcion}}
                                  <i style="float: right;"ng-class="iscategoriashown(categoria) ? 'ion-arrow-up-b' : 'ion-arrow-down-b' "></i></i>
                             </ion-item>
                             <ion-item class="item-accordion" ng-repeat="z in categoria[1]" ng-show="iscategoriashown(categoria)" ng-click="toLocalidad(localidad)">
                                 <div>
-                                    <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)"></a>    
+                                    <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)"></a>
                                     <p><b>{{z.descripcion}}  ${{z.costo}}</b></p>
                                     <div class="list lista">
                                         <label class="item item-input item-select">                           Cantidad:
                                             <div class="input-label"></div>
                                             <select name="mySelect" id="mySelect" style="float:left;" ng-options="option.id for option in numerosCantidad.availableOptions track by option.id" ng-model="numerosCantidad.selectedOption"></select>
-                                        </label>                                  
+                                        </label>
                                     </div>
                                 </div>
                                 <br>
@@ -90,10 +90,10 @@
         </ion-tab>
     </ion-tabs>
     <ion-footer-bar class="bar-dark  button-footer-bar" ng-if="hayPedido">
-                    <button class="button button-full icon  icon-left-right ion-android-cart" ng-click="abriPedido();getPrecioTotal()">
+        <button class="button button-full icon  icon-left-right ion-android-cart" ng-click="abriPedido();getPrecioTotal()">
                           Tu pedido      
                     </button>
-                </ion-footer-bar>
+    </ion-footer-bar>
 </ion-view>
 
 <!--
