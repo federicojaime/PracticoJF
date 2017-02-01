@@ -44,43 +44,45 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.directives', 'starte
 })
 
 .state('app.confirmacionPed', {
-        url: '/datosPedido',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/Compra-DatosPedido.html',
-                controller: 'datosPedidoCtrl'
-            }
+    url: '/datosPedido',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/Compra-DatosPedido.html',
+            controller: 'datosPedidoCtrl'
         }
-    })
-    .state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
-        url: '/listadoRestaurantes',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/inicio-listadoRestaurantes.html',
-                controller: 'listRestaurantesCtrl'
-            }
+    }
+})
+
+.state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
+    url: '/listadoRestaurantes',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/inicio-listadoRestaurantes.html',
+            controller: 'listRestaurantesCtrl'
         }
-    })
+    }
+})
 
 
 .state('app.descr-carta', { //Pantalla inicio, donde aparecen los restaurantes. 
-        url: '/descr-carta',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/descr-carta.html',
-                controller: 'descr-cartaCtrl'
-            }
+    url: '/descr-carta',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/descr-carta.html',
+            controller: 'descr-cartaCtrl'
         }
-    })
-    .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
-        url: '/contactanos',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/admin-contactanos.html',
-                controller: 'contactanosCtrl'
-            }
+    }
+})
+
+.state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
+    url: '/contactanos',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/admin-contactanos.html',
+            controller: 'contactanosCtrl'
         }
-    })
+    }
+})
 
 .state('app.favoritos', {
     url: '/favoritos',
@@ -93,23 +95,24 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.directives', 'starte
 })
 
 .state('app.mapa', {
-        url: '/mapa',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/mapa.html',
-                controller: 'mapaCtrl'
-            }
+    url: '/mapa',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/mapa.html',
+            controller: 'mapaCtrl'
         }
-    })
-    .state('app.misPedidos', {
-        url: '/misPedidos',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/misPedidos.html',
-                controller: 'misPedidosCtrl'
-            }
+    }
+})
+
+.state('app.misPedidos', {
+    url: '/misPedidos',
+    views: {
+        'menuContent': {
+            templateUrl: 'templates/misPedidos.html',
+            controller: 'misPedidosCtrl'
         }
-    })
+    }
+})
 
 .state('mapa2', {
     url: '/mapa2',
@@ -139,5 +142,4 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.directives', 'starte
     controller: 'datosPedidoCtrl'
 })
 
-$urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
-})
+$urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app.
