@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicAuth) {
 
     $scope.toInicio = function() { //Redirecciona a la parte principal de la app. 
         $state.go('principal');
@@ -57,7 +57,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
         $scope.estrellaVacias.push({});
     }
-    $scope.toSomos = function() { $state.go('somos'); }
+    $scope.toSomos = function() { $state.go('app.somos'); }
 
 })
 
@@ -71,7 +71,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 })
 
-.controller('loginCtrl', function($scope, $state) {
+.controller('loginCtrl', function($scope, $state, $ionicAuth, $ionicPopup) {
 
     $scope.details = { 'email': '', 'password': '' };
 
@@ -130,8 +130,19 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 })
 
 
-.controller('cambiarCdadCtrl', function($scope, $state, $http) {
+.controller('cambiarCdadCtrl', function($scope, $state, $http, $ionicModal) {
     $scope.provincias = [];
+
+    $scope.refrescar = function() { //Actualiza las llamadas del templates.
+        $scope.pedidos = [];
+        $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function(dato) {
+            $scope.pedidos = dato["datos"];
+            if ($scope.pedidos.length > 0) {
+                $scope.hayPed = true;
+            }
+        });
+    };
+
     for (var i = 0; i < 10; i++) {
         $scope.provincias[i] = {
             name: i,
@@ -149,15 +160,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }, 1000);
     };
 
-    $scope.refrescar = function() { //Actualiza las llamadas del templates.
-        $scope.pedidos = [];
-        $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function(dato) {
-            $scope.pedidos = dato["datos"];
-            if ($scope.pedidos.length > 0) {
-                $scope.hayPed = true;
-            }
-        });
-    };
+
 
     $scope.clientSideList = [
         { text: "El pedido nunca llegó a mi casa.", value: "2" },
@@ -221,7 +224,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 })
 
-.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate, $ionicAuth) {
 
     if ($ionicAuth.isAuthenticated()) {
         console.log("pase");
@@ -293,6 +296,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 
     $scope.toSomos = function() { $state.go('app.somos'); }
+
 })
 
 .controller('descr-cartaCtrl', function($scope, $state, $http, $ionicModal, $ionicPopup) {
@@ -365,7 +369,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.hayPedido = false;
 
     //Crea el pedido, y lo suma a la lista, devolviendo un ok si es una cantidad correcta. 
-    $scope.crearPedido = function(u, cantidad, Ifpromo) {
+    $scope.crearPedido = function(u, cantidad, Ifpromo, $ionicPopup) {
         var i = 0;
         if (parseFloat(cantidad) > 0) {
             if ($scope.pedidos.length === 0) {
@@ -477,6 +481,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         zoom: 16,
         marcas: []
     };
+})
+
+.controller('misPedidosCtrl', function($scope, $state) {
+    $scope.toSomos = function() {
+        $state.go('app.somos');
+    }
 })
 
 .controller('datosPedidoCtrl', function($scope, $state) {
