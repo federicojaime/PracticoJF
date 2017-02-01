@@ -1,0 +1,29 @@
+<link href="css/datosPedido.css" rel="stylesheet">
+<ion-view id="fondo">
+    <ion-content>
+        <br>
+        <img id="logo" src="img/Logo.png" height="100%">
+        <div class="list card">
+            <label class="item item-input">
+                <input type="text" placeholder="Dirección" ng-model="direccion" required>
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="Barrio" ng-model="barrio" required>
+            </label>
+            <label class="item item-input">
+                <input type="tel" placeholder="Teléfono" ng-model="telefono" required>
+            </label>
+            <label class="item item-input">
+                <input type="number" placeholder="Abona con $" ng-model="abonaCon" required>
+            </label>
+            <label class="item item-input">
+                <textarea placeholder="Comentarios"></textarea>
+            </label>
+        </div>
+        <center>
+            <button id="btnEnviar" class="button button-royal icon ion-paper-airplane boton" ng-click="toPrincipal()">
+                Enviar
+            </button>
+        </center>
+    </ion-content>
+</ion-view>

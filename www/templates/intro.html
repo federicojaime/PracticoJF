@@ -1,70 +1,57 @@
-    <ion-nav-bar ng-hide="true">
-        <ion-nav-back-button> 
-        </ion-nav-back-button>
-    </ion-nav-bar>
-    <ion-nav-view ></ion-nav-view>
-      <ion-view view-title="Intro">
-        <ion-nav-buttons side="left"  >
-          <button class="button button-positive button-clear no-animation"
-                  ng-click="startApp()" ng-show="!slideIndex">
-            Skip Intro
-          </button>
-          <button   class="button button-positive button-clear no-animation"
-                  ng-click="previous()" ng-show="slideIndex > 0">
-            Previous Slide
-          </button>
-        </ion-nav-buttons>
-        <ion-nav-buttons side="right"> 
-          <button class="button button-positive button-clear no-animation"
-                  ng-click="next()" ng-show="slideIndex != 2">
-            Next
-          </button>
-          <button class="button button-positive button-clear no-animation"
-                  ng-click="startApp()" ng-show="slideIndex == 2">
-            Start using MyApp
-          </button>
-        </ion-nav-buttons>
-        <ion-slide-box on-slide-changed="slideChanged(index)">
-          <ion-slide id="fondo1">
-            <h3>TEXTO DESCRIPTIVO</h3>
-            <div id="logo">
-              <img src="http://code.ionicframework.com/assets/img/app_icon.png">
-            </div>
+<ion-view view-title="Intro">
+    <ion-slide-box on-slide-changed="slideChanged(index)">
+        <ion-slide id="fondo1">
+            <img src="img/Hotspot-close.png" style="float: right; height: 10%;" ng-click="toLogin()">
+            <h3>Donde sea que te encuentres...</h3>
+            <center>
+                <img src="img/pinJoniFood.png" style="width: 40%; height: 20%; margin: 0 0 0 0; padding: 0% 10% 0% 10%;">
+            </center>
+            </br>
+            </br>
+            </br>
             <p>
-              TEXTO DESCRIPTIVO TEXTO DESCRIPTIVO TEXTO DESCRIPTIVO
+                Bienvenido a Joni Food, tu lugar para escojer deliverys y realizar pedidos estes donde estes.
             </p>
             <p>
-              TEXTO DESCRIPTIVO TEXTO DESCRIPTIVO TEXTO DESCRIPTIVO
+                Comenzá con tu experiencia...
             </p>
-          </ion-slide>
-          <ion-slide id="fondo2">
-            <h3>TEXTO DESCRIPTIVO</h3>
-            
+            <center>
+                <img src="img/Swipe_Left.png" style="width: 60%; height: 30%; display: block; margin: 0 0 0 0; padding: 0% 10% 0% 10%;">
+            </center>
+
+        </ion-slide>
+        <ion-slide id="fondo2">
+            <img src="img/Hotspot-close.png" style="float: right; height: 10%;" ng-click="toLogin()">
+            <h3>Tan simple como...</h3>
+
             <div id="list">
-              <h5>TEXTO DESCRIPTIVO</h5>
-              <ol>
-                <li>TEXTO DESCRIPTIVO</li>
-                <li>TEXTO DESCRIPTIVO</li>
-                <li>TEXTO DESCRIPTIVO</li>
-              </ol>
+                <h5>Registrate</h5>
+                <ol>
+                    <li>Elegi el tipo de comida que quieras</li>
+                    <li>Busca el comercio que gustes</li>
+                    <li>Realiza tu pedido y esperá a que llegue la comida al lugar que quieras!</li>
+                </ol>
             </div>
-          </ion-slide>
-          <ion-slide id="fondo3">
-            <h3>TEXTO DESCRIPTIVO</h3>
+            <center>
+                <img src="img/Swipe_Left.png" style="width: 60%; height: 20%; display: block; margin: 0 0 0 0; padding: 0% 10% 0% 10%;">
+            </center>
+
+        </ion-slide>
+        <ion-slide id="fondo3">
+            <h3>Listo para elegir?</h3>
             <p>
-              TEXTO DESCRIPTIVO TEXTO DESCRIPTIVO
+                Buen provecho!!!!
             </p>
-            <a class="button icon-right ion-chevron-right button-calm" ng-click="toPrincipal()">EMPEZAR</a>
-          </ion-slide>
-        </ion-slide-box>
-      </ion-view>
-    </script>
+            <a class="button icon-right ion-chevron-right button-calm" ng-click="toLogin()">EMPEZAR</a>
+        </ion-slide>
+    </ion-slide-box>
+</ion-view>
+</script>
 
-    <script id="templates/main.html" type="text/ng-template">
-      <ion-view hide-back-button="true" view-title="Awesome">
+<script id="templates/main.html" type="text/ng-template">
+    <ion-view hide-back-button="true" view-title="Awesome">
         <ion-content class="padding">
-          <h1>Main app here</h1>
-          <button class="button" ng-click="toIntro()">Do Tutorial Again</button>
+            <h1>Main app here</h1>
+            <button class="button" ng-click="toIntro()">Do Tutorial Again</button>
         </ion-content>
-      </ion-view>
-
+    </ion-view>

@@ -90,8 +90,6 @@ angular.module('starter', ['ionic',  'starter.directives', 'starter.controllers'
                     }
                 }
             })
-
-
             .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
                 url: '/contactanos',
                 views: {
@@ -151,6 +149,12 @@ angular.module('starter', ['ionic',  'starter.directives', 'starter.controllers'
                 url: 'somos',
                 templateUrl: 'templates/somos.html',
                 controller: 'somosCtrl'
+            })
+
+            .state('datosPedido', {
+                url: 'datosPedido',
+                templateUrl: 'templates/datosPedido.html',
+                controller: 'datosPedidoCtrl'
             })
 
         $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 

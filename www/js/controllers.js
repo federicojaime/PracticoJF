@@ -1,6 +1,7 @@
 angular.module('starter.controllers', ['ngCordova'])
 
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state) {
+
         $scope.toInicio = function () { //Redirecciona a la parte principal de la app. 
             $state.go('principal');
         }
@@ -55,6 +56,10 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
             $state.go('app.listadoRestaurantes');
         }
+
+        $scope.toDatosPedido = function () {
+            $state.go('datosPedido')
+        }
     })
 
     .controller('loginCtrl', function ($scope, $state) {
@@ -69,15 +74,33 @@ angular.module('starter.controllers', ['ngCordova'])
         $scope.toRegistro = function () { //Redirecciona a la parte principal de la app. 
             $state.go('registro');
         }
+
     })
 
     .controller('terminosCondicionesCtrl', function ($scope, $state) {
-        $scope.toLogin = function () { //Redirecciona a la parte principal de la app. 
+        $scope.toRegistro = function () { //Redirecciona a la parte principal de la app. 
+            $state.go('registro');
+        }
+    })
+
+    .controller('registroCtrl', function ($scope, $state) {
+        $scope.acepto = false;
+
+        $scope.aceptarTerminos = function () {
+            if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
+        }
+
+        $scope.toLogin = function () {
             $state.go('login');
         }
     })
 
-    .controller('registroCtrl', function ($scope, $state) { })
+    .controller('inicioPpalCtrl', function ($scope, $state) {
+        $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
+            $state.go('app.listadoRestaurantes');
+        }
+    })
+
 
     .controller('cambiarCdadCtrl', function ($scope, $state, $http) {
         $scope.provincias = [];
@@ -216,34 +239,15 @@ angular.module('starter.controllers', ['ngCordova'])
 
         //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
 
-        $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
+        $scope.toLogin = function () { //Redirecciona a la parte principal de la app. 
             $state.go('login');
-
-            if (valor > 0) {
-                $http.get("http://alaordenapp.com/alaorden/php/setconfirmacion.php?idpedido=" + $scope.seleccion.id + "&respuesta=" + valor).success(function (dato) {
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Muy bien',
-                        template: '<center>Muchas gracias por confirmarnos.</center>'
-                    });
-                });
-                document.location.href = 'file:///android_asset/www/index.html';
-            } else {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Elige',
-                    template: '<center>Debes elegir primero una opción.</center>'
-                });
-
-            }
         }
-        $scope.refrescar();
 
         $scope.toSomos = function () { $state.go('somos'); }
 
     })
 
     .controller('contactanosCtrl', function ($scope, $state) { })
-
-    .controller('datosPedidoCtrl', function ($scope, $state) { })
 
     .controller('listRestaurantesCtrl', function ($scope, $state, $http) {
 
@@ -434,31 +438,24 @@ angular.module('starter.controllers', ['ngCordova'])
 
         }
         $scope.toSomos = function () { $state.go('somos'); }
+        $scope.goConfirmar = function () { $state.go('datosPedido'); }
 
     })
 
-    .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate) {
-        // Called to navigate to the main app
-        $scope.startApp = function () {
-            $state.go('main');
-        };
-        $scope.next = function () {
-            $ionicSlideBoxDelegate.next();
-        };
-        $scope.previous = function () {
-            $ionicSlideBoxDelegate.previous();
-        };
-        // Called each time the slide changes
-        $scope.slideChanged = function (index) {
-            $scope.slideIndex = index;
-            console.log($scope.slideIndex);
-        };
-
-        //↑ ↑ ↑  CODIGO PARA QUE FUNCIONE LOS SLIDE. 
-
+    .controller('somosCtrl', function ($scope, $state) {
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('login');
+            $state.go('principal');
         }
+
+    })
+
+    .controller('MainCtrl', function ($scope, $state) {
+        console.log('MainCtrl');
+
+        $scope.toIntro = function () {
+            $state.go('intro');
+        }
+
     })
 
     .controller('MapCtrl', function ($timeout, $scope, $ionicLoading, $cordovaGeolocation, $compile, $ionicPopup, $http, $stateParams, User) {
@@ -476,20 +473,12 @@ angular.module('starter.controllers', ['ngCordova'])
         };
     })
 
-
-
-    .controller('somosCtrl', function ($scope, $state) {
-        $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('principal');
+    .controller('datosPedidoCtrl', function ($scope, $state) {
+        $scope.confirmo = function () {
+            console.log('CONFIRMO');
         }
-
-    })
-
-    .controller('MainCtrl', function ($scope, $state) {
-        console.log('MainCtrl');
-
-        $scope.toIntro = function () {
-            $state.go('intro');
+        $scope.toPrincipal = function () {
+            $state.go('principal');
         }
     });
 

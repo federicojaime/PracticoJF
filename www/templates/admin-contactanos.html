@@ -1,31 +1,28 @@
-<ion-view>
-    <ion-nav-title>
-        <center>
-            <img class="button button-clear" src="img/listRest/joniFood.png" style="padding: 1% 20% 1% 0%;">
-</center>
-</ion-nav-title>
-<ion-content>
-    <div class="item item-dark item-divider">
-        <center><b>Contáctanos</b></center>
-    </div>
-    <div class="list">
-        <div>
-            <label class="item item-input item-floating-label">
-    <span class="input-label"><b>Teléfono:</b></span>
-    <input type="tel" placeholder="Teléfono:" ng-model="form.telefono">
-  </label>
-        </div>
-        <div>
-            <label class="item item-input item-floating-label">
-       <span class="input-label"><b>Mensaje:</b></span>
-    <textarea placeholder="Mensaje" maxlength="200" ng-model="form.mensaje"></textarea>
-  </label>
-        </div>
-    </div>
-</ion-content>
-  <div class="bar bar-footer bar-dark" style="margin-bottom: 0%">
-            <div class="title">
-                <button class="button button-clear" ng-click="toTerminosCondiciones()">Enviar</button>
+<link href="css/login.css" rel="stylesheet">
+<ion-view id="fondo">
+    <ion-content>
+        <br>
+        <img id="logo" src="img/Logo.png" height="100%">
+        <div class="card">
+            <div class="item item-divider item-dark">
+                <center>Contactenos</center>
             </div>
+            <div class="item item-text-wrap">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <input type="tel" placeholder="Teléfono" ng-model="telefono">
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <input type="text" placeholder="Mensaje" ng-model="mensaje">
+                    </label>
+                </div>
+            </div>
+
         </div>
+        <center>
+            <button class="button button-dark icon ion-paper-airplane boton" ng-click="toLogin()" ng-model="enviar">
+                Enviar
+            </button>
+        </center>
+    </ion-content>
 </ion-view>
