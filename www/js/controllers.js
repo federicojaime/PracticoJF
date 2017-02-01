@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state,$ionicAuth) {
 
         $scope.toInicio = function () { //Redirecciona a la parte principal de la app. 
             $state.go('principal');
@@ -20,6 +20,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
         $scope.toCambiarCdad = function () { //Redirecciona al template de cambiarCdad
             $state.go('app.cambiarCdad');
+        }
+
+        $scope.toCerrasSession = function () { //Redirecciona al template de cambiarCdad
+            $ionicAuth.logout();
+            $state.go('login');
         }
 
     })
@@ -50,16 +55,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
         $scope.toSomos = function () { $state.go('somos'); }
 
-    })
-
-    .controller('inicioPpalCtrl', function ($scope, $state) {
-        $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('app.listadoRestaurantes');
-        }
-
-        $scope.toDatosPedido = function () {
-            $state.go('datosPedido')
-        }
     })
 
     .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
@@ -129,7 +124,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     })
 
 
-    .controller('inicioPpalCtrl', function ($scope, $state) {
+    .controller('inicioPpalCtrl', function ($scope, $state, $ionicUser) {
+
+        console.log("Estoy" + $ionicUser.details.name + " " + $ionicUser.details.password);
+
         $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
             $state.go('app.listadoRestaurantes');
         }
