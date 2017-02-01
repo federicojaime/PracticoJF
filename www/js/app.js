@@ -4,7 +4,16 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic',  'starter.directives', 'starter.controllers', 'starter.services', 'ngCordova', 'ion-cool-profile'])
+angular.module('starter', ['ionic', 'ionic.cloud', 'starter.directives', 'starter.controllers', 'starter.services', 'ngCordova', 'ion-cool-profile'])
+
+
+    .config(function ($ionicCloudProvider) {
+        $ionicCloudProvider.init({
+            "core": {
+                "app_id": "1142aef9"
+            }
+        });
+    })
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {

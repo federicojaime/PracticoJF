@@ -10,19 +10,19 @@
             <div class="item item-text-wrap">
                 <div class="list">
                     <label class="item item-input item-floating-label">
-                        <input id="nombre" type="text" placeholder="Nombre">
+                        <input id="nombre" type="text" placeholder="Nombre" ng-model="details.name">
                     </label>
                     <label class="item item-input item-floating-label">
-                        <input id="apellido" type="text" placeholder="Apellido">
+                        <input id="apellido" type="text" placeholder="Apellido"ng-model="details.username">
                     </label>
                     <label class="item item-input item-floating-label">
-                        <input id="correo" type="email" placeholder="Correo">
+                        <input id="correo" type="email" placeholder="Correo"ng-model="details.email">
                     </label>
                     <label class="item item-input item-floating-label">
-                        <input id="pass1" type="password" placeholder="Contraseña">
+                        <input id="pass1" type="password" placeholder="Contraseña"ng-model="details.password">
                     </label>
                     <label class="item item-input item-floating-label">
-                        <input id="pass2" type="password" placeholder="Confirmar Contraseña">
+                        <input id="pass2" type="password" placeholder="Confirmar Contraseña"ng-model="details.password">
                     </label>
 
                     <input id="terms" type="checkbox" class="peque" ng-click="aceptarTerminos()">Acepto los <a href="#/terminosCondiciones"> Términos y Condiciones.</a></input>

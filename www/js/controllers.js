@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state) {
 
@@ -62,9 +62,18 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('loginCtrl', function ($scope, $state) {
+    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
+        $scope.details = { 'email': '', 'password': '' };
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('principal');
+            console.log($scope.details);
+            $ionicAuth.login('basic', $scope.details).then(function () {
+                $state.go('principal');
+            }, function (err) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Erro',
+                    template: "Tu correo o contraseña no son los correctos, vuelve a intentar."
+                });
+            })
         }
 
         $scope.toTerminosCondiciones = function () { //Redirecciona a la parte principal de la app. 
@@ -83,17 +92,42 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('registroCtrl', function ($scope, $state) {
-        $scope.acepto = false;
+    .controller('registroCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
 
-        $scope.aceptarTerminos = function () {
+        $scope.details = { 'email': '', 'password': '', 'username': '', 'name': '' };
+
+
+
+        $scope.acepto = false; //Variable para que aparezca y desparezca el boton "REGISTRARSE", si acepta los term y condiciones.
+
+        $scope.aceptarTerminos = function () {  //Funcion para que aparezca y desparezca el boton "REGISTRARSE", si acepta los term y condiciones
             if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
         }
 
         $scope.toLogin = function () {
-            $state.go('login');
+            console.log($scope.details);
+            $ionicAuth.signup($scope.details).then(function () {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Te registraste!',
+                    template: "Bien!"
+                }); // `$ionicUser` is now registered
+            }, function (err) {
+                for (var e of err.details) {
+                    if (e === 'conflict_email') {
+                        alert(e);
+                    } else {
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Mal',
+                            template: e
+                        });
+                        // handle other errors
+                    }
+                }
+            })
+            // $state.go('login');
         }
     })
+
 
     .controller('inicioPpalCtrl', function ($scope, $state) {
         $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
@@ -220,7 +254,11 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate) {
+    .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $ionicAuth) {
+        if ($ionicAuth.isAuthenticated()) {
+            console.log("pase");
+            $state.go('principal');
+        }
         // Called to navigate to the main app
         $scope.startApp = function () {
             $state.go('main');
