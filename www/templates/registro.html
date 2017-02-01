@@ -25,12 +25,12 @@
                         <input id="pass2" type="password" placeholder="Confirmar Contraseña">
                     </label>
 
-                    <input id="terms" type="checkbox" class="peque" ng-click="aceptarTerminos()">Acepto los <a href="#/terminosCondiciones"> Términos y Condiciones.</a></input>
+                    <input id="terms" type="checkbox" class="peque" ng-click="aceptarTerminos()">Acepto los <a ng-click="toTerminosCondiciones()"> Términos y Condiciones.</a></input>
                 </div>
             </div>
         </div>
         <center>
-            <button id="btnRegistrarse" class="button button-royal icon ion-ios-plus-outline boton" ng-click="toLogin()" ng-if="acepto == true">
+            <button id="btnRegistrarse" class="button button-dark icon ion-ios-plus-outline boton" ng-click="toLogin()" ng-if="acepto == true">
                 Registrarse
             </button>
         </center>
