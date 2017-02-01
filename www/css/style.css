@@ -159,3 +159,14 @@ body {
 .combo select{
     width: 20%
 }
+
+.map {
+    width: 100%;
+    height: 100%;
+ 
+ }
+
+	#gmaps {
+		width: 100%;
+		height: 100%;
+	}

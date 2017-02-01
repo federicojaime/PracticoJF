@@ -461,7 +461,7 @@ angular.module('starter.controllers', ['ngCordova'])
         }
     })
 
-    .controller('MapCtrl', function ($timeout, $scope, $ionicLoading, $cordovaGeolocation, $compile, $ionicPopup, $http, $stateParams) {
+    .controller('MapCtrl', function ($timeout, $scope, $ionicLoading, $cordovaGeolocation, $compile, $ionicPopup, $http, $stateParams, User) {
 
         $scope.datamap = { //Datos del mapa a crear, el resto de los datos se encuentran en directives.js
             titulo: "Hola",
@@ -471,7 +471,8 @@ angular.module('starter.controllers', ['ngCordova'])
             },
             localidad: $stateParams.localidad,
             zoom: 16,
-            marcas: []
+            marcas: [
+            ]
         };
     })
 
