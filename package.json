@@ -1,7 +1,7 @@
 {
-  "name": "sidemenu",
+  "name": "jonyfood",
   "version": "1.1.1",
-  "description": "sidemenu: An Ionic project",
+  "description": "jonyfood: An Ionic project",
   "dependencies": {
     "@ionic/cloud": "^0.15.1",
     "bluebird": "^3.4.7",

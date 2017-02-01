@@ -1,4 +1,4 @@
-angular.module('starter.controllers', ['ngCordova'])
+angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $state) {
 
@@ -24,6 +24,11 @@ angular.module('starter.controllers', ['ngCordova'])
 
     $scope.toSomos = function() {
         $state.go('app.somos')
+    }
+
+    $scope.toCerrasSession = function() { //Redirecciona al template de cambiarCdad
+        $ionicAuth.logout();
+        $state.go('login');
     }
 
 })
@@ -52,7 +57,7 @@ angular.module('starter.controllers', ['ngCordova'])
     while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
         $scope.estrellaVacias.push({});
     }
-    $scope.toSomos = function() { $state.go('app.somos'); }
+    $scope.toSomos = function() { $state.go('somos'); }
 
 })
 
@@ -67,8 +72,19 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 .controller('loginCtrl', function($scope, $state) {
+
+    $scope.details = { 'email': '', 'password': '' };
+
     $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('principal');
+        console.log($scope.details);
+        $ionicAuth.login('basic', $scope.details).then(function() {
+            $state.go('principal');
+        }, function(err) {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Erro',
+                template: "Tu correo o contraseña no son los correctos, vuelve a intentar."
+            });
+        })
     }
 
     $scope.toSomos = function() { //Redirecciona a la parte principal de la app. 
@@ -79,6 +95,9 @@ angular.module('starter.controllers', ['ngCordova'])
         $state.go('registro');
     }
 
+    $scope.toTerminosCondiciones = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('terminosCondiciones');
+    }
 })
 
 .controller('terminosCondicionesCtrl', function($scope, $state) {
@@ -121,39 +140,8 @@ angular.module('starter.controllers', ['ngCordova'])
         for (var j = 0; j < 3; j++) {
             $scope.provincias[i].localidades.push(i + '-' + j);
         }
-    }
-    /*
-     * if given group is the selected group, deselect it
-     * else, select the given group
-     */
-    $scope.toggleprovincias = function(provincias) {
-        if ($scope.isprovinciashown(provincias)) {
-            $scope.shownprovincias = null;
-        } else {
-            $scope.shownprovincias = provincias;
-
-        }
-    };
-    $scope.isprovinciashown = function(provincias) {
-        return $scope.shownprovincias === provincias;
-    };
-
-    $scope.toLocalidad = function(localidad) {
-
-    }
-    $scope.toSomos = function() { $state.go('app.somos'); }
-
-})
-
-.controller('misPedidosCtrl', function($ionicPlatform, $state, $ionicHistory, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
-    $scope.pedidos = []; // Arreglo donde se van a setear todos los pedidos. 
-    $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function(dato) { //devuelve los pedidos.
-        $scope.pedidos = dato["datos"];
-        if ($scope.pedidos.length > 0) {
-            $scope.hayPed = true;
-        }
         $scope.refrescar();
-    });
+    }
     $scope.doRefresh = function() { // se activa cuando scrollea hacia abajo el usuario en la app.
         $scope.refrescar();
         $timeout(function() {
@@ -234,6 +222,12 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 .controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+
+    if ($ionicAuth.isAuthenticated()) {
+        console.log("pase");
+        $state.go('principal');
+    }
+
     // Called to navigate to the main app
     $scope.startApp = function() {
         $state.go('main');
