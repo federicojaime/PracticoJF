@@ -11,6 +11,11 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'starter.directives', 'starte
         $ionicCloudProvider.init({
             "core": {
                 "app_id": "1142aef9"
+            },
+             "auth": {
+                "facebook": {
+                    "scope": []
+                }
             }
         });
     })

@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state,$ionicAuth) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, $ionicAuth) {
 
         $scope.toInicio = function () { //Redirecciona a la parte principal de la app. 
             $state.go('principal');
@@ -58,6 +58,13 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     })
 
     .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
+
+
+
+       
+
+
+
         $scope.details = { 'email': '', 'password': '' };
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
             console.log($scope.details);
