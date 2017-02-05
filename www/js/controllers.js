@@ -66,7 +66,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup, $ionicFacebookAuth, $ionicPush) {
 
-        $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
+      /* $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
             $ionicFacebookAuth.login().then(
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
@@ -84,17 +84,19 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
                 $state.go('principal')
             ))
-        }
+        }*/
 
         $scope.details = { 'email': '', 'password': '' };
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
+            console.log($scope.details.email + " " + $scope.details.password);
             $ionicAuth.login('basic', $scope.details).then(function () {
+
                 console.log("Iniciado");
-                $ionicPush.register().then(function (t) {
+                /*$ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
                 }).then(function (t) {
                     console.log('Token saved:', t.token);
-                });
+                });*/
                 $state.go('principal');
             }, function (err) {
                 var alertPopup = $ionicPopup.alert({
