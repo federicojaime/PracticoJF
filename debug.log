@@ -1,0 +1,11 @@
+[0624/142657:ERROR:file_io.cc(41)] write: Se está cerrando la canalización. (0xE8)
+[0129/101837:ERROR:tcp_listen_socket.cc(76)] Could not bind socket to 127.0.0.1:6004
+[0129/101837:ERROR:node_debugger.cc(86)] Cannot start debugger server
+[0129/115317:ERROR:tcp_listen_socket.cc(76)] Could not bind socket to 127.0.0.1:6004
+[0129/115317:ERROR:node_debugger.cc(86)] Cannot start debugger server
+[0129/161720:ERROR:tcp_listen_socket.cc(76)] Could not bind socket to 127.0.0.1:6004
+[0129/161720:ERROR:node_debugger.cc(86)] Cannot start debugger server
+[0131/211747:ERROR:tcp_listen_socket.cc(76)] Could not bind socket to 127.0.0.1:6004
+[0131/211747:ERROR:node_debugger.cc(86)] Cannot start debugger server
+[0201/100000:ERROR:tcp_listen_socket.cc(76)] Could not bind socket to 127.0.0.1:6004
+[0201/100000:ERROR:node_debugger.cc(86)] Cannot start debugger server

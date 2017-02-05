@@ -1,6 +1,11 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, $ionicAuth) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, $ionicAuth, $ionicFacebookAuth, $ionicPush) {
+
+        $scope.$on('cloud:push:notification', function (event, data) {
+            var msg = data.message;
+            alert(msg.title + ': ' + msg.text);
+        });
 
         $scope.toInicio = function () { //Redirecciona a la parte principal de la app. 
             $state.go('principal');
@@ -24,6 +29,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
         $scope.toCerrasSession = function () { //Redirecciona al template de cambiarCdad
             $ionicAuth.logout();
+            $ionicFacebookAuth.logout();
+            $ionicPush.unregister();
             $state.go('login');
         }
 
@@ -57,23 +64,42 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     })
 
-    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
+    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup, $ionicFacebookAuth, $ionicPush) {
 
-
-
-       
-
-
+        $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
+            $ionicFacebookAuth.login().then(
+                $ionicPush.register().then(function (t) {
+                    return $ionicPush.saveToken(t);
+                }).then(function (t) {
+                    console.log('Token saved:', t.token);
+                }),
+                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+                $state.go('principal')
+            ).err($ionicAuth.login('facebook').then(
+                $ionicPush.register().then(function (t) {
+                    return $ionicPush.saveToken(t);
+                }).then(function (t) {
+                    console.log('Token saved:', t.token);
+                }),
+                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+                $state.go('principal')
+            ))
+        }
 
         $scope.details = { 'email': '', 'password': '' };
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
-            console.log($scope.details);
             $ionicAuth.login('basic', $scope.details).then(function () {
+                console.log("Iniciado");
+                $ionicPush.register().then(function (t) {
+                    return $ionicPush.saveToken(t);
+                }).then(function (t) {
+                    console.log('Token saved:', t.token);
+                });
                 $state.go('principal');
             }, function (err) {
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Erro',
-                    template: "Tu correo o contraseña no son los correctos, vuelve a intentar."
+                    title: 'Error',
+                    template: "Tu correo o contraseña no son los correctos, vuelve a intentarlo." + err
                 });
             })
         }
