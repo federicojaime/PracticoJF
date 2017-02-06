@@ -90,7 +90,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
                 }).then(function (t) {
-                    alert('Token saved:', t.token);
                 });
                 $state.go('principal');
             }, function (err) {
