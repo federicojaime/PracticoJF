@@ -62,26 +62,29 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     })
 
-    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup) {
+    .controller('loginCtrl', function ($scope, $state, $ionicFacebookAuth, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup) {
+
 
         $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
-            $ionicFacebookAuth.login().then(
+            /* $ionicFacebookAuth.login().then(
+                 $ionicPush.register().then(function (t) {
+                     return $ionicPush.saveToken(t);
+                 }).th  en(function (t) {
+                     console.log('Token saved:', t.token);
+                 }),
+                 console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+                 $state.go('principal')
+             ).err(*/
+            $ionicAuth.login('facebook').then(
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
+                    if ($ionicAuth.isAuthenticated()) {
+                        $state.go('principal');
+                    }
+                    else { $state.go('login'); }
                 }).then(function (t) {
-                    console.log('Token saved:', t.token);
-                }),
-                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-                $state.go('principal')
-            ).err($ionicAuth.login('facebook').then(
-                $ionicPush.register().then(function (t) {
-                    return $ionicPush.saveToken(t);
-                }).then(function (t) {
-                    console.log('Token saved:', t.token);
-                }),
-                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-                $state.go('principal')
-            ))
+                }));
+
         }
 
         $scope.details = { 'email': '', 'password': '' };
@@ -278,7 +281,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('IntroCtrl', function ($scope, $state, $ionicSlideBoxDelegate, $ionicAuth) {
         if ($ionicAuth.isAuthenticated()) {
-            console.log("pase");
             $state.go('principal');
         }
         // Called to navigate to the main app
