@@ -62,7 +62,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 })
 
-.controller('loginCtrl', function($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup) {
+.controller('loginCtrl', function($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth) {
 
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
         $ionicFacebookAuth.login().then(
