@@ -65,15 +65,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 .controller('loginCtrl', function($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth) {
 
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
-        $ionicFacebookAuth.login().then(
-            $ionicPush.register().then(function(t) {
-                return $ionicPush.saveToken(t);
-            }).then(function(t) {
-                console.log('Token saved:', t.token);
-            }),
-            console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-            $state.go('principal')
-        ).err($ionicAuth.login('facebook').then(
+        /* $ionicFacebookAuth.login().then(
+             $ionicPush.register().then(function(t) {
+                 return $ionicPush.saveToken(t);
+             }).then(function(t) {
+                 console.log('Token saved:', t.token);
+             }),
+             console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+             $state.go('principal')
+         ).err*/
+        ($ionicAuth.login('facebook').then(
             $ionicPush.register().then(function(t) {
                 return $ionicPush.saveToken(t);
             }).then(function(t) {
