@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, $ionicAuth) {
+    .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, $ionicAuth, ionicToast) {
 
         $scope.$on('cloud:push:notification', function (event, data) {
             var msg = data.message;
@@ -29,6 +29,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
         $scope.toCerrasSession = function () { //Redirecciona al template de cambiarCdad
             $ionicAuth.logout();
+            $scope.showToast = function () {
+                //ionicToast.show(message, position, stick, time); -->
+                ionicToast.show('This is a toast at the top.', 'top', true, 2500);
+            };
             $state.go('login');
         }
 
@@ -62,7 +66,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     })
 
-    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup) {
+    .controller('loginCtrl', function ($scope,   $ionicFacebookAuth,$state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup) {
 
         $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
             $ionicFacebookAuth.login().then(
@@ -71,7 +75,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 }).then(function (t) {
                     console.log('Token saved:', t.token);
                 }),
-                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
                 $state.go('principal')
             ).err($ionicAuth.login('facebook').then(
                 $ionicPush.register().then(function (t) {
@@ -79,7 +82,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 }).then(function (t) {
                     console.log('Token saved:', t.token);
                 }),
-                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
                 $state.go('principal')
             ))
         }
