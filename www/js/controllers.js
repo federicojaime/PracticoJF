@@ -71,6 +71,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth) {
 
+        $scope.Inicio = function (Call) {
+            if ($ionicUser.social.facebook.data != undefined) {
+                alert("Estoy2");
+                $state.go('principal')
+            }
+        };
         $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
             /* $ionicFacebookAuth.login().then(
                  $ionicPush.register().then(function(t) {
@@ -81,16 +87,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                  console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
                  $state.go('principal')
              ).err*/
-            ($ionicAuth.login('facebook').then(
-                $ionicPush.register().then(function (t) {
-                    return $ionicPush.saveToken(t);
-                }).then(function (t) {
-                    console.log('Token saved:', t.token);
-                }),
-                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-                $state.go('principal')
-            ))
+            $ionicAuth.login('facebook').then($state.go('principal'))
         }
+
 
         $scope.details = { 'email': '', 'password': '' };
         $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
@@ -115,12 +114,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $state.go('registro');
         }
 
+
     })
 
     .controller('terminosCondicionesCtrl', function ($scope, $state) {
         $scope.toRegistro = function () { //Redirecciona a la parte principal de la app. 
             $state.go('registro');
         }
+
     })
 
     .controller('registroCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
@@ -153,7 +154,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
     })
 
-  
+
     .controller('inicioPpalCtrl', function ($scope, $state, $ionicUser) {
 
         console.log("Estoy" + $ionicUser.details.name + " " + $ionicUser.details.password);
@@ -282,7 +283,35 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('contactanosCtrl', function ($scope, $state) { })
 
-    .controller('listRestaurantesCtrl', function ($scope, $state, $http) {
+    .controller('listRestaurantesCtrl', function ($scope, $state, $http, $ionicLoading) {
+       
+       // ↓ ↓ ↓ ↓ ↓ CODIGO DEL LOADING  ↓ ↓ ↓ 
+        var i = 0;
+        $scope.show = function () {
+            console.log(i);
+            $ionicLoading.show({
+                template: 'Loading...',
+                duration: 9
+            }).then(function () {
+                if (i > 100) {
+                    $scope.hide();
+                }
+                else {
+                    i++;
+                    $scope.show();
+                }
+            });
+        };
+        $scope.hide = function () {
+            $ionicLoading.hide().then(function () {
+                console.log("The loading indicator is now hidden");
+            });
+        };
+
+        $scope.show(); 
+
+
+        //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
 
         $scope.toPerfilRes = function () { //Redirecciona a la parte principal de la app. 
             $state.go('app.descr-carta');
