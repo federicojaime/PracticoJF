@@ -1,0 +1,24 @@
+<link href="css/login.css" rel="stylesheet">
+<ion-view id="fondo">
+    <ion-content>
+        <br>
+        <img id="logo" src="img/Logo.png" height="15%">
+        <div class="card">
+            <div class="item item-divider">
+                <center>Recuperar Contraseña</center>
+            </div>
+            <div class="item item-text-wrap">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <input type="text" placeholder="Correo" ng-model="details.email">
+                    </label>
+                </div>
+            </div>
+        </div>
+        <center>
+            <div id="btnLogin" class="button button-balanced icon ion-paper-airplane boton" ng-click="toLogin() ">
+                Enviar
+            </div>
+        </center>
+    </ion-content>
+</ion-view>

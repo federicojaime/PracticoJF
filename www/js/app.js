@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ionic.cloud',  'ionic-toast', 'starter.directives', 'starter.controllers', 'starter.services', 'ngCordova', 'ion-cool-profile'])
+angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.directives', 'starter.controllers', 'starter.services', 'ngCordova', 'ion-cool-profile'])
 
 .config(function($ionicCloudProvider) {
     $ionicCloudProvider.init({
@@ -184,6 +184,12 @@ angular.module('starter', ['ionic', 'ionic.cloud',  'ionic-toast', 'starter.dire
         url: 'datosPedido',
         templateUrl: 'templates/datosPedido.html',
         controller: 'datosPedidoCtrl'
+    })
+
+    .state('recuperarClave', { //Pantalla login. 
+        url: '/recuperarClave',
+        templateUrl: 'templates/recuperarClave.html',
+        controller: 'recuperarClaveCtrl'
     })
 
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
