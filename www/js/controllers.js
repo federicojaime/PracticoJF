@@ -511,6 +511,32 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 })
 
-.controller('recuperarClaveCtrl', function($scope, $state) {
+.controller('recuperarClaveCtrl', function($scope, $state, $ionicAuth) {
     $scope.toLogin = function() { $state.go('login') };
-});
+
+    $scope.pedirCodigo = function() {
+        console.log('entra');
+        $ionicAuth.requestPasswordReset($scope.email).then(function(err) {
+            console.log($scope.email);
+            if (err) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
+                });
+            } else {
+                $state.go('cambiarClave');
+            }
+        });
+    }
+})
+
+.controller('cambiarClaveCtrl', function($scope, $state, $ionicAuth) {
+
+})
+
+
+
+
+
+
+;
