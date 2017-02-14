@@ -43,224 +43,245 @@
 */
 angular.module('starter.directives', [])
 
-	.directive('myMap', function ($http,$ionicPopup) {
+var myObject = {
+    "id": "4",
+    "nombre": "Coyote Delivery",
+    "costodelib": "0",
+    "pathimg": "http:\/\/alaordenapp.com\/app\/admin\/imgs\/gslaU.jpg",
+    "onoff": "0",
+    "latitud": "-33.688005",
+    "longitud": "-65.467519",
+    "favorito": 0,
+    "rango": "3000"
+}
 
-		return {
-			restrict: 'E',
-			scope: {
-				data: "="
-			},
-			template: '<div id="gmaps"></div>',
-			replace: true,
-			link: function (scope, element, attrs) {
-				var map, infoWindow;
 
-				// map config
+.directive('myMap', function($http, $ionicPopup) {
 
-				var mapOptions = {
-					//center: new google.maps.LatLng(50, 2),
-					center: new google.maps.LatLng(scope.data.centro.lat, scope.data.centro.lng),
-					//zoom: 4,
-					zoom: scope.data.zoom,
-					mapTypeId: google.maps.MapTypeId.ROADMAP,
-					scrollwheel: true,
-					draggable: true
-				};
+        return {
+            restrict: 'E',
+            scope: {
+                data: "="
+            },
+            template: '<div id="gmaps"></div>',
+            replace: true,
+            link: function(scope, element, attrs) {
+                var map, infoWindow;
 
-				// init the map
-				function initMap() {
-					if (map === void 0) {
-						map = new google.maps.Map(element[0], mapOptions);
-					}
-				}
+                // map config
 
-				// place a marker
-				function setMarker(map, position, title, content) {
-					var marker;
-					var markerOptions = {
-						position: position,
-						map: map,
-						title: title,
-						icon: 'img/mapapink.png'
-					};
+                var mapOptions = {
+                    //center: new google.maps.LatLng(50, 2),
+                    center: new google.maps.LatLng(scope.data.centro.lat, scope.data.centro.lng),
+                    //zoom: 4,
+                    zoom: scope.data.zoom,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    scrollwheel: true,
+                    draggable: true
+                };
 
-					marker = new google.maps.Marker(markerOptions);
+                // init the map
+                function initMap() {
+                    if (map === void 0) {
+                        map = new google.maps.Map(element[0], mapOptions);
+                    }
+                }
 
-					google.maps.event.addListener(marker, 'click', function () {
-						// close window if not undefined
-						if (infoWindow !== void 0) {
-							infoWindow.close();
-						}
-						// create new window
-						var infoWindowOptions = {
-							content: content
-						};
-						infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-						infoWindow.open(map, marker);
-					});
-				}
-				function setMarkerPerson(map, position, title, content) {
-					var marker;
-					var markerOptions = {
-						position: position,
-						map: map,
-						title: title,
-					};
-					marker = new google.maps.Marker(markerOptions);
-					google.maps.event.addListener(marker, 'click', function () {
-						// close window if not undefined
-						if (infoWindow !== void 0) {
-							infoWindow.close();
-						}
-						// create new window
-						var infoWindowOptions = {
-							content: content
-						};
-						infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-						infoWindow.open(map, marker);
-					});
-				}
+                // place a marker
+                function setMarker(map, position, title, content) {
+                    var marker;
+                    var markerOptions = {
+                        position: position,
+                        map: map,
+                        title: title,
+                        icon: 'img/mapapink.png'
+                    };
 
-				// show the map and place some markers
-				initMap();
-				$http.get("http://alaordenapp.com/alaorden/php/comercios.php?idlocalidad=82").success(function (dato) {
-					for (var i = 0; i < dato.length; i++) {
-						scope.data.marcas.push(dato[i]);
-					}
-					console.log(scope.data.marcas);
-					for (var i = 0; i < scope.data.marcas.length; i++) {
-						setMarker(map, new google.maps.LatLng(scope.data.marcas[i].latitud, scope.data.marcas[i].longitud), scope.data.marcas[i].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + scope.data.marcas[i].id + '">' + scope.data.marcas[i].nombre, '</a>');
-					}
-				})
-				setTimeout(function () { resizingMap(); }, 400);
-				function resizingMap() {
-					if (typeof map == "undefined") return;
-					var center = map.getCenter();
-					google.maps.event.trigger(map, "resize");
+                    marker = new google.maps.Marker(markerOptions);
 
-					var options = {
-						enableHighAccuracy: true,
-						timeout: 4000,
-						maximumAge: 0
-					};
-					function success(pos) {
-						map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
-						setMarkerPerson(map, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude), "", "<div>¡Ud. esta aquí! </div>");
-					};
-					function error(err) {
-						var alertPopup = $ionicPopup.alert({
-							template: '<center>Activa tu GPS para ver tu ubicación</center>',
-						});
-					};
-					navigator.geolocation.getCurrentPosition(success, error, options);
-				}
-			}
-		};
-	})
-	.directive('myMapa', function ($http, $ionicPopup) {
+                    google.maps.event.addListener(marker, 'click', function() {
+                        // close window if not undefined
+                        if (infoWindow !== void 0) {
+                            infoWindow.close();
+                        }
+                        // create new window
+                        var infoWindowOptions = {
+                            content: content
+                        };
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+                    });
+                }
 
-		return {
-			restrict: 'E',
-			scope: {
-				data: "="
-			},
-			template: '<div id="gmaps"></div>',
-			replace: true,
-			link: function (scope, element, attrs) {
-				var map, infoWindow;
+                function setMarkerPerson(map, position, title, content) {
+                    var marker;
+                    var markerOptions = {
+                        position: position,
+                        map: map,
+                        title: title,
+                    };
+                    marker = new google.maps.Marker(markerOptions);
+                    google.maps.event.addListener(marker, 'click', function() {
+                        // close window if not undefined
+                        if (infoWindow !== void 0) {
+                            infoWindow.close();
+                        }
+                        // create new window
+                        var infoWindowOptions = {
+                            content: content
+                        };
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+                    });
+                }
 
-				// map config
+                // show the map and place some markers
+                initMap();
+                $http.get("http://alaordenapp.com/alaorden/php/comercios.php?idlocalidad=82").success(function(dato) {
+                    for (var i = 0; i < dato.length; i++) {
+                        scope.data.marcas.push(dato[i]);
+                    }
+                    console.log(scope.data.marcas);
+                    for (var i = 0; i < scope.data.marcas.length; i++) {
+                        setMarker(map, new google.maps.LatLng(scope.data.marcas[i].latitud, scope.data.marcas[i].longitud), scope.data.marcas[i].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + scope.data.marcas[i].id + '">' + scope.data.marcas[i].nombre, '</a>');
+                    }
+                })
+                setTimeout(function() { resizingMap(); }, 400);
 
-				var mapOptions = {
-					//center: new google.maps.LatLng(50, 2),
-					center: new google.maps.LatLng(scope.data.centro.lat, scope.data.centro.lng),
-					//zoom: 4,
-					zoom: scope.data.zoom,
-					mapTypeId: google.maps.MapTypeId.ROADMAP,
-					scrollwheel: true,
-					draggable: true
-				};
+                function resizingMap() {
+                    if (typeof map == "undefined") return;
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
 
-				// init the map
-				function initMap() {
-					if (map === void 0) {
-						map = new google.maps.Map(element[0], mapOptions);
-					}
-				}
+                    var options = {
+                        enableHighAccuracy: true,
+                        timeout: 4000,
+                        maximumAge: 0
+                    };
 
-				// place a marker
-				function setMarker(map, position, title, content) {
-					var marker;
-					var markerOptions = {
-						position: position,
-						map: map,
-						title: title,
-						icon: 'img/mapapink.png'
-					};
+                    function success(pos) {
+                        map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
+                        setMarkerPerson(map, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude), "", "<div>¡Ud. esta aquí! </div>");
+                    };
 
-					marker = new google.maps.Marker(markerOptions);
+                    function error(err) {
+                        var alertPopup = $ionicPopup.alert({
+                            template: '<center>Activa tu GPS para ver tu ubicación</center>',
+                        });
+                    };
+                    navigator.geolocation.getCurrentPosition(success, error, options);
+                }
+            }
+        };
+    })
+    .directive('myMapa', function($http, $ionicPopup) {
 
-					google.maps.event.addListener(marker, 'click', function () {
-						// close window if not undefined
-						if (infoWindow !== void 0) {
-							infoWindow.close();
-						}
-						// create new window
-						var infoWindowOptions = {
-							content: content
-						};
-						infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-						infoWindow.open(map, marker);
-					});
-				}
-				function setMarkerPerson(map, position, title, content) {
-					var marker;
-					var markerOptions = {
-						position: position,
-						map: map,
-						title: title,
-					};
-					marker = new google.maps.Marker(markerOptions);
-					google.maps.event.addListener(marker, 'click', function () {
-						// close window if not undefined
-						if (infoWindow !== void 0) {
-							infoWindow.close();
-						}
-						// create new window
-						var infoWindowOptions = {
-							content: content
-						};
-						infoWindow = new google.maps.InfoWindow(infoWindowOptions);
-						infoWindow.open(map, marker);
-					});
-				}
+        return {
+            restrict: 'E',
+            scope: {
+                data: "="
+            },
+            template: '<div id="gmaps"></div>',
+            replace: true,
+            link: function(scope, element, attrs) {
+                var map, infoWindow;
 
-				// show the map and place some markers
-				initMap();
-				$http.get("http://alaordenapp.com/alaorden/php/dcomercio.php?idcomercio=82").success(function (dato) {
-					setMarker(map, new google.maps.LatLng(dato[0].latitud, dato[0].longitud), dato[0].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + dato[0].id + '">'+ dato[0].nombre + '</img></a>');
-					map.setCenter(new google.maps.LatLng(dato[0].latitud, dato[0].longitud));
-				})
-				setTimeout(function () { resizingMap(); }, 400);
-				function resizingMap() {
-					if (typeof map == "undefined") return;
-					var center = map.getCenter();
-					google.maps.event.trigger(map, "resize");
-					var options = {
-						enableHighAccuracy: true,
-						timeout: 4000,
-						maximumAge: 0
-					};
-					function success(pos) {
-						setMarkerPerson(map, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude), "", "<div>¡Ud. esta aquí! </div>");
-					};
-					function error(err) {
-						var alertPopup = $ionicPopup.alert({
-							template: '<center>Activa tu GPS para ver tu ubicación</center>'
-						});
-					};
-					navigator.geolocation.getCurrentPosition(success, error, options);
-				}
-			}
-		};
-	});
+                // map config
+
+                var mapOptions = {
+                    //center: new google.maps.LatLng(50, 2),
+                    center: new google.maps.LatLng(scope.data.centro.lat, scope.data.centro.lng),
+                    //zoom: 4,
+                    zoom: scope.data.zoom,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+                    scrollwheel: true,
+                    draggable: true
+                };
+
+                // init the map
+                function initMap() {
+                    if (map === void 0) {
+                        map = new google.maps.Map(element[0], mapOptions);
+                    }
+                }
+
+                // place a marker
+                function setMarker(map, position, title, content) {
+                    var marker;
+                    var markerOptions = {
+                        position: position,
+                        map: map,
+                        title: title,
+                        icon: 'img/mapapink.png'
+                    };
+
+                    marker = new google.maps.Marker(markerOptions);
+
+                    google.maps.event.addListener(marker, 'click', function() {
+                        // close window if not undefined
+                        if (infoWindow !== void 0) {
+                            infoWindow.close();
+                        }
+                        // create new window
+                        var infoWindowOptions = {
+                            content: content
+                        };
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+                    });
+                }
+
+                function setMarkerPerson(map, position, title, content) {
+                    var marker;
+                    var markerOptions = {
+                        position: position,
+                        map: map,
+                        title: title,
+                    };
+                    marker = new google.maps.Marker(markerOptions);
+                    google.maps.event.addListener(marker, 'click', function() {
+                        // close window if not undefined
+                        if (infoWindow !== void 0) {
+                            infoWindow.close();
+                        }
+                        // create new window
+                        var infoWindowOptions = {
+                            content: content
+                        };
+                        infoWindow = new google.maps.InfoWindow(infoWindowOptions);
+                        infoWindow.open(map, marker);
+                    });
+                }
+
+                // show the map and place some markers
+                initMap();
+                $http.get("http://alaordenapp.com/alaorden/php/dcomercio.php?idcomercio=82").success(function(dato) {
+                    setMarker(map, new google.maps.LatLng(dato[0].latitud, dato[0].longitud), dato[0].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + dato[0].id + '">' + dato[0].nombre + '</img></a>');
+                    map.setCenter(new google.maps.LatLng(dato[0].latitud, dato[0].longitud));
+                })
+                setTimeout(function() { resizingMap(); }, 400);
+
+                function resizingMap() {
+                    if (typeof map == "undefined") return;
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
+                    var options = {
+                        enableHighAccuracy: true,
+                        timeout: 4000,
+                        maximumAge: 0
+                    };
+
+                    function success(pos) {
+                        setMarkerPerson(map, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude), "", "<div>¡Ud. esta aquí! </div>");
+                    };
+
+                    function error(err) {
+                        var alertPopup = $ionicPopup.alert({
+                            template: '<center>Activa tu GPS para ver tu ubicación</center>'
+                        });
+                    };
+                    navigator.geolocation.getCurrentPosition(success, error, options);
+                }
+            }
+        };
+    });
