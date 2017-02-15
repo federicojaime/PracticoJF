@@ -134,12 +134,51 @@ var myObject = {
                         infoWindow.open(map, marker);
                     });
                 }
+                /*formula de haversine*/
+                var rad = function(x) {
+                    return x * Math.PI / 180;
+                };
+
+                var getDistance = function(p1, p2) {
+                    var R = 6378137; // Earth’s mean radius in meter
+                    var dLat = rad(p2.latitude() - p1.latitud());
+                    var dLong = rad(p2.longitude() - p1.longitud());
+                    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) *
+                        Math.sin(dLong / 2) * Math.sin(dLong / 2);
+                    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                    var d = R * c;
+                    return d; // returns the distance in meter
+                };
+                /*fin formukla de haversine*/
 
                 // show the map and place some markers
                 initMap();
                 $http.get("http://alaordenapp.com/alaorden/php/comercios.php?idlocalidad=82").success(function(dato) {
+                    /*Función que retorna la posición del dispositivo*/
+                    var posicionActual = function() {
+                            var options = {
+                                enableHighAccuracy: true,
+                                timeout: 5000,
+                                maximumAge: 0
+                            };
+
+                            function success(pos) {
+                                return pos.coords;
+                            };
+
+                            function error(err) {
+                                var alertPopup = $ionicPopup.alert({
+                                    template: '<center>Activa tu GPS para ver tu ubicación</center>',
+                                });
+                            };
+                            navigator.geolocation.getCurrentPosition(success, error, options);
+                        }
+                        /*Fin de la función que retorna la posición del dispositivo*/
                     for (var i = 0; i < dato.length; i++) {
-                        scope.data.marcas.push(dato[i]);
+                        if (getDistance(dato[i], posicionActual()) <= myObject.rango) {
+                            scope.data.marcas.push(dato[i]);
+                        }
                     }
                     console.log(scope.data.marcas);
                     for (var i = 0; i < scope.data.marcas.length; i++) {
