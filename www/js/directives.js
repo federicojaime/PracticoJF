@@ -43,19 +43,6 @@
 */
 angular.module('starter.directives', [])
 
-var myObject = {
-    "id": "4",
-    "nombre": "Coyote Delivery",
-    "costodelib": "0",
-    "pathimg": "http:\/\/alaordenapp.com\/app\/admin\/imgs\/gslaU.jpg",
-    "onoff": "0",
-    "latitud": "-33.688005",
-    "longitud": "-65.467519",
-    "favorito": 0,
-    "rango": "3000"
-}
-
-
 .directive('myMap', function($http, $ionicPopup) {
 
         return {
@@ -134,21 +121,36 @@ var myObject = {
                         infoWindow.open(map, marker);
                     });
                 }
-                /*formula de haversine*/
+
+                /*objeto restaurant auxiliar*/
+                var myObject = {
+                        "id": "4",
+                        "nombre": "Coyote Delivery",
+                        "costodelib": "0",
+                        "pathimg": "http:\/\/alaordenapp.com\/app\/admin\/imgs\/gslaU.jpg",
+                        "onoff": "0",
+                        "latitud": "-33.688005",
+                        "longitud": "-65.467519",
+                        "favorito": 0,
+                        "rango": 1000
+                    }
+                    /*fin objeto restaurant auxiliar*/
+                    /*formula de haversine*/
                 var rad = function(x) {
                     return x * Math.PI / 180;
                 };
 
                 var getDistance = function(p1, p2) {
-                    var R = 6378137; // radio promedio de la tierra en metros
-                    var dLat = rad(p2.latitude() - p1.latitud());
-                    var dLong = rad(p2.longitude() - p1.longitud());
+                    var R = 6378137; // Earth’s mean radius in meter
+                    var dLat = rad(p2.latitude - p1.latitud);
+                    var dLong = rad(p2.longitude - p1.longitud);
                     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                        Math.cos(rad(p1.lat())) * Math.cos(rad(p2.lat())) *
+                        Math.cos(rad(p1.latitud)) * Math.cos(rad(p2.latitude)) *
                         Math.sin(dLong / 2) * Math.sin(dLong / 2);
                     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                     var d = R * c;
-                    return d; // distancia en metros
+                    alert(d);
+                    return parseInt(d); // returns the distance in meter
                 };
                 /*fin formula de haversine*/
 
@@ -179,9 +181,9 @@ var myObject = {
                     var posicionActualEnsayo = { "latitude": -33.680032, "longitude": -65.452098 };
                     /*Fin elemento de ensayo*/
                     for (var i = 0; i < dato.length; i++) {
-
                         if (getDistance(dato[i], posicionActualEnsayo) <= myObject.rango) {
                             scope.data.marcas.push(dato[i]);
+
                         }
                     }
                     console.log(scope.data.marcas);
@@ -203,8 +205,12 @@ var myObject = {
                     };
 
                     function success(pos) {
+                        map.setCenter(new google.maps.LatLng(-33.680032, -65.452098));
+                        setMarkerPerson(map, new google.maps.LatLng(-33.680032, -65.452098), "", "<div>¡Ud. esta aquí! </div>");
+                        /*
                         map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
                         setMarkerPerson(map, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude), "", "<div>¡Ud. esta aquí! </div>");
+                    */
                     };
 
                     function error(err) {
