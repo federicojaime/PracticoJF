@@ -133,15 +133,6 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
                 }
             })
 
-            .state('app.mapa', {
-                url: '/mapa',
-                views: {
-                    'menuContent': {
-                        templateUrl: 'templates/mapa.html',
-                        controller: 'mapaCtrl'
-                    }
-                }
-            })
 
             .state('app.misPedidos', {
                 url: '/misPedidos',

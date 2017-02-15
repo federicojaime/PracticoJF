@@ -43,7 +43,7 @@
 */
 angular.module('starter.directives', [])
 
-.directive('myMap', function($http, $ionicPopup) {
+    .directive('myMap', function ($http, $ionicPopup) {
 
         return {
             restrict: 'E',
@@ -52,7 +52,7 @@ angular.module('starter.directives', [])
             },
             template: '<div id="gmaps"></div>',
             replace: true,
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var map, infoWindow;
 
                 // map config
@@ -86,7 +86,7 @@ angular.module('starter.directives', [])
 
                     marker = new google.maps.Marker(markerOptions);
 
-                    google.maps.event.addListener(marker, 'click', function() {
+                    google.maps.event.addListener(marker, 'click', function () {
                         // close window if not undefined
                         if (infoWindow !== void 0) {
                             infoWindow.close();
@@ -108,7 +108,7 @@ angular.module('starter.directives', [])
                         title: title,
                     };
                     marker = new google.maps.Marker(markerOptions);
-                    google.maps.event.addListener(marker, 'click', function() {
+                    google.maps.event.addListener(marker, 'click', function () {
                         // close window if not undefined
                         if (infoWindow !== void 0) {
                             infoWindow.close();
@@ -124,23 +124,23 @@ angular.module('starter.directives', [])
 
                 /*objeto restaurant auxiliar*/
                 var myObject = {
-                        "id": "4",
-                        "nombre": "Coyote Delivery",
-                        "costodelib": "0",
-                        "pathimg": "http:\/\/alaordenapp.com\/app\/admin\/imgs\/gslaU.jpg",
-                        "onoff": "0",
-                        "latitud": "-33.688005",
-                        "longitud": "-65.467519",
-                        "favorito": 0,
-                        "rango": 1000
-                    }
-                    /*fin objeto restaurant auxiliar*/
-                    /*formula de haversine*/
-                var rad = function(x) {
+                    "id": "4",
+                    "nombre": "Coyote Delivery",
+                    "costodelib": "0",
+                    "pathimg": "http:\/\/alaordenapp.com\/app\/admin\/imgs\/gslaU.jpg",
+                    "onoff": "0",
+                    "latitud": "-33.688005",
+                    "longitud": "-65.467519",
+                    "favorito": 0,
+                    "rango": 1000
+                }
+                /*fin objeto restaurant auxiliar*/
+                /*formula de haversine*/
+                var rad = function (x) {
                     return x * Math.PI / 180;
                 };
 
-                var getDistance = function(p1, p2) {
+                var getDistance = function (p1, p2) {
                     var R = 6378137; // Earth’s mean radius in meter
                     var dLat = rad(p2.latitude - p1.latitud);
                     var dLong = rad(p2.longitude - p1.longitud);
@@ -156,27 +156,27 @@ angular.module('starter.directives', [])
 
                 // show the map and place some markers
                 initMap();
-                $http.get("http://alaordenapp.com/alaorden/php/comercios.php?idlocalidad=82").success(function(dato) {
+                $http.get("http://alaordenapp.com/alaorden/php/comercios.php?idlocalidad=82").success(function (dato) {
                     /*Función que retorna la posición del dispositivo*/
-                    var posicionActual = function() {
-                            var options = {
-                                enableHighAccuracy: true,
-                                timeout: 5000,
-                                maximumAge: 0
-                            };
+                    var posicionActual = function () {
+                        var options = {
+                            enableHighAccuracy: true,
+                            timeout: 5000,
+                            maximumAge: 0
+                        };
 
-                            function success(pos) {
-                                return pos.coords;
-                            };
+                        function success(pos) {
+                            return pos.coords;
+                        };
 
-                            function error(err) {
-                                var alertPopup = $ionicPopup.alert({
-                                    template: '<center>Activa tu GPS para ver tu ubicación</center>',
-                                });
-                            };
-                            navigator.geolocation.getCurrentPosition(success, error, options);
-                        }
-                        /*Fin de la función que retorna la posición del dispositivo*/
+                        function error(err) {
+                            var alertPopup = $ionicPopup.alert({
+                                template: '<center>Activa tu GPS para ver tu ubicación</center>',
+                            });
+                        };
+                        navigator.geolocation.getCurrentPosition(success, error, options);
+                    }
+                    /*Fin de la función que retorna la posición del dispositivo*/
                     var posicionActualFinal = posicionActual();
                     for (var i = 0; i < dato.length; i++) {
                         if (getDistance(dato[i], posicionActualFinal) <= myObject.rango) { /*<=dato[i].rango reemplaza myObject.rango */
@@ -188,7 +188,7 @@ angular.module('starter.directives', [])
                         setMarker(map, new google.maps.LatLng(scope.data.marcas[i].latitud, scope.data.marcas[i].longitud), scope.data.marcas[i].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + scope.data.marcas[i].id + '">' + scope.data.marcas[i].nombre, '</a>');
                     }
                 })
-                setTimeout(function() { resizingMap(); }, 400);
+                setTimeout(function () { resizingMap(); }, 400);
 
                 function resizingMap() {
                     if (typeof map == "undefined") return;
@@ -216,7 +216,7 @@ angular.module('starter.directives', [])
             }
         };
     })
-    .directive('myMapa', function($http, $ionicPopup) {
+    .directive('myMapa', function ($http, $ionicPopup) {
 
         return {
             restrict: 'E',
@@ -225,7 +225,7 @@ angular.module('starter.directives', [])
             },
             template: '<div id="gmaps"></div>',
             replace: true,
-            link: function(scope, element, attrs) {
+            link: function (scope, element, attrs) {
                 var map, infoWindow;
 
                 // map config
@@ -259,7 +259,7 @@ angular.module('starter.directives', [])
 
                     marker = new google.maps.Marker(markerOptions);
 
-                    google.maps.event.addListener(marker, 'click', function() {
+                    google.maps.event.addListener(marker, 'click', function () {
                         // close window if not undefined
                         if (infoWindow !== void 0) {
                             infoWindow.close();
@@ -281,7 +281,7 @@ angular.module('starter.directives', [])
                         title: title,
                     };
                     marker = new google.maps.Marker(markerOptions);
-                    google.maps.event.addListener(marker, 'click', function() {
+                    google.maps.event.addListener(marker, 'click', function () {
                         // close window if not undefined
                         if (infoWindow !== void 0) {
                             infoWindow.close();
@@ -297,11 +297,11 @@ angular.module('starter.directives', [])
 
                 // show the map and place some markers
                 initMap();
-                $http.get("http://alaordenapp.com/alaorden/php/dcomercio.php?idcomercio=82").success(function(dato) {
+                $http.get("http://alaordenapp.com/alaorden/php/dcomercio.php?idcomercio=82").success(function (dato) {
                     setMarker(map, new google.maps.LatLng(dato[0].latitud, dato[0].longitud), dato[0].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + dato[0].id + '">' + dato[0].nombre + '</img></a>');
                     map.setCenter(new google.maps.LatLng(dato[0].latitud, dato[0].longitud));
                 })
-                setTimeout(function() { resizingMap(); }, 400);
+                setTimeout(function () { resizingMap(); }, 400);
 
                 function resizingMap() {
                     if (typeof map == "undefined") return;
