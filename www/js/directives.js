@@ -177,13 +177,10 @@ angular.module('starter.directives', [])
                             navigator.geolocation.getCurrentPosition(success, error, options);
                         }
                         /*Fin de la función que retorna la posición del dispositivo*/
-                        /*Elemento de ensayo, corresponde como segundo parámetro de getDistance() una llamada a posicionActual() */
-                    var posicionActualEnsayo = { "latitude": -33.680032, "longitude": -65.452098 };
-                    /*Fin elemento de ensayo*/
+                    var posicionActualFinal = posicionActual();
                     for (var i = 0; i < dato.length; i++) {
-                        if (getDistance(dato[i], posicionActualEnsayo) <= myObject.rango) {
+                        if (getDistance(dato[i], posicionActualFinal) <= myObject.rango) { /*<=dato[i].rango reemplaza myObject.rango */
                             scope.data.marcas.push(dato[i]);
-
                         }
                     }
                     console.log(scope.data.marcas);
@@ -205,12 +202,8 @@ angular.module('starter.directives', [])
                     };
 
                     function success(pos) {
-                        map.setCenter(new google.maps.LatLng(-33.680032, -65.452098));
-                        setMarkerPerson(map, new google.maps.LatLng(-33.680032, -65.452098), "", "<div>¡Ud. esta aquí! </div>");
-                        /*
                         map.setCenter(new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude));
                         setMarkerPerson(map, new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude), "", "<div>¡Ud. esta aquí! </div>");
-                    */
                     };
 
                     function error(err) {
