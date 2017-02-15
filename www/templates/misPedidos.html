@@ -18,9 +18,9 @@
                          </label>
             </div>
             <ion-list>
-                <ion-item class="item" ng-if="!hayPed">
+                <ion-item class="item descrip" ng-if="!hayPed">
                     <center>
-                        <p>Aún no tienes pedidos realizadas</p>
+                        <p>{{leyenda}}</p>
                     </center>
                 </ion-item>
                 <ion-item class="item descrip" ng-repeat="pedido in pedidos | filter : filtro" ng-if="hayPed">

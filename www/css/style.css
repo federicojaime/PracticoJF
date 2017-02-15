@@ -96,8 +96,10 @@ body {
 
 .logoLocal img {
     float: left;
+    background-size: contain;
     width: 100px;
     height: 100px;
+    border-radius: 25%;
 }
 
 .estrellas i {

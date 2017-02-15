@@ -19,7 +19,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
 
         $scope.toContactanos = function () { //Redirecciona a la parte principal de la app.
-            $state.go('app.contactanos');
+            $state.go('contactanos');
         }
 
         $scope.toMisPedidos = function () { //Redirecciona a misPedidos.
@@ -199,15 +199,64 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     })
 
-    .controller('misPedidosCtrl', function ($ionicPlatform, $state, $ionicHistory, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
-        $scope.pedidos = []; // Arreglo donde se van a setear todos los pedidos. 
-        $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function (dato) { //devuelve los pedidos.
-            $scope.pedidos = dato["datos"];
-            if ($scope.pedidos.length > 0) {
-                $scope.hayPed = true;
-            }
-            $scope.refrescar();
-        });
+    .controller('misPedidosCtrl', function ($ionicPlatform, $state, $ionicHistory, $ionicLoading, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
+        $scope.leyenda = "Estamos buscando tus pedidos.";
+        // ↓ ↓ ↓ ↓ ↓ CODIGO DEL LOADING  ↓ ↓ ↓ 
+        $scope.i = 0;
+        $scope.show = function () {
+            $scope.i++;
+            $ionicLoading.show({
+                template: 'Cargando...',
+                duration: 9
+            }).then(function () {
+                if ($scope.pedidos != null) {
+                    return
+                    $scope.hide();
+                }
+                if ($scope.i > 3000) {
+                    if ($scope.hayPed == false) {
+                        return
+                        $scope.hide();
+                    }
+                    var alertPopup = $ionicPopup.alert({
+                        title: '¡Problemas con internet!',
+                        template: '<center>Esto esta tardando demasiado, si puedes vuelve mas tarde. </center>'
+                    });
+                    $scope.leyenda = "Esto esta tardando demasiado, si puedes vuelve mas tarde.";
+                }
+                else {
+                    $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function (dato) {
+                        $scope.pedidos = [];
+                        $scope.pedidos = dato["datos"];
+                        if (dato["datos"] === null) {
+                            $scope.hayPed = false;
+                            $scope.i = 400;
+                            $scope.leyenda = "Aún no tienes pedidos realizadas";
+                            return
+                            $scope.hide();
+                        }
+                        else {
+                            $scope.hayPed = true;
+                            return
+                            $scope.hide();
+                        }
+                    });
+                    $scope.show();
+                }
+            });
+        };
+        $scope.hide = function () {
+            $ionicLoading.hide().then(function () {
+                console.log("The loading indicator is now hidden");
+            });
+        };
+
+        $scope.show();
+
+        //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
+
+
+
         $scope.doRefresh = function () { // se activa cuando scrollea hacia abajo el usuario en la app.
             $scope.refrescar();
             $timeout(function () {
@@ -216,13 +265,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         };
 
         $scope.refrescar = function () { //Actualiza las llamadas del templates.
-            $scope.pedidos = [];
-            $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function (dato) {
-                $scope.pedidos = dato["datos"];
-                if ($scope.pedidos.length > 0) {
-                    $scope.hayPed = true;
-                }
-            });
+            $scope.show();
         };
 
         $scope.clientSideList = [
@@ -284,16 +327,15 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     .controller('contactanosCtrl', function ($scope, $state) { })
 
     .controller('listRestaurantesCtrl', function ($scope, $state, $http, $ionicLoading) {
-       
-       // ↓ ↓ ↓ ↓ ↓ CODIGO DEL LOADING  ↓ ↓ ↓ 
+
+        // ↓ ↓ ↓ ↓ ↓ CODIGO DEL LOADING  ↓ ↓ ↓ 
         var i = 0;
         $scope.show = function () {
-            console.log(i);
             $ionicLoading.show({
                 template: 'Loading...',
                 duration: 9
             }).then(function () {
-                if (i > 100) {
+                if (i > 10) {
                     $scope.hide();
                 }
                 else {
@@ -304,11 +346,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         };
         $scope.hide = function () {
             $ionicLoading.hide().then(function () {
-                console.log("The loading indicator is now hidden");
             });
         };
 
-        $scope.show(); 
+        $scope.show();
 
 
         //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
@@ -329,12 +370,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             }
         }
         $scope.restaurantes = [
-            { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
-            { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/lafarola.jpg' },
-            { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
-            { nombre: 'ParriPizza', descripcion: 'Pizza - Parrilla', tiempo: '30 min', precioDelivery: '$15', compraMinima: '$350', img: 'img/lafarola.jpg' },
-            { nombre: 'Empanadas Pepe', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '90 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
-            { nombre: 'Milanesas Jhon Jhon', descripcion: 'Pizzas - Milanesas - Sanguches', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' }
+            { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
+            { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
+            { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
+            { nombre: 'ParriPizza', descripcion: 'Pizza - Parrilla', tiempo: '30 min', precioDelivery: '$15', compraMinima: '$350', img: 'img/listRest/logo3.jpg' },
+            { nombre: 'Empanadas Pepe', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '90 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo4.gif' },
+            { nombre: 'Milanesas Jhon Jhon', descripcion: 'Pizzas - Milanesas - Sanguches', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' }
         ];
         $scope.estrella = []; //arreglo utilizado para generar el codigo. 
         $scope.estrellaVacias = [];
@@ -350,7 +391,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.toSomos = function () { $state.go('app.somos'); }
     })
 
-    .controller('descr-cartaCtrl', function ($scope, $state, $http, $ionicModal, $ionicPopup) {
+    .controller('descr-cartaCtrl', function ($scope, $state, $http, $ionicModal, $ionicLoading, $ionicPopup) {
 
         $scope.footer = '';
 
@@ -395,9 +436,56 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $scope.estrellaVacias.push({});
         }
 
-        $http.get("http://alaordenapp.com/alaorden/php/lcatcom.php?idcomercio=18").success(function (dato) {
-            $scope.catComidas = dato;
-        });
+        $scope.catComidas = null;
+
+        $scope.i = 0;
+        $scope.show = function () {
+            $scope.i++;
+            $ionicLoading.show({
+                template: 'Cargando...',
+                duration: 9
+            }).then(function () {
+                if ($scope.catComidas != null) {
+                    console.log("estoy6")
+                    return $scope.hide();
+                }
+                if ($scope.i > 3000) {
+                    if ($scope.catComidas != null) {
+                        console.log("estoy1")
+                        return
+                        $scope.hide();
+                    }
+                    var alertPopup = $ionicPopup.alert({
+                        title: '¡Problemas con internet!',
+                        template: '<center>Esto esta tardando demasiado, si puedes vuelve mas tarde. </center>'
+                    });
+                }
+                else {
+                    $http.get("http://alaordenapp.com/alaorden/php/lcatcom.php?idcomercio=18").success(function (dato) {
+                        console.log(0)
+                        $scope.catComidas = dato;
+                        if ($scope.catComidas != null) {
+                            $scope.i = 4000;
+                            return "I'm going to work.";
+                        }
+                    });
+                }
+            });
+            $scope.show();
+        };
+        $scope.hide = function () {
+            $ionicLoading.hide().then(function () {
+                return
+            });
+        };
+
+        $scope.show();
+
+        //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
+
+
+
+
 
         /*
          * if given group is the selected group, deselect it
