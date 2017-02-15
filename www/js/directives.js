@@ -140,7 +140,7 @@ var myObject = {
                 };
 
                 var getDistance = function(p1, p2) {
-                    var R = 6378137; // Earth’s mean radius in meter
+                    var R = 6378137; // radio promedio de la tierra en metros
                     var dLat = rad(p2.latitude() - p1.latitud());
                     var dLong = rad(p2.longitude() - p1.longitud());
                     var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
@@ -148,9 +148,9 @@ var myObject = {
                         Math.sin(dLong / 2) * Math.sin(dLong / 2);
                     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                     var d = R * c;
-                    return d; // returns the distance in meter
+                    return d; // distancia en metros
                 };
-                /*fin formukla de haversine*/
+                /*fin formula de haversine*/
 
                 // show the map and place some markers
                 initMap();
@@ -175,8 +175,12 @@ var myObject = {
                             navigator.geolocation.getCurrentPosition(success, error, options);
                         }
                         /*Fin de la función que retorna la posición del dispositivo*/
+                        /*Elemento de ensayo, corresponde como segundo parámetro de getDistance() una llamada a posicionActual() */
+                    var posicionActualEnsayo = { "latitude": -33.680032, "longitude": -65.452098 };
+                    /*Fin elemento de ensayo*/
                     for (var i = 0; i < dato.length; i++) {
-                        if (getDistance(dato[i], posicionActual()) <= myObject.rango) {
+
+                        if (getDistance(dato[i], posicionActualEnsayo) <= myObject.rango) {
                             scope.data.marcas.push(dato[i]);
                         }
                     }
