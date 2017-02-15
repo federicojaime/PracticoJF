@@ -185,5 +185,17 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
                 controller: 'datosPedidoCtrl'
             })
 
-        $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app. 
+            .state('recuperarClave', { //Pantalla login.
+                url: '/recuperarClave',
+                templateUrl: 'templates/recuperarClave.html',
+                controller: 'recuperarClaveCtrl'
+            })
+
+            .state('cambiarClave', { //Pantalla login.
+                url: '/cambiarClave',
+                templateUrl: 'templates/cambiarClave.html',
+                controller: 'cambiarClaveCtrl'
+            })
+
+        $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app.
     })

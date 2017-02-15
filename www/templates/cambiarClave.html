@@ -1,0 +1,28 @@
+<link href="css/login.css" rel="stylesheet">
+<ion-view id="fondo">
+    <ion-content>
+        <br>
+        <img id="logo" src="img/Logo.png" height="15%">
+        <div class="card">
+            <div class="item item-divider">
+                <center>Recuperar Contraseña</center>
+            </div>
+            <div class="item item-text-wrap">
+                <div class="list">
+                    <label class="item item-input item-floating-label">
+                        <input type="text" placeholder="Código de recuperación" ng-model="details.codigo" required>
+                    </label>
+                    <label class="item item-input item-floating-label">
+                        <input type="password" placeholder="Nueva clave" ng-model="details.nuevaPass" required>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <center>
+
+            <div id="btnRecClave" class="button button-stable icon ion-paper-airplane boton" ng-click="toLogin()" ng-if="emailValido()">
+                Enviar
+            </div>
+        </center>
+    </ion-content>
+</ion-view>
