@@ -154,13 +154,21 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }, function(err) {
             for (var e of err.details) {
                 if (e === 'conflict_email') {
-                    alert(e);
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Ya estas registrado',
+                        template: 'La cuenta de E-mail que estás tratando de vincular ya posee una cuenta de usuario.'
+                    })
+                } else if (e.toString().startsWith("required")) {
+                    var alertPopup = $ionicPopup.alert({
+                            title: 'Campos requeridos',
+                            template: 'Debes completar todos los campos con datos válidos.'
+                        })
+                        // handle other errors
                 } else {
                     var alertPopup = $ionicPopup.alert({
-                        title: 'Mal',
-                        template: e
+                        title: 'Error de registro.',
+                        template: 'Verifique los datos e inténtelo nuevamente.' //e
                     });
-                    // handle other errors
                 }
             }
         })
