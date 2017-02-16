@@ -1,6 +1,5 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicAuth, ionicToast) {
 
 
@@ -145,26 +144,25 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
     }
     $scope.toLogin = function() {
-        console.log($scope.details);
         $ionicAuth.signup($scope.details).then(function() {
             var alertPopup = $ionicPopup.alert({
                 title: 'Te registraste!',
                 template: "Bien!"
             }); // `$ionicUser` is now registered
+            $state.go('login'); //va a al template de login
         }, function(err) {
             for (var e of err.details) {
                 if (e === 'conflict_email') {
-                    var alertPopup = $ionicPopup.alert({
+                    var alertPopup = $ionicPopup.alert({ //si el mail ya se encuentra registrado
                         title: 'Ya estas registrado',
                         template: 'La cuenta de E-mail que estás tratando de vincular ya posee una cuenta de usuario.'
                     })
-                } else if (e.toString().startsWith("required")) {
+                } else if (e.toString().startsWith("required")) { //si faltó algún dato de registro
                     var alertPopup = $ionicPopup.alert({
-                            title: 'Campos requeridos',
-                            template: 'Debes completar todos los campos con datos válidos.'
-                        })
-                        // handle other errors
-                } else {
+                        title: 'Campos requeridos',
+                        template: 'Debes completar todos los campos con datos válidos.'
+                    })
+                } else { //si falla de conección, API, etc.
                     var alertPopup = $ionicPopup.alert({
                         title: 'Error de registro.',
                         template: 'Verifique los datos e inténtelo nuevamente.' //e
@@ -173,8 +171,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             }
         })
     }
-    $scope.toSomos = function() { $state.go('app.somos'); }
-
 })
 
 .controller('inicioPpalCtrl', function($scope, $state, $ionicUser, $ionicAuth) {
@@ -185,7 +181,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $state.go('app.listadoRestaurantes');
     }
 })
-
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
     $scope.provincias = [];
