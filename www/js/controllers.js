@@ -2,7 +2,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicAuth, ionicToast) {
 
-
     $scope.$on('cloud:push:notification', function(event, data) {
         var msg = data.message;
         alert(msg.title + ': ' + msg.text);
@@ -76,8 +75,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 })
 
-.controller('loginCtrl', function($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth) {
-
+.controller('loginCtrl', function($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
         /* $ionicFacebookAuth.login().then(
              $ionicPush.register().then(function(t) {
@@ -92,8 +90,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $ionicPush.register().then(function(t) {
                 return $ionicPush.saveToken(t);
             }).then(function(t) {
-                console.log('Token saved:', t.token);
-            }).then($state.go('principal'))
+                //console.log('Token saved:', t.token);
+            })
             //console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
         ).then(function() {
             if ($ionicAuth.isAuthenticated()) {
@@ -102,11 +100,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 $state.go('login');
             }
         })
-
     }
 
     $scope.details = { 'email': '', 'password': '' };
-    $scope.toPrincipal = function() { //Redirecciona a la parte principal de la app. 
+    $scope.toPrincipal = function() {
         $ionicAuth.login('basic', $scope.details).then(function() {
             $ionicPush.register().then(function(t) {
                 return $ionicPush.saveToken(t);
@@ -120,13 +117,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         })
     }
 
-    $scope.toTerminosCondiciones = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('terminosCondiciones');
-    }
-
-    $scope.toRegistro = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('registro');
-    }
+    $scope.toTerminosCondiciones = function() { $state.go('terminosCondiciones'); } //Redirecciona al estado terminosCondiciones
+    $scope.toRegistro = function() { $state.go('registro'); } //Redirecciona al estado registro
+    $ionicPlatform.onHardwareBackButton(function() {
+        $state.go('login');
+    });
 
 })
 
@@ -147,7 +142,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $ionicAuth.signup($scope.details).then(function() {
             var alertPopup = $ionicPopup.alert({
                 title: 'Te registraste!',
-                template: "Bien!"
+                template: "Tu cuenta ha sido creada con éxito, por favor, ingresa con ella."
             }); // `$ionicUser` is now registered
             $state.go('login'); //va a al template de login
         }, function(err) {
