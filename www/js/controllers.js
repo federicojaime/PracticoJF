@@ -119,9 +119,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     $scope.toTerminosCondiciones = function() { $state.go('terminosCondiciones'); } //Redirecciona al estado terminosCondiciones
     $scope.toRegistro = function() { $state.go('registro'); } //Redirecciona al estado registro
-    $ionicPlatform.onHardwareBackButton(function() {
-        $state.go('login');
-    });
+    $ionicPlatform.onHardwareBackButton(function() { $state.go('login'); });
 
 })
 
@@ -168,13 +166,15 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 })
 
-.controller('inicioPpalCtrl', function($scope, $state, $ionicUser, $ionicAuth) {
+.controller('inicioPpalCtrl', function($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
     if (!$ionicAuth.isAuthenticated()) {
         $state.go('login');
     }
     $scope.toLista = function() { //Redirecciona a la parte principal de la app. 
         $state.go('app.listadoRestaurantes');
     }
+    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); });
+
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
