@@ -1,8 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-
     .controller('AppCtrl', function ($scope, $ionicModal, $timeout, $state, $ionicAuth, ionicToast) {
-
 
         $scope.$on('cloud:push:notification', function (event, data) {
             var msg = data.message;
@@ -59,9 +57,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             }
         }
         $scope.restaurantes = [
-            { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
-            { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/lafarola.jpg' },
-            { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
+            { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
+            { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
+            { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
         ];
         $scope.estrella = []; //arreglo utilizado para generar el codigo. 
         $scope.estrellaVacias = [];
@@ -77,8 +75,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     })
 
-    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth) {
-
+    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
         $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
             /* $ionicFacebookAuth.login().then(
                  $ionicPush.register().then(function(t) {
@@ -93,15 +90,20 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
                 }).then(function (t) {
-                    console.log('Token saved:', t.token);
-                }),
-                console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-                $state.go('principal')
-            )
+                    //console.log('Token saved:', t.token);
+                })
+                //console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+            ).then(function () {
+                if ($ionicAuth.isAuthenticated()) {
+                    $state.go('principal');
+                } else {
+                    $state.go('login');
+                }
+            })
         }
 
         $scope.details = { 'email': '', 'password': '' };
-        $scope.toPrincipal = function () { //Redirecciona a la parte principal de la app. 
+        $scope.toPrincipal = function () {
             $ionicAuth.login('basic', $scope.details).then(function () {
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
@@ -115,13 +117,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             })
         }
 
-        $scope.toTerminosCondiciones = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('terminosCondiciones');
-        }
-
-        $scope.toRegistro = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('registro');
-        }
+        $scope.toTerminosCondiciones = function () { $state.go('terminosCondiciones'); } //Redirecciona al estado terminosCondiciones
+        $scope.toRegistro = function () { $state.go('registro'); } //Redirecciona al estado registro
+        $ionicPlatform.onHardwareBackButton(function () { $state.go('login'); });
 
     })
 
@@ -139,37 +137,45 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
         }
         $scope.toLogin = function () {
-            console.log($scope.details);
             $ionicAuth.signup($scope.details).then(function () {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Te registraste!',
-                    template: "Bien!"
+                    template: "Tu cuenta ha sido creada con éxito, por favor, ingresa con ella."
                 }); // `$ionicUser` is now registered
+                $state.go('login'); //va a al template de login
             }, function (err) {
                 for (var e of err.details) {
                     if (e === 'conflict_email') {
-                        alert(e);
-                    } else {
+                        var alertPopup = $ionicPopup.alert({ //si el mail ya se encuentra registrado
+                            title: 'Ya estas registrado',
+                            template: 'La cuenta de E-mail que estás tratando de vincular ya posee una cuenta de usuario.'
+                        })
+                    } else if (e.toString().startsWith("required")) { //si faltó algún dato de registro
                         var alertPopup = $ionicPopup.alert({
-                            title: 'Mal',
-                            template: e
+                            title: 'Campos requeridos',
+                            template: 'Debes completar todos los campos con datos válidos.'
+                        })
+                    } else { //si falla de conección, API, etc.
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error de registro.',
+                            template: 'Verifique los datos e inténtelo nuevamente.' //e
                         });
-                        // handle other errors
                     }
                 }
             })
         }
-        $scope.toSomos = function () { $state.go('app.somos'); }
-
     })
 
-    .controller('inicioPpalCtrl', function ($scope, $state, $ionicUser) {
-
+    .controller('inicioPpalCtrl', function ($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
+        if (!$ionicAuth.isAuthenticated()) {
+            $state.go('login');
+        }
         $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
             $state.go('app.listadoRestaurantes');
         }
-    })
+        $ionicPlatform.onHardwareBackButton(function () { $state.go('principal'); });
 
+    })
 
     .controller('cambiarCdadCtrl', function ($scope, $state, $http) {
         $scope.provincias = [];
@@ -214,8 +220,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         template: '<center>Esto esta tardando demasiado, si puedes vuelve mas tarde. </center>'
                     });
                     $scope.leyenda = "Esto esta tardando demasiado, si puedes vuelve mas tarde.";
-                }
-                else {
+                } else {
                     $http.get("http://alaordenapp.com/alaorden/php/getpedidos.php?idcliente=85").success(function (dato) {
                         $scope.pedidos = [];
                         $scope.pedidos = dato["datos"];
@@ -225,8 +230,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                             $scope.leyenda = "Aún no tienes pedidos realizadas";
                             return
                             $scope.hide();
-                        }
-                        else {
+                        } else {
                             $scope.hayPed = true;
                             return
                             $scope.hide();
@@ -323,16 +327,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             }).then(function () {
                 if (i > 10) {
                     $scope.hide();
-                }
-                else {
+                } else {
                     i++;
                     $scope.show();
                 }
             });
         };
         $scope.hide = function () {
-            $ionicLoading.hide().then(function () {
-            });
+            $ionicLoading.hide().then(function () { });
         };
 
         $scope.show();
@@ -445,8 +447,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         title: '¡Problemas con internet!',
                         template: '<center>Esto esta tardando demasiado, si puedes vuelve mas tarde. </center>'
                     });
-                }
-                else {
+                } else {
                     $http.get("http://alaordenapp.com/alaorden/php/lcatcom.php?idcomercio=18").success(function (dato) {
                         console.log(0)
                         $scope.catComidas = dato;
@@ -616,25 +617,35 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
     })
 
-    .controller('recuperarClaveCtrl', function ($ionicPopup, $scope, $state, $ionicAuth) {
-
-        $scope.details = { 'email': '' };
-        $scope.pedirCodigo = function () {
-            if ($scope.details.email != "") {
-                $scope.promesa = $ionicAuth.requestPasswordReset($scope.details.email)
-                console.log($scope.promesa.$$state.status)
-                console.log($scope.promesa)
-                console.log($scope.details.email);
-            }
-            else {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: "<center>Por favor ingresa un correo.</center>" //+ err
-                });
-            }
-        }
-    })
-
     .controller('cambiarClaveCtrl', function ($scope, $state, $ionicAuth) {
 
-    });
+    })
+    .controller('recuperarClaveCtrl', function ($scope, $state, $ionicAuth) {
+        $scope.toLogin = function () { $state.go('login') };
+
+        $scope.pedirCodigo = function () {
+            console.log('entra');
+            $ionicAuth.requestPasswordReset($scope.email).then(function (err) {
+                console.log($scope.email);
+                if (err) {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
+                    });
+                } else {
+                    $state.go('cambiarClave');
+                }
+            });
+            $scope.iscategoriashown = function (categorias) {
+                return $scope.showncategorias === categorias;
+            };
+
+            $scope.toLocalidad = function (localidad) {
+
+            }
+            $scope.toSomos = function () { $state.go('app.somos'); }
+            $scope.goConfirmar = function () { $state.go('datosPedido'); }
+
+        }
+    })
+    ;
