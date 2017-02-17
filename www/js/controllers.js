@@ -619,23 +619,31 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('cambiarClaveCtrl', function ($scope, $state, $ionicAuth) {
 
+        $scope.details = { 'code': '', 'newPassword': '' };
+
+
+
+        $scope.toLogin = function () {
+            console.log($ionicAuth.confirmPasswordReset($scope.details['code'], $scope.details['newPassword']));
+        }
+
     })
-    .controller('recuperarClaveCtrl', function ($scope, $state, $ionicAuth) {
+    .controller('recuperarClaveCtrl', function ($scope, $ionicPopup, $state, $ionicAuth) {
         $scope.toLogin = function () { $state.go('login') };
 
+        $scope.details = { 'email': '' };
+
         $scope.pedirCodigo = function () {
-            console.log('entra');
-            $ionicAuth.requestPasswordReset($scope.email).then(function (err) {
-                console.log($scope.email);
-                if (err) {
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Error',
-                        template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
-                    });
-                } else {
-                    $state.go('cambiarClave');
-                }
-            });
+            if ($scope.details['email'] === undefined) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Vuelve a intentarlo',
+                    template: "<center>Tu correo es incorrecto.</center>" //+ err
+                });
+            }
+            else {
+                $ionicAuth.requestPasswordReset($scope.details['email']);
+                $state.go('cambiarClave');
+            }
             $scope.iscategoriashown = function (categorias) {
                 return $scope.showncategorias === categorias;
             };

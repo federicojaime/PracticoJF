@@ -10,17 +10,20 @@
             <div class="item item-text-wrap">
                 <div class="list">
                     <label class="item item-input item-floating-label">
-                        <input type="text" placeholder="Código de recuperación" ng-model="details.codigo" required>
+                        <input id="code" type="text" placeholder="Codigo "ng-model="details.code">
                     </label>
                     <label class="item item-input item-floating-label">
-                        <input type="password" placeholder="Nueva clave" ng-model="details.nuevaPass" required>
+                        <input id="newPassword" type="password" placeholder="Contraseña nueva "ng-model="details.newPassword">
                     </label>
+                </div>
+                <div class="item item-text-wrap">
+                    &nbsp; Revisa tu correo y encuentra un mail llamado "Password Reset" e ingresa el código y tu nueva contraseña.
                 </div>
             </div>
         </div>
         <center>
 
-            <div id="btnRecClave" class="button button-stable icon ion-paper-airplane boton" ng-click="toLogin()" ng-if="emailValido()">
+            <div id="btnRecClave" class="button button-stable icon ion-paper-airplane boton" ng-click="toLogin()">
                 Enviar
             </div>
         </center>
