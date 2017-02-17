@@ -89,7 +89,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                  console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
                  $state.go('principal')
              ).err*/
-            ($ionicAuth.login('facebook').then(
+            $ionicAuth.login('facebook').then(
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
                 }).then(function (t) {
@@ -97,7 +97,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 }),
                 console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
                 $state.go('principal')
-            ))
+            )
         }
 
         $scope.details = { 'email': '', 'password': '' };
@@ -616,22 +616,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
     })
 
-    .controller('recuperarClaveCtrl', function ($scope, $state, $ionicAuth) {
-        $scope.toLogin = function () { $state.go('login') };
+    .controller('recuperarClaveCtrl', function ($ionicPopup, $scope, $state, $ionicAuth) {
 
+        $scope.details = { 'email': '' };
         $scope.pedirCodigo = function () {
-            console.log('entra');
-            $ionicAuth.requestPasswordReset($scope.email).then(function (err) {
-                console.log($scope.email);
-                if (err) {
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Error',
-                        template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
-                    });
-                } else {
-                    $state.go('cambiarClave');
-                }
-            });
+            if ($scope.details.email != "") {
+                $scope.promesa = $ionicAuth.requestPasswordReset($scope.details.email)
+                console.log($scope.promesa.$$state.status)
+                console.log($scope.promesa)
+                console.log($scope.details.email);
+            }
+            else {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: "<center>Por favor ingresa un correo.</center>" //+ err
+                });
+            }
         }
     })
 
