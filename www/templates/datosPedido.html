@@ -1,8 +1,10 @@
 <link href="css/datosPedido.css" rel="stylesheet">
-<ion-view id="fondo">
+<ion-view id="fondo" style="min-height: 1000%;">
     <ion-content>
         <br>
-        <img id="logo" src="img/Logo.png" height="100%">
+        <div class="hide-on-keyboard-open">
+            <img id="logo" src="img/Logo.png" height="100%">
+        </div>
         <div class="list card">
             <label class="item item-input">
                 <input type="text" placeholder="Dirección" ng-model="direccion" required>
@@ -21,12 +23,14 @@
             </label>
         </div>
         <center>
-            <button class="button icon ion-paper-airplane boton jony" ng-click="toPrincipal()" ng-model="enviar">
+            <div class="hide-on-keyboard-open">
+                <button class="button icon ion-paper-airplane boton jony" ng-click="toPrincipal()" ng-model="enviar">
                 Enviar
             </button>
-            <button class="button button-dark icon ion-paper-airplane boton" ng-click="toLogin()" ng-model="enviar">
+                <button class="button button-dark icon ion-paper-airplane boton" ng-click="toLogin()" ng-model="enviar">
                 Enviar
             </button>
+            </div>
         </center>
     </ion-content>
 </ion-view>

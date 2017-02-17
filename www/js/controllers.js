@@ -170,11 +170,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     if (!$ionicAuth.isAuthenticated()) {
         $state.go('login');
     }
-    $scope.toLista = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('app.listadoRestaurantes');
-    }
-    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); });
-
+    $scope.toLista = function() { $state.go('app.listadoRestaurantes'); } //Redirecciona a la parte principal de la app
+    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Evita la acción de goBack() nativa
+    $scope.toSomos = function() { $state.go('somos') } //Redirecciona a Términos y Condiciones
+    $scope.toMapa = function() { $state.go('mapa2'); }
+    $scope.toFavoritos = function() { $state.go('app.favoritos'); }
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
