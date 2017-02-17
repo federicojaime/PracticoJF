@@ -167,14 +167,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 })
 
 .controller('inicioPpalCtrl', function($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
-    if (!$ionicAuth.isAuthenticated()) {
-        $state.go('login');
-    }
-    $scope.toLista = function() { //Redirecciona a la parte principal de la app. 
-        $state.go('app.listadoRestaurantes');
-    }
-    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); });
-
+    $scope.toLista = function() { $state.go('app.listadoRestaurantes'); } //Redirecciona a app.listadoRestaurantes 
+    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
+    $scope.toFavoritos = function() { $state.go('app.favoritos'); } //Redirecciona a app.favoritos 
+    $scope.toMapa = function() { $state.go('mapa2'); } //Redirecciona a mapa2
+    $scope.toSomos = function() { $state.go('app.somos'); } //Redirecciona a app.somos 
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
