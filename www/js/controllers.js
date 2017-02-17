@@ -57,9 +57,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
     }
     $scope.restaurantes = [
-        { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
-        { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/lafarola.jpg' },
-        { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/lafarola.jpg' },
+        { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
+        { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
+        { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
     ];
     $scope.estrella = []; //arreglo utilizado para generar el codigo. 
     $scope.estrellaVacias = [];
@@ -170,11 +170,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     if (!$ionicAuth.isAuthenticated()) {
         $state.go('login');
     }
-    $scope.toLista = function() { $state.go('app.listadoRestaurantes'); } //Redirecciona a la parte principal de la app
-    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Evita la acción de goBack() nativa
-    $scope.toSomos = function() { $state.go('somos') } //Redirecciona a Términos y Condiciones
-    $scope.toMapa = function() { $state.go('mapa2'); }
-    $scope.toFavoritos = function() { $state.go('app.favoritos'); }
+    $scope.toLista = function() { //Redirecciona a la parte principal de la app. 
+        $state.go('app.listadoRestaurantes');
+    }
+    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); });
+
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http) {
@@ -617,25 +617,34 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 })
 
-.controller('recuperarClaveCtrl', function($scope, $state, $ionicAuth) {
-    $scope.toLogin = function() { $state.go('login') };
-
-    $scope.pedirCodigo = function() {
-        console.log('entra');
-        $ionicAuth.requestPasswordReset($scope.email).then(function(err) {
-            console.log($scope.email);
-            if (err) {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Error',
-                    template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
-                });
-            } else {
-                $state.go('cambiarClave');
-            }
-        });
-    }
-})
-
 .controller('cambiarClaveCtrl', function($scope, $state, $ionicAuth) {
 
-});
+    })
+    .controller('recuperarClaveCtrl', function($scope, $state, $ionicAuth) {
+        $scope.toLogin = function() { $state.go('login') };
+
+        $scope.pedirCodigo = function() {
+            console.log('entra');
+            $ionicAuth.requestPasswordReset($scope.email).then(function(err) {
+                console.log($scope.email);
+                if (err) {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
+                    });
+                } else {
+                    $state.go('cambiarClave');
+                }
+            });
+            $scope.iscategoriashown = function(categorias) {
+                return $scope.showncategorias === categorias;
+            };
+
+            $scope.toLocalidad = function(localidad) {
+
+            }
+            $scope.toSomos = function() { $state.go('app.somos'); }
+            $scope.goConfirmar = function() { $state.go('datosPedido'); }
+
+        }
+    });
