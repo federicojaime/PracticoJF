@@ -311,7 +311,27 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toSomos = function() { $state.go('app.somos') };
 })
 
-.controller('contactanosCtrl', function($scope, $state) {})
+.controller('contactanosCtrl', function($scope) {
+    $scope.llamar = function() {
+
+    }
+    $scope.enviarSms = function() {
+
+    }
+    $scope.enviarEmail = function() {
+        cordova.plugins.email.open({
+            to: 'gsebastianlopezillia@gmail.com',
+            cc: null,
+            bcc: null,
+            subject: "Contacto JonyFood",
+            body: null
+        });
+    }
+    $scope.whatsApp = function() {
+
+    }
+})
+
 
 .controller('listRestaurantesCtrl', function($scope, $state, $http, $ionicLoading) {
 

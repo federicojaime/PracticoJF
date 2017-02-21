@@ -28,3 +28,48 @@
     padding: 0% 0% 0% 0%;
     margin: 0% 0% 0% 0%;
 }
+
+
+/*Comienzo estilos de admin-contactanos.html*/
+
+.cardContacto {
+    background-color: #E4DFDE;
+    margin-top: 20%;
+    opacity: 0.9;
+}
+
+.itemContacto {
+    width: 30%;
+    height: 50%;
+    display: inline-block;
+    background-color: transparent;
+}
+
+.itemWrapContacto {
+    background-color: transparent;
+}
+
+.imagenContacto {
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+item.sup {
+    margin: 0% 0% 15% 0%
+}
+
+.itemInf {
+    margin: 15% 0% 0% 0%
+}
+
+.itemDer {
+    margin: 0% 0% 0% 15%
+}
+
+.itemIza {
+    margin: 0% 15% 0% 0%
+}
+
+
+/*Fin estilos de admin-contactanos.html*/

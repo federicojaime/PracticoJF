@@ -3,26 +3,27 @@
     <ion-content>
         <br>
         <img id="logo" src="img/Logo.png" height="100%">
-        <div class="card">
+        <div class="card cardContacto">
             <div class="item item-divider item-dark">
-                <center>Contactenos</center>
+                <center>Contáctanos</center>
             </div>
-            <div class="item item-text-wrap">
-                <div class="list">
-                    <label class="item item-input item-floating-label">
-                        <input type="tel" placeholder="Teléfono" ng-model="telefono" maxlength="14">
-                    </label>
-                    <label class="item itenput item-floating-label">
-                        <input type="text" placeholder="Mensaje" ng-model="mensaje" maxlength="100">
-                    </label>
-                </div>
+            <div class="item item-text-wrap itemWrapContacto">
+                <center>
+                    <div class="itemContacto itemSup itemIzq">
+                        <a href="#"><img src="img/contactanos/btnTl.png" class="imagenContacto" ng-click="llamar()"></a>
+                    </div>
+                    <div class="itemContacto itemSup itemDer"><img src="img/contactanos/btnSms.png" class="imagenContacto" ng-click="enviarSms()"></div>
+                    <div class="itemContacto itemInf itemIzq"><img src="img/contactanos/btnGm.png" class="imagenContacto" ng-click="enviarEmail()"></div>
+                    <div class="itemContacto itemInf itemDer"><img src="img/contactanos/btnWa.png" class="imagenContacto" ng-click="whatsApp()"></div>
+                </center>
             </div>
-
         </div>
+        <!--
         <center>
-            <button class="button button-dark icon ion-paper-airplane boton" ng-click="toLogin()" ng-model="enviar">
+            <button class="button button-dark icon ion-paper-airplane boton" ng-click="enviarEmail()" ng-model="enviar">
                 Enviar
             </button>
         </center>
+        -->
     </ion-content>
 </ion-view>
