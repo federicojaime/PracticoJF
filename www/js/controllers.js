@@ -311,7 +311,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toSomos = function() { $state.go('app.somos') };
 })
 
-.controller('contactanosCtrl', function($scope) {
+.controller('contactanosCtrl', function($scope, $cordovaAppAvailability) {
+    /*document.addEventListener("deviceready", function() {
+
+        $cordovaAppAvailability.check('com.twitter.android || com.facebook.katana || com.whatsapp')
+        IMPLEMENTAR ESTAS VERIFICACIONES EN LOGIN
+          .then(function() {
+            // is available
+          }, function () {
+            // not available
+          });*/
     $scope.llamar = function() {
 
     }
