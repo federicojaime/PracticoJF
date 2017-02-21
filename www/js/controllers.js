@@ -342,11 +342,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $cordovaSms.send('+540265715218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
                 .then(function() {
                     // Success! SMS was sent
+                    $state.go('principal');
                     var alertPopup = $ionicPopup.alert({
                         title: 'Enviado',
                         template: "Tu mensaje se envió con éxito. En breves nos comunicaremos contigo."
                     });
-                    $state.go('principal');
                 }, function(error) {
                     // An error occurred
                     var alertPopup = $ionicPopup.alert({
@@ -358,14 +358,22 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 
     $scope.enviarEmail = function() {
+        if (cordova.plugins.email.isAvailable()) {
+            cordova.plugins.email.open({
+                to: 'gsebastianlopezillia@gmail.com', //CAMBIAR DIRECCIÓN DE E-MAIL
+                cc: null,
+                bcc: null,
+                subject: "Contacto JonyFood",
+                body: null
+            });
+        } else {
+            $state.go('contactanos');
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'Tu dispositivo debe contar con la App de Gmail para realizar esta acción.'
+            });
+        }
 
-        cordova.plugins.email.open({
-            to: 'gsebastianlopezillia@gmail.com',
-            cc: null,
-            bcc: null,
-            subject: "Contacto JonyFood",
-            body: null
-        });
     }
 
     $scope.whatsApp = function() {
