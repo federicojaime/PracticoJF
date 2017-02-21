@@ -311,7 +311,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toSomos = function() { $state.go('app.somos') };
 })
 
-.controller('contactanosCtrl', function($scope, $cordovaAppAvailability) {
+.controller('contactanosCtrl', function($scope, $state, $cordovaAppAvailability, $cordovaSms, $ionicAuth, $ionicUser, $ionicPopup) {
     /*document.addEventListener("deviceready", function() {
 
         $cordovaAppAvailability.check('com.twitter.android || com.facebook.katana || com.whatsapp')
@@ -324,10 +324,41 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.llamar = function() {
 
     }
-    $scope.enviarSms = function() {
 
+    $scope.enviarSms = function() {
+        $ionicUser.load().then(function() {
+            // success!
+            var mensaje = 'Contacto del usuario ' + $ionicUser.details.name + "e-mail: " + $ionicUser.details.email;
+
+            var options = {
+                replaceLineBreaks: false, // true to replace \n by a new line, false by default
+                android: {
+                    intent: 'INTENT' // send SMS with the native android SMS messaging
+                        //intent: '' // send SMS without open any other app
+                }
+            };
+
+
+            $cordovaSms.send('+540265715218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
+                .then(function() {
+                    // Success! SMS was sent
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Enviado',
+                        template: "Tu mensaje se envió con éxito. En breves nos comunicaremos contigo."
+                    });
+                    $state.go('principal');
+                }, function(error) {
+                    // An error occurred
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: "Hemos registrado un problema al procesar el pedido, inténtalo nuevamente!."
+                    });
+                });
+        });
     }
+
     $scope.enviarEmail = function() {
+
         cordova.plugins.email.open({
             to: 'gsebastianlopezillia@gmail.com',
             cc: null,
@@ -336,7 +367,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             body: null
         });
     }
+
     $scope.whatsApp = function() {
+        $cordovaAppAvailability.check('com.whatsapp')
+            .then(function() {
+                // is available
+            }, function() {
+                // not available
+            });
 
     }
 })
