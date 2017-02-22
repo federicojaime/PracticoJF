@@ -51,4 +51,7 @@
         <variable name="APP_NAME" value="Jony Food" />
     </plugin>
     <plugin name="cordova-plugin-inappbrowser" spec="~1.6.1" />
+    <feature name="Whatsapp">
+        <param name="android-package" value="mobi.moica.whatsapp.Whatsapp" />
+    </feature>
 </widget>

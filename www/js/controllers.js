@@ -35,15 +35,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.toCambiarCdad = function () { //Redirecciona al template de cambiarCdad
             $state.go('app.cambiarCdad');
         }
-
-        $scope.toCerrasSession = function () { //Redirecciona al template de cambiarCdad
+        $scope.toCerrasSession = function () { //Cierra Session y dirige  al template de login
             $ionicAuth.logout();
-            $scope.showToast = function () {
-                //ionicToast.show(message, position, stick, time); -->
-                ionicToast.show('This is a toast at the top.', 'top', true, 2500);
-            };
             $state.go('login');
         }
+
 
     })
 
@@ -184,7 +180,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                     name: $scope.details['name'],
                     token: $scope.token
                 }
-            };
+            }
             $http(req).then(function (response) {
                 if (response.data.error) {
                     alert(response.data.msg);
@@ -215,19 +211,17 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         });
                     }
                 }
-            })
+            }
+            )
         }
     })
 
     .controller('inicioPpalCtrl', function ($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
-        if (!$ionicAuth.isAuthenticated()) {
-            $state.go('login');
-        }
-        $scope.toLista = function () { //Redirecciona a la parte principal de la app. 
-            $state.go('app.listadoRestaurantes');
-        }
-        $ionicPlatform.onHardwareBackButton(function () { $state.go('principal'); });
-
+        $scope.toLista = function () { $state.go('app.listadoRestaurantes'); } //Redirecciona a app.listadoRestaurantes 
+        $ionicPlatform.onHardwareBackButton(function () { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
+        $scope.toFavoritos = function () { $state.go('app.favoritos'); } //Redirecciona a app.favoritos 
+        $scope.toMapa = function () { $state.go('mapa2'); } //Redirecciona a mapa2
+        $scope.toSomos = function () { $state.go('app.somos'); } //Redirecciona a app.somos 
     })
 
     .controller('cambiarCdadCtrl', function ($scope, $state, $http) {
@@ -367,7 +361,97 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.toSomos = function () { $state.go('app.somos') };
     })
 
-    .controller('contactanosCtrl', function ($scope, $state) { })
+    .controller('contactanosCtrl', function ($scope, $state, $cordovaAppAvailability, $cordovaSms, $ionicAuth, $ionicUser, $ionicPopup) {
+        /*document.addEventListener("deviceready", function() {
+    
+            $cordovaAppAvailability.check('com.twitter.android || com.facebook.katana || com.whatsapp')
+            IMPLEMENTAR ESTAS VERIFICACIONES EN LOGIN
+              .then(function() {
+                // is available
+              }, function () {
+                // not available
+              });*/
+        //$ionicPlatform.onHardwareBackButton(function() { $state.go('contactanos'); });
+        $scope.llamar = function () {
+            var number = '+54266154582100';
+            var onSuccess = function () {
+                $state.go('principal');
+            };
+            var onError = function () {
+                $state.go('contactanos');
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'El permiso requerido no ha sido entregado.'
+                });
+            }
+            window.plugins.CallNumber.callNumber(onSuccess, onError, number, true);
+        }
+
+        $scope.enviarSms = function () {
+            $ionicUser.load().then(function () {
+                // success!
+                var mensaje = 'Contacto del usuario ' + $ionicUser.details.name + " e-mail: " + $ionicUser.details.email;
+
+                var options = {
+                    replaceLineBreaks: false, // true to replace \n by a new line, false by default
+                    android: {
+                        intent: 'INTENT' // send SMS with the native android SMS messaging
+                        //intent: '' // send SMS without open any other app
+                    }
+                };
+                $cordovaSms.send('2657218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
+                    .then(function () {
+                        // Success! SMS was sent
+                        $state.go('principal');
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Enviado',
+                            template: "Tu mensaje se envió con éxito. En breves nos comunicaremos contigo."
+                        });
+                    }, function (error) {
+                        // An error occurred
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: "Hemos registrado un problema al procesar el pedido, inténtalo nuevamente!."
+                        });
+                    });
+            });
+        }
+
+        $scope.enviarEmail = function () {
+            if (true) {
+                cordova.plugins.email.open({
+                    to: 'gsebastianlopezillia@gmail.com', //CAMBIAR DIRECCIÓN DE E-MAIL
+                    cc: null,
+                    bcc: null,
+                    subject: "Contacto JonyFood",
+                    body: null
+                });
+            } else {
+                $state.go('contactanos');
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'Tu dispositivo debe contar con la App de Gmail para realizar esta acción.'
+                });
+            }
+        }
+
+        $scope.whatsApp = function () {
+            $cordovaAppAvailability.check('com.whatsapp')
+                .then(function () {
+                    cordova.plugins.Whatsapp.send("2657218215");
+
+                    // is available
+                }, function () {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Error',
+                        template: 'Tu dispositivo debe contar con la App WhatsApp instalada para realizar esta acción.'
+                    });
+                    // not available
+                });
+
+        }
+    })
+
 
     .controller('listRestaurantesCtrl', function ($scope, $state, $http, $ionicLoading) {
 
@@ -683,6 +767,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
 
     })
+
     .controller('recuperarClaveCtrl', function ($scope, $ionicPopup, $state, $ionicAuth) {
         $scope.toLogin = function () { $state.go('login') };
 
@@ -710,5 +795,4 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $scope.goConfirmar = function () { $state.go('datosPedido'); }
 
         }
-    })
-    ;
+    });

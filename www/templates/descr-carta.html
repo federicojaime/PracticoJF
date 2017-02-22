@@ -71,13 +71,13 @@
                             </ion-item>
                             <ion-item class="item-accordion" ng-repeat="z in categoria[1]" ng-show="iscategoriashown(categoria)" ng-click="toLocalidad(localidad)">
                                 <div>
-                                    <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)"></a>
                                     <p><b>{{z.descripcion}}  ${{z.costo}}</b></p>
                                     <div class="list lista">
-                                        <label class="item item-input item-select">                           Cantidad:
-                                            <div class="input-label"></div>
+                                        <label class="item item-input item-select" style="display: inline-block; width: 90%; margin: 0% 3% 0% 0%;">                           Cantidad:
+                                            <!--<div class="input-label"></div>-->
                                             <select name="mySelect" id="mySelect" style="float:left;" ng-options="option.id for option in numerosCantidad.availableOptions track by option.id" ng-model="numerosCantidad.selectedOption"></select>
                                         </label>
+                                        <a class="button button-small button-dark  icon ion-plus-round " ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)" style="display: inline-block;"></a>
                                     </div>
                                 </div>
                                 <br>
