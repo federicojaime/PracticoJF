@@ -75,7 +75,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     })
 
-    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
+    .controller('loginCtrl', function ($scope, $state, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
+        $scope.token = '';
         $scope.iniciaFacebook = function () { // inicia session en el caso de que eliga el boton de facebook.
             /* $ionicFacebookAuth.login().then(
                  $ionicPush.register().then(function(t) {
@@ -107,7 +108,32 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $ionicAuth.login('basic', $scope.details).then(function () {
                 $ionicPush.register().then(function (t) {
                     return $ionicPush.saveToken(t);
-                }).then(function (t) { });
+                }).then(function (t) {
+                    $scope.token = t.token;
+                    alert("1 - " + $scope.token);
+                }).then(function () {
+                    var req = {
+                        method: "POST",
+                        dataType: "json",
+                        url: "http://nerdgroups.com/jonyfood/appcalls/adduser.php",
+                        headers: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                        },
+                        data: {
+                            mail: $scope.details['email'],
+                            password: $scope.details['password'],
+                            name: $scope.details['name'],
+                            token: $scope.token
+                        }
+
+                    }
+                    alert("2 - " + req.data.token);
+                    $http(req).then(function (response) {
+                        if (response.data.error) {
+                            alert(response.data.msg);
+                        }
+                    });
+                });
                 $state.go('principal');
             }, function (err) {
                 var alertPopup = $ionicPopup.alert({
@@ -129,7 +155,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
     })
 
-    .controller('registroCtrl', function ($scope, $state, $ionicAuth, $ionicUser, $ionicPopup) {
+    .controller('registroCtrl', function ($scope, $http, $state, $ionicPush, $ionicAuth, $ionicUser, $ionicPopup) {
+
         $scope.toSomos = function () { $state.go('terminosCondiciones'); }
         $scope.details = { 'email': '', 'password': '', 'username': '', 'name': '' };
         $scope.acepto = false; //Variable para que aparezca y desparezca el boton "REGISTRARSE", si acepta los term y condiciones.
@@ -137,6 +164,32 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             if ($scope.acepto == false) { $scope.acepto = true; } else { $scope.acepto = false; }
         }
         $scope.toLogin = function () {
+            $scope.token = '';
+            $ionicPush.register().then(function (t) {
+                return $ionicPush.saveToken(t);
+            }).then(function (t) {
+                $scope.token = t.token;
+                alert($scope.token);
+            })
+            var req = {
+                method: "POST",
+                dataType: "json",
+                url: "http://nerdgroups.com/jonyfood/appcalls/adduser.php",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded"
+                },
+                data: {
+                    mail: $scope.details['email'],
+                    password: $scope.details['password'],
+                    name: $scope.details['name'],
+                    token: $scope.token
+                }
+            };
+            $http(req).then(function (response) {
+                if (response.data.error) {
+                    alert(response.data.msg);
+                }
+            });
             $ionicAuth.signup($scope.details).then(function () {
                 var alertPopup = $ionicPopup.alert({
                     title: 'Te registraste!',
@@ -617,14 +670,16 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
     })
 
-    .controller('cambiarClaveCtrl', function ($scope, $state, $ionicAuth) {
+    .controller('cambiarClaveCtrl', function ($scope, $ionicPopup, $state, $ionicAuth) {
 
         $scope.details = { 'code': '', 'newPassword': '' };
-
-
-
         $scope.toLogin = function () {
             console.log($ionicAuth.confirmPasswordReset($scope.details['code'], $scope.details['newPassword']));
+            var alertPopup = $ionicPopup.alert({
+                title: 'Listo',
+                template: "<center>Se restablecio tu contraseña.</center>" //+ err
+            });
+            $state.go('login');
         }
 
     })
