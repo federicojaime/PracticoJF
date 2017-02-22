@@ -321,14 +321,26 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
           }, function () {
             // not available
           });*/
+    //$ionicPlatform.onHardwareBackButton(function() { $state.go('contactanos'); });
     $scope.llamar = function() {
-
+        var number = '+54266154582100';
+        var onSuccess = function() {
+            $state.go('principal');
+        };
+        var onError = function() {
+            $state.go('contactanos');
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error',
+                template: 'El permiso requerido no ha sido entregado.'
+            });
+        }
+        window.plugins.CallNumber.callNumber(onSuccess, onError, number, true);
     }
 
     $scope.enviarSms = function() {
         $ionicUser.load().then(function() {
             // success!
-            var mensaje = 'Contacto del usuario ' + $ionicUser.details.name + "e-mail: " + $ionicUser.details.email;
+            var mensaje = 'Contacto del usuario ' + $ionicUser.details.name + " e-mail: " + $ionicUser.details.email;
 
             var options = {
                 replaceLineBreaks: false, // true to replace \n by a new line, false by default
@@ -337,9 +349,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         //intent: '' // send SMS without open any other app
                 }
             };
-
-
-            $cordovaSms.send('+540265715218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
+            $cordovaSms.send('2657218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
                 .then(function() {
                     // Success! SMS was sent
                     $state.go('principal');
@@ -358,7 +368,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 
     $scope.enviarEmail = function() {
-        if (cordova.plugins.email.isAvailable()) {
+        if (true) {
             cordova.plugins.email.open({
                 to: 'gsebastianlopezillia@gmail.com', //CAMBIAR DIRECCIÓN DE E-MAIL
                 cc: null,
@@ -373,14 +383,19 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 template: 'Tu dispositivo debe contar con la App de Gmail para realizar esta acción.'
             });
         }
-
     }
 
     $scope.whatsApp = function() {
         $cordovaAppAvailability.check('com.whatsapp')
             .then(function() {
+                cordova.plugins.Whatsapp.send("2657218215");
+
                 // is available
             }, function() {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Error',
+                    template: 'Tu dispositivo debe contar con la App WhatsApp instalada para realizar esta acción.'
+                });
                 // not available
             });
 
