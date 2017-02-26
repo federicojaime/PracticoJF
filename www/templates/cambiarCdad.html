@@ -14,9 +14,9 @@
                 <ion-item class="item-stable" ng-click="toggleprovincias(provincia)" ng-class="{active: isprovinciashown(provincia)}">
                     <i class="icon" ng-class="isprovinciashown(provincia) ? 'ion-log-out' : 'ion-log-in'"></i> &nbsp; {{provincia[0].descripcion}}
                 </ion-item>
-                <ion-item class="item-accordion" ng-repeat="z in provincia[1]" ng-show="isprovinciashown(provincia)" ng-click="toMapaLocalidad(localidad)">
+                <ion-item class="item-accordion" ng-repeat="z in provincia[1]" ng-show="isprovinciashown(provincia)">
                     <div class="">
-                        <p><b>{{z.descripcion}}  ${{z.costo}}</b></p>
+                        <p><a href="#/mapaLocalidad/82"><b>{{z.descripcion}}  ${{z.costo}}</b></a></p>
 
                     </div>
                     <br>

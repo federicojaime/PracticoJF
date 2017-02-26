@@ -787,13 +787,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.iscategoriashown = function(categorias) {
             return $scope.showncategorias === categorias;
         };
-
-        $scope.toLocalidad = function(localidad) {
-
-        }
-        $scope.toSomos = function() { $state.go('app.somos'); }
-        $scope.goConfirmar = function() { $state.go('datosPedido'); }
-
     }
 })
 
@@ -822,4 +815,18 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.estrellaVacias.push({});
     }
     $scope.toSomos = function() { $state.go('app.somos'); }
+})
+
+.controller('MapLocCtrl', function($timeout, $scope, $ionicLoading, $cordovaGeolocation, $compile, $ionicPopup, $http, $stateParams, User) {
+
+    $scope.datamap = { //Datos del mapa a crear, el resto de los datos se encuentran en directives.js
+        titulo: "Hola",
+        centro: {
+            lat: 50,
+            lng: 2
+        },
+        localidad: $stateParams.localidad,
+        zoom: 16,
+        marcas: []
+    };
 });
