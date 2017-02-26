@@ -117,7 +117,7 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
                 }
             })
 
-            .state('app.contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
+            .state('contactanos', { //Pantalla inicio, donde aparecen los restaurantes. 
                 url: '/contactanos',
                 templateUrl: 'templates/admin-contactanos.html',
                 controller: 'contactanosCtrl'
