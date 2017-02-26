@@ -112,7 +112,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }, function(err) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: err.message //"Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
+                template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
             });
         })
     }
@@ -408,7 +408,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $cordovaSms.send('2657218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
                 .then(function() {
                     // Success! SMS was sent
-                    $state.go('principal');
+                    //$state.go('principal');
                     var alertPopup = $ionicPopup.alert({
                         title: 'Enviado',
                         template: "Tu mensaje se envió con éxito. En breves nos comunicaremos contigo."
@@ -433,7 +433,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 body: null
             });
         } else {
-            $state.go('contactanos');
+            //$state.go('contactanos');
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
                 template: 'Tu dispositivo debe contar con la App de Gmail para realizar esta acción.'
@@ -444,7 +444,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.whatsApp = function() {
         $cordovaAppAvailability.check('com.whatsapp')
             .then(function() {
-                cordova.plugins.Whatsapp.send("2657218215");
+                cordova.plugins.Whatsapp.send("2657218215"); //REEMPLAZAR NÚMERO DE TELÉFONO
 
                 // is available
             }, function() {
