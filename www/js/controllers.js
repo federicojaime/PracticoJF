@@ -35,42 +35,12 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toCambiarCdad = function() { //Redirecciona al template de cambiarCdad
         $state.go('app.cambiarCdad');
     }
+
     $scope.toCerrasSession = function() { //Cierra Session y dirige  al template de login
         $ionicAuth.logout();
         $state.go('login');
     }
-
-
 })
-
-.controller('favoritosCtrl', function($scope, $state) {
-        $scope.buscar = false;
-        $scope.buscador = function() {
-            if ($scope.buscar == true) {
-                $scope.buscar = false;
-            } else {
-                $scope.buscar = true;
-            }
-        }
-        $scope.restaurantes = [
-            { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
-            { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
-            { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
-        ];
-        $scope.estrella = []; //arreglo utilizado para generar el codigo. 
-        $scope.estrellaVacias = [];
-        $scope.rating = 3;
-        if ($scope.rating > 0) { $scope.votos = "true"; }
-        for (var i = 0; i < $scope.rating; i++) {
-            $scope.estrella.push({});
-        }
-        while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
-            $scope.estrellaVacias.push({});
-        }
-        $scope.toSomos = function() { $state.go('app.somos'); }
-
-    }) //casi
-
 
 .controller('loginCtrl', function($scope, $state, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
     $scope.token = '';
@@ -220,10 +190,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 .controller('inicioPpalCtrl', function($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
     $scope.toLista = function() { $state.go('app.listadoRestaurantes'); } //Redirecciona a app.listadoRestaurantes 
-    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
     $scope.toFavoritos = function() { $state.go('app.favoritos'); } //Redirecciona a app.favoritos 
     $scope.toMapa = function() { $state.go('mapa2'); } //Redirecciona a mapa2
     $scope.toSomos = function() { $state.go('app.somos'); } //Redirecciona a app.somos 
+    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http, $ionicLoading, $ionicPopup) {
@@ -283,14 +253,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toMapaLocalidad = function(localidad) { $state.go('app.mapaLocalidad'); }
     $scope.toSomos = function() { $state.go('app.somos'); }
 
-})
-
-.controller('inicioPpalCtrl', function($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
-    $scope.toLista = function() { $state.go('app.listadoRestaurantes'); } //Redirecciona a app.listadoRestaurantes 
-    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
-    $scope.toFavoritos = function() { $state.go('app.favoritos'); } //Redirecciona a app.favoritos 
-    $scope.toMapa = function() { $state.go('mapa2'); } //Redirecciona a mapa2
-    $scope.toSomos = function() { $state.go('app.somos'); } //Redirecciona a app.somos 
 })
 
 .controller('misPedidosCtrl', function($ionicPlatform, $state, $ionicHistory, $ionicLoading, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
@@ -420,7 +382,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 .controller('contactanosCtrl', function($scope, $state, $cordovaAppAvailability, $cordovaSms, $ionicAuth, $ionicUser, $ionicPopup) {
     /*document.addEventListener("deviceready", function() {
-    
             $cordovaAppAvailability.check('com.twitter.android || com.facebook.katana || com.whatsapp')
             IMPLEMENTAR ESTAS VERIFICACIONES EN LOGIN
               .then(function() {
@@ -431,9 +392,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     //$ionicPlatform.onHardwareBackButton(function() { $state.go('contactanos'); });
     $scope.llamar = function() {
         var number = '+54266154582100';
-        var onSuccess = function() {
-            $state.go('principal');
-        };
+        var onSuccess = function() { $state.go('contactanos'); };
         var onError = function() {
             $state.go('contactanos');
             var alertPopup = $ionicPopup.alert({
@@ -459,11 +418,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $cordovaSms.send('2657218215', mensaje, options) //REEMPLAZAR NÚMERO DE TELÉFONO
                 .then(function() {
                     // Success! SMS was sent
-                    $state.go('principal');
-                    var alertPopup = $ionicPopup.alert({
-                        title: 'Enviado',
-                        template: "Tu mensaje se envió con éxito. En breves nos comunicaremos contigo."
-                    });
+                    $state.go('contactanos');
                 }, function(error) {
                     // An error occurred
                     var alertPopup = $ionicPopup.alert({
@@ -484,7 +439,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 body: null
             });
         } else {
-            $state.go('contactanos');
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
                 template: 'Tu dispositivo debe contar con la App de Gmail para realizar esta acción.'
@@ -496,7 +450,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $cordovaAppAvailability.check('com.whatsapp')
             .then(function() {
                 cordova.plugins.Whatsapp.send("2657218215");
-
                 // is available
             }, function() {
                 var alertPopup = $ionicPopup.alert({
@@ -844,4 +797,29 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     }
 })
 
-;
+.controller('favoritosCtrl', function($scope, $state) {
+    $scope.buscar = false;
+    $scope.buscador = function() {
+        if ($scope.buscar == true) {
+            $scope.buscar = false;
+        } else {
+            $scope.buscar = true;
+        }
+    };
+    $scope.restaurantes = [
+        { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
+        { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
+        { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
+    ];
+    $scope.estrella = []; //arreglo utilizado para generar el codigo. 
+    $scope.estrellaVacias = [];
+    $scope.rating = 3;
+    if ($scope.rating > 0) { $scope.votos = "true"; }
+    for (var i = 0; i < $scope.rating; i++) {
+        $scope.estrella.push({});
+    }
+    while ($scope.estrella.length + $scope.estrellaVacias.length < 5) {
+        $scope.estrellaVacias.push({});
+    }
+    $scope.toSomos = function() { $state.go('app.somos'); }
+});
