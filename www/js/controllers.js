@@ -174,20 +174,75 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toSomos = function() { $state.go('app.somos'); } //Redirecciona a app.somos 
 })
 
-.controller('cambiarCdadCtrl', function($scope, $state, $http) {
-    $scope.provincias = [];
-    for (var i = 0; i < 10; i++) {
-        $scope.provincias[i] = {
-            name: i,
-            localidades: []
-        };
-    }
-    $scope.isprovinciashown = function(provincias) {
-        return $scope.shownprovincias === provincias;
+.controller('cambiarCdadCtrl', function($scope, $state, $http, $ionicLoading, $ionicPopup) {
+
+    $scope.provincias = null;
+
+    $scope.i = 0;
+    $scope.show = function() {
+        $scope.i++;
+        $ionicLoading.show({
+            template: 'Cargando...',
+            duration: 9
+        }).then(function() {
+            if ($scope.provincias != null) {
+                console.log("estoy6")
+                return $scope.hide();
+            }
+            if ($scope.i > 3000) {
+                if ($scope.provincias != null) {
+                    console.log("estoy1")
+                    return
+                    $scope.hide();
+                }
+                var alertPopup = $ionicPopup.alert({
+                    title: '¡Problemas con internet!',
+                    template: '<center>Esto esta tardando demasiado, si puedes vuelve mas tarde. </center>'
+                });
+            } else {
+                $http.get("http://alaordenapp.com/alaorden/php/lcatcom.php?idcomercio=18").success(function(dato) {
+                    console.log('0')
+                    $scope.provincias = dato;
+                    if ($scope.provincias != null) {
+                        $scope.i = 4000;
+                        return "I'm going to work.";
+                    }
+                });
+            }
+        });
+    };
+    $scope.hide = function() {
+        $ionicLoading.hide().then(function() {
+            return
+        });
     };
 
-    $scope.toLocalidad = function(localidad) {
+    $scope.show();
 
+    //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
+
+
+    /*for (var i = 0; i < 10; i++) {
+        $scope.provincias[i] = {
+            name: i,
+            localidades: ['uno', 'dos', 'tres']
+        };
+    }*/
+
+    $scope.toggleprovincias = function(provincias) {
+        if ($scope.isprovinciashown(provincias)) {
+            $scope.shownprovincias = null;
+        } else {
+            $scope.shownprovincias = provincias;
+        }
+    }
+
+    $scope.isprovinciashown = function(provincia) {
+        return $scope.shownprovincias === provincia;
+    };
+
+    $scope.toMapaLocalidad = function(localidad) {
+        $state.go('app.mapaLocalidad');
     }
     $scope.toSomos = function() { $state.go('app.somos'); }
 
@@ -325,7 +380,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.llamar = function() {
         var number = '+54266154582100';
         var onSuccess = function() {
-            $state.go('principal');
+            $state.go('contactanos');
         };
         var onError = function() {
             $state.go('contactanos');
@@ -335,6 +390,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             });
         }
         window.plugins.CallNumber.callNumber(onSuccess, onError, number, true);
+
     }
 
     $scope.enviarSms = function() {

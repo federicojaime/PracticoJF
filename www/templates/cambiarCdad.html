@@ -12,10 +12,14 @@
         <ion-list>
             <div ng-repeat="provincia in provincias">
                 <ion-item class="item-stable" ng-click="toggleprovincias(provincia)" ng-class="{active: isprovinciashown(provincia)}">
-                    <i class="icon" ng-class="isprovinciashown(provincia) ? 'ion-log-out' : 'ion-log-in'"></i> &nbsp; Provincia {{provincia.name}}
+                    <i class="icon" ng-class="isprovinciashown(provincia) ? 'ion-log-out' : 'ion-log-in'"></i> &nbsp; {{provincia[0].descripcion}}
                 </ion-item>
-                <ion-item class="item-accordion" ng-repeat="localidad in provincia.localidades" ng-show="isprovinciashown(provincia)" ng-click="toLocalidad(localidad)">
-                    &nbsp; Localidad {{localidad}}
+                <ion-item class="item-accordion" ng-repeat="z in provincia[1]" ng-show="isprovinciashown(provincia)" ng-click="toMapaLocalidad(localidad)">
+                    <div class="">
+                        <p><b>{{z.descripcion}}  ${{z.costo}}</b></p>
+
+                    </div>
+                    <br>
                 </ion-item>
             </div>
         </ion-list>

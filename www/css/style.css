@@ -116,10 +116,10 @@ body {
     white-space: normal;
 }
 
-.descrip{
+.descrip {
     white-space: normal;
-    
 }
+
 .descrip h2 {
     white-space: normal
 }
@@ -132,8 +132,8 @@ body {
     white-space: normal
 }
 
-
-.item-avatar i:first-child, .item-avatar .item-img {
+.item-avatar i:first-child,
+.item-avatar .item-img {
     position: absolute;
     top: 15px;
     left: 15px;
@@ -141,14 +141,13 @@ body {
     max-width: 40px;
     max-height: 40px;
     width: 100%;
-    border-radius: 4px; }
-
-
-/*HOJA DE ESTILO PARA 'cambiarCdad'*/
+    border-radius: 4px;
+}
 
 .list .item.item-accordion {
-    line-height: 38px;
-    padding-top: 0;
+    line-height: normal;
+    padding-top: 6%;
+    padding-left: 2%;
     padding-bottom: 0;
     transition: 0.09s all linear;
 }
@@ -162,17 +161,16 @@ body {
     display: block !important;
 }
 
-.combo select{
+.combo select {
     width: 20%
 }
 
 .map {
     width: 100%;
     height: 100%;
- 
- }
+}
 
-	#gmaps {
-		width: 100%;
-		height: 100%;
-	}
+#gmaps {
+    width: 100%;
+    height: 100%;
+}
