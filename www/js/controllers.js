@@ -104,7 +104,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     $scope.details = { 'email': '', 'password': '' };
     $scope.toPrincipal = function() {
-        $ionicAuth.login('basic', $scope.details).then(function() {
+        $ionicAuth.login('basic', $scope.details, { 'remember': true }).then(function() { //agregue remember: true
             $ionicPush.register().then(function(t) {
                 return $ionicPush.saveToken(t);
             }).then(function(t) {});
@@ -112,7 +112,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }, function(err) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
-                template: "Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
+                template: err.message //"Tu correo o contraseña son incorrectos, vuelve a intentarlo." //+ err
             });
         })
     }
