@@ -101,7 +101,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                     }
                 });
             })
-            $state.go('principal');
+            $state.go('principal', null, { reload: true });
         }, function(err) {
             var alertPopup = $ionicPopup.alert({
                 title: 'Error',
