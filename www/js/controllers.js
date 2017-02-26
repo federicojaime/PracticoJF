@@ -17,7 +17,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }
 
         $scope.toContactanos = function () { //Redirecciona a la parte principal de la app.
-            $state.go('contactanos');
+            $state.go('app.contactanos');
         }
 
         $scope.toMisPedidos = function () { //Redirecciona a misPedidos.
@@ -222,7 +222,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     .controller('inicioPpalCtrl', function ($scope, $state, $ionicUser, $ionicAuth, $ionicPlatform) {
         $scope.toLista = function () { $state.go('app.listadoRestaurantes'); } //Redirecciona a app.listadoRestaurantes 
-        $ionicPlatform.onHardwareBackButton(function () { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
+        //$ionicPlatform.onHardwareBackButton(function () { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
         $scope.toFavoritos = function () { $state.go('app.favoritos'); } //Redirecciona a app.favoritos 
         $scope.toMapa = function () { $state.go('mapa2'); } //Redirecciona a mapa2
         $scope.toSomos = function () { $state.go('app.somos'); } //Redirecciona a app.somos 
