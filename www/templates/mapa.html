@@ -1,27 +1,6 @@
 <ion-view>
-    <ion-nav-title>
-        <img class="button button-clear" src="img/listRest/btnMaps.png" style="padding: 1% 0% 1% 0%; float: right;" ng-click="toMapa()" ng-disabled="true">
-        <center>
-            <img class="button button-clear" src="img/Logo.png">
-        </center>
-    </ion-nav-title>
-    <ion-content>
-        <div id="barraBuscar" ng-if="buscar == true">
-            <div class="bar bar-header item-input-inset bar-dark">
-                <label class="item-input-wrapper">
-             <i class="icon ion-ios-search placeholder-icon"></i>
-              <input type="search" placeholder="Buscar" ng-model="filtro">
-                </label>
-            </div>
-            <div class="list card dark" ng-repeat="ciudad in ciudades | filter : filtro">
-                <a href="#/app/{{ciudad.id}}" class="item item-icon-left">
-                    <i class="icon  ion-ios-location"></i>
-                    <h2>{{ciudad.nombre}}</h2>
-                </a>
-            </div>
-        </div>
-
-        <my-map data=datamap></my-map>
-
+    <ion-content scroll="false">
+        <my-mapa data=datamap></my-mapa>
+        <!--<map on-create="mapCreated(map)" ></map>-->
     </ion-content>
 </ion-view>
