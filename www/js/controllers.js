@@ -1,6 +1,6 @@
 angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicAuth, ionicToast) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $state, $ionicAuth, ionicToast, $ionicFacebookAuth) {
 
     $scope.$on('cloud:push:notification', function(event, data) {
         var msg = data.message;
@@ -38,39 +38,49 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     $scope.toCerrasSession = function() { //Cierra Session y dirige  al template de login
         $ionicAuth.logout();
+        $ionicFacebookAuth.logout();
         $state.go('login');
     }
 })
 
-.controller('loginCtrl', function($scope, $state, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
+.controller('loginCtrl', function($scope, $state, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform, $cordovaAppAvailability) {
     $scope.token = '';
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
-        /* $ionicFacebookAuth.login().then(
-             $ionicPush.register().then(function(t) {
-                 return $ionicPush.saveToken(t);
-             }).then(function(t) {
-                 console.log('Token saved:', t.token);
-             }),
-             console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-             $state.go('principal')
-         ).err*/
-        $ionicAuth.login('facebook').then(
-            $ionicPush.register().then(function(t) {
-                return $ionicPush.saveToken(t);
-            }).then(function(t) {
-                //console.log('Token saved:', t.token);
-            })
-            //console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-        ).then(function() {
-            if ($ionicAuth.isAuthenticated()) {
-                $state.go('principal');
-            } else {
-                $state.go('login');
-            }
-        })
+        $cordovaAppAvailability.check('com.facebook.katana')
+            .then(function() {
+                // is available
+                $ionicFacebookAuth.login().then(
+                    $ionicPush.register().then(function(t) {
+                        return $ionicPush.saveToken(t);
+                    }).then(function(t) {
+                        //console.log('Token saved:', t.token);
+                    }).then(function() {
+                        $state.go('principal');
+                    })
+                );
+
+            }, function() {
+                // not available     
+                $ionicAuth.login('facebook').then(
+                    $ionicPush.register().then(function(t) {
+                        return $ionicPush.saveToken(t);
+                    }).then(function(t) {
+                        //console.log('Token saved:', t.token);
+                    })
+                    //console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+                ).then(function() {
+                    if ($ionicAuth.isAuthenticated()) {
+                        $state.go('principal');
+                    } else {
+                        $state.go('login');
+                    }
+                })
+
+            });
     }
+
     $scope.details = { 'email': '', 'password': '' };
-    $scope.toPrincipal = function() {
+    $scope.toPrincipal = function() { //inicia sesion con un correo y una clave ingresadas por el usuario
         $ionicAuth.login('basic', $scope.details).then(function() {
             $ionicPush.register().then(function(t) {
                 return $ionicPush.saveToken(t);
@@ -389,7 +399,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
               }, function () {
                 // not available
               });*/
-    //$ionicPlatform.onHardwareBackButton(function() { $state.go('contactanos'); });
     $scope.llamar = function() {
         var number = '+54266154582100';
         var onSuccess = function() { $state.go('contactanos'); };
