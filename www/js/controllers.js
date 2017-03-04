@@ -265,7 +265,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 })
 
-.controller('misPedidosCtrl', function($ionicPlatform, $state, $ionicHistory, $ionicLoading, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
+.controller('misPedidosCtrl', function($state, $ionicHistory, $ionicLoading, $ionicPopup, $scope, $stateParams, $http, $ionicModal, $timeout) {
     $scope.leyenda = "Estamos buscando tus pedidos.";
     // ↓ ↓ ↓ ↓ ↓ CODIGO DEL LOADING  ↓ ↓ ↓ 
     $scope.i = 0;
