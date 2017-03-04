@@ -43,7 +43,7 @@
 */
 angular.module('starter.directives', [])
 
-.directive('myMap', function($http, $ionicPopup) {
+.directive('myMap', function($http, $ionicPopup) { //template mapa 2
 
     return {
         restrict: 'E',
@@ -161,7 +161,7 @@ angular.module('starter.directives', [])
                 var posicionActual = function() {
                         var options = {
                             enableHighAccuracy: true,
-                            timeout: 5000,
+                            timeout: 2500,
                             maximumAge: 0
                         };
 
@@ -217,7 +217,7 @@ angular.module('starter.directives', [])
     };
 })
 
-.directive('myMapa', function($http, $ionicPopup) {
+.directive('myMapa', function($http, $ionicPopup) { //template mapa
 
     return {
         restrict: 'E',
