@@ -86,7 +86,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 return $ionicPush.saveToken(t);
             }).then(function(t) {
                 $scope.token = t.token;
-                alert($scope.token);
             }).then(function() {
                 var req = {
                     method: "POST",
@@ -102,7 +101,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         token: $scope.token
                     }
                 };
-                alert($scope.token);
                 $http(req).then(function(response) {
                     if (response.data.err) {
                         response.data.msg.forEach(function(item) {
@@ -790,7 +788,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 template: "<center>Tu correo es incorrecto.</center>" //+ err
             });
         } else {
-            $ionicAuth.requestPasswordReset($scope.details['email']);
+            console.log($ionicAuth.requestPasswordReset($scope.details['email']));
             $state.go('cambiarClave');
         }
         $scope.iscategoriashown = function(categorias) {
