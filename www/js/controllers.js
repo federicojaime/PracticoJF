@@ -207,7 +207,11 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 .controller('cambiarCdadCtrl', function($scope, $state, $http, $ionicLoading, $ionicPopup) {
 
     $scope.provincias = null;
-
+    $scope.hide = function() {
+        $ionicLoading.hide().then(function() {
+            return
+        });
+    };
     $scope.i = 0;
     $scope.show = function() {
         $scope.i++;
@@ -230,22 +234,65 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                     template: '<center>Esto esta tardando demasiado, si puedes vuelve mas tarde. </center>'
                 });
             } else {
-                $http.get("http://alaordenapp.com/alaorden/php/lcatcom.php?idcomercio=18").success(function(dato) {
-                    console.log('0')
-                    $scope.provincias = dato;
-                    if ($scope.provincias != null) {
-                        $scope.i = 4000;
-                        return "I'm going to work.";
+                /*
+                                $http.get("http://alaordenapp.com/alaorden/php/lcatcom.php?idcomercio=18").success(function(dato) {
+                                    console.log('0')
+                                    $scope.provincias = dato;
+                                    if ($scope.provincias != null) {
+                                        $scope.i = 4000;
+                                        return "I'm going to work.";
+                                    }
+                                });*/
+                var reqprovincias = {
+                    method: "POST",
+                    dataType: "json",
+                    url: "http://nerdgroups.com/jonyfood/appcalls/provincias.php",
+                    headers: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    data: {
+                        id: 0
+                    }
+                };
+                $http(reqprovincias).then(function(response) {
+                    if (!response.data.error) {
+                        $scope.provincias = response.data.data;
+                        ///////////////////
+                        var reqlocalidades = {
+                            method: "POST",
+                            dataType: "json",
+                            url: "http://nerdgroups.com/jonyfood/appcalls/localidades.php",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            },
+                            data: {
+                                idprovincia: 18
+                            }
+                        };
+                        $http(reqlocalidades).then(function(response) {
+                            if (!response.data.error) {
+                                $scope.localidades = response.data.data;
+                                ////////////////////////
+                                $scope.provincias[17].localidades = $scope.localidades.slice(190, 201);
+                                console.log($scope.provincias[17]);
+                                ///////////////////////
+
+                            } else {
+                                $scope.resp.error = 1;
+                                $scope.resp.errormsg = response.data.msg;
+                            }
+                        });
+
+                        ///////////////////
+                    } else {
+                        $scope.resp.error = 1;
+                        $scope.resp.errormsg = response.data.msg;
                     }
                 });
             }
         });
     };
-    $scope.hide = function() {
-        $ionicLoading.hide().then(function() {
-            return
-        });
-    };
+
 
     $scope.show();
     //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
@@ -788,12 +835,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 })
 
 .controller('datosPedidoCtrl', function($scope, $state) {
-    $scope.confirmo = function() {
-        console.log('CONFIRMO');
-    }
-    $scope.toPrincipal = function() {
-        $state.go('principal');
-    }
+    $scope.toMisPedidos = function() { $state.go('misPedidos'); }
 })
 
 .controller('cambiarClaveCtrl', function($scope, $ionicPopup, $state, $ionicAuth) {

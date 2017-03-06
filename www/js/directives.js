@@ -253,7 +253,7 @@ angular.module('starter.directives', [])
                     position: position,
                     map: map,
                     title: title,
-                    icon: 'img/mapapink.png'
+                    icon: 'img/pinchiquito.png'
                 };
 
                 marker = new google.maps.Marker(markerOptions);
@@ -305,7 +305,8 @@ angular.module('starter.directives', [])
                         posicionPrimerResto.long = scope.data.marcas[i].longitud;
                         posicionPrimerResto.lat = scope.data.marcas[i].latitud;
                     }
-                    setMarker(map, new google.maps.LatLng(scope.data.marcas[i].latitud, scope.data.marcas[i].longitud), scope.data.marcas[i].nombre, '<a style="text-decoration:none;"   href="#/app/inicio/' + scope.data.marcas[i].id + '">' + scope.data.marcas[i].nombre, '</a>');
+                    /*' + scope.data.marcas[i].id + '*/
+                    setMarker(map, new google.maps.LatLng(scope.data.marcas[i].latitud, scope.data.marcas[i].longitud), scope.data.marcas[i].nombre, '<a style="text-decoration:none;"   href="#/app/descr-carta">' + scope.data.marcas[i].nombre, '</a>');
                 }
                 map.setCenter(new google.maps.LatLng(posicionPrimerResto.lat, posicionPrimerResto.long));
 
