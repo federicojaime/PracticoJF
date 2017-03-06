@@ -382,6 +382,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     };
 
 
+
     $scope.abriPedido = function(pedido) { //Abre la pantalla emergente de los pedidos.
         $scope.seleccion = pedido;
         $scope.modale.show();
@@ -394,7 +395,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     });
 
 
-
     $scope.time = function() { // timer, para que se actualice el template cada 3 minutos.
         stopped = $timeout(function() {
             $scope.refrescar();
@@ -402,13 +402,37 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         }, 100000);
     };
 
-    $scope.time = function() { // timer, para que se actualice el template cada 3 minutos.
-        stopped = $timeout(function() {
-            $scope.refrescar();
-            $scope.time();
-        }, 100000);
-    };
+    $scope.hayPed = false; // si no llegase a haber un pedido, muestra un cartel. 
 
+
+    $scope.abrir = function(pedido) {
+        $scope.seleccion = pedido;
+    }
+    $ionicModal.fromTemplateUrl('templates/Pedidos.html', { // determina el modal para mostrar el pedido.
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+    $scope.confirmar = function(valor) {
+        alert("Estoy");
+        if (valor === 3) {
+            valor = 1;
+        }
+        if (valor > 0) {
+            $http.get("http://alaordenapp.com/alaorden/php/setconfirmacion.php?idpedido=" + $scope.seleccion.id + "&respuesta=" + valor).success(function(dato) {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Muy bien',
+                    template: '<center>Muchas gracias por confirmarnos.</center>'
+                });
+            });
+            document.location.href = 'file:///android_asset/www/index.html';
+        } else {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Elige',
+                template: '<center>Debes elegir primero una opción.</center>'
+            });
+        }
+    }
     $scope.toSomos = function() { $state.go('app.somos') };
 })
 
@@ -623,6 +647,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.estrellaVacias.push({});
     }
 
+    $scope.hayPromo = false; //Si es false no muestra el titulo de promocion. 
+    $http.get("http://alaordenapp.com/alaorden/php/promos.php?idcomercio=8").success(function(dato) { //Solo San Luis
+        $scope.promociones = dato;
+        if ($scope.promociones.length > 0) {
+            $scope.hayPromo = true;
+        }
+    });
+
     $scope.catComidas = null;
 
     $scope.i = 0;
@@ -730,7 +762,9 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
         $scope.footer = 'classFooter'; //Hace que se muestre el botón de "TU ORDEN".
         var alertPopup = $ionicPopup.alert({
             title: '¡Muy bien!',
-            template: "<center>" + 'Tu pedido fue agregado' + "</center>"
+            template: "<center>" + 'Tu pedido fue agregado' + "</center>",
+            okType: 'button-dark',
+
         });
     }
     $scope.getPrecioTotal();
@@ -801,7 +835,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 })
 
 .controller('datosPedidoCtrl', function($scope, $state) {
-    $scope.toMisPedidos = function() { $state.go('misPedidos'); }
+    $scope.toMisPedidos = function() { $state.go('app.misPedidos'); }
 })
 
 .controller('cambiarClaveCtrl', function($scope, $ionicPopup, $state, $ionicAuth) {

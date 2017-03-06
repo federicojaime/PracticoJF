@@ -1,41 +1,10 @@
 <ion-view>
     <ion-nav-title>
-        <img class="button button-clear" src="img/listRest/btnSerch.png" style="padding: 1% 0% 1% 0%; float: right;" ng-click="buscador()">
         <center>
-            <img class="button button-clear" src="img/Logo.png" ng-click="toSomos()">
+            <img class="button button-clear" src="img/Logo.png" style="padding: 0% 5% 0% 2%;" ng-click="toSomos()">
         </center>
     </ion-nav-title>
     <ion-tabs class="tabs-top tabs-icon-top tabs-secondary tabs-dark">
-        <ion-tab title="Perfil" icon="ion-person">
-            <ion-view title="Home">
-                <ion-content>
-                    <div class="padding">
-                        <ion-item class="item descrip">
-                            <center>
-                                <div class="list">
-                                    <div class="item">
-                                        <img src="img/listRest/lafarola.jpg">
-                                        <h2>{{datosComercio["nombre"]}}</h2>
-                                        <div class="estrellas">
-                                            <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
-                                            <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <p><b>Teléfono:</b> {{datosComercio["telefono"]}}</p>
-                                <p><b>Dirección: </b>{{datosComercio["domicilio"]}}</p>
-                                <p><b>Medio de Pago:</b> Efectivo</p>
-                                <p><b>Horarios:</b> {{datosComercio["horarios"]}}</p>
-                                <p style=" white-space: normal;"> <b>Descripción:</b> {{datosComercio["descripcion"]}}</p>
-                                <img class="full-image" src="img\Descr-Carta\mapa.png">
-                                <button class="button a button-full button-energized" ng-click="modal.show()">Calificar</button>
-                            </center>
-                        </ion-item>
-                    </div>
-                </ion-content>
-            </ion-view>
-        </ion-tab>
         <ion-tab title="Carta" icon="ion-ios-bookmarks-outline">
             <ion-view title="About">
                 <ion-content>
@@ -43,19 +12,19 @@
                         <div class="item item-divider item-dark">
                             Promos del día
                         </div>
-                        <div class="item item-thumbnail-left">
-                            <img src="img\Descr-Carta\promo.png">
+                        <div ng-repeat="promo in promociones" class="item item-thumbnail-left">
+                            <img src={{promo.pathimg}} style="border-radius: 13%; ">
                             <center>
-                                <h2>Promo Burger 2x1 </h2>
-                                <p style=" white-space: normal;">Dos hamburguesas mas vaso de gaseosa</p>
-                                <p>$200</p>
+                                <h2>{{promo.descripcion}}</h2>
+                                <p style=" white-space: normal;">{{promo.notas}} </p>
+                                <p>${{promo.costo}}</p>
                             </center>
-                            <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(z,numerosCantidad.selectedOption.id,0)"></a>
                             <div class="list lista">
-                                <label class="item item-input item-select">                           Cantidad:
-                                            <div class="input-label"></div>
-                                            <select name="mySelect" id="mySelect" style="float:left;" ng-options="option.id for option in numerosCantidad.availableOptions track by option.id" ng-model="numerosCantidad.selectedOption"></select>
-                                        </label>
+                                <label class="item item-input item-select" style="float: left; display: inline-block; width: 85%;">
+                                    Cantidad:
+                                    <select name="mySelect" id="mySelect" style="display: inline-block; " ng-options="option.id for option in numerosCantidadP.availableOptions track by option.id" ng-model="numerosCantidadP.selectedOption"></select>
+                                </label>
+                                <a class="button button-small button-dark  icon ion-plus-round " style="float: right; display: inline-block; width: 10%;" ng-click="crearPedido(promo, numerosCantidadP.selectedOption.id,1)"></a>
                             </div>
                         </div>
                     </div>
@@ -85,6 +54,36 @@
                         </div>
                         <br><br>
                     </ion-list>
+                </ion-content>
+            </ion-view>
+        </ion-tab>
+        <ion-tab title="Perfil" icon="ion-person">
+            <ion-view title="Home">
+                <ion-content>
+                    <div class="padding">
+                        <ion-item class="item descrip">
+                            <center>
+                                <div class="list">
+                                    <div class="item">
+                                        <img src="img/listRest/lafarola.jpg">
+                                        <h2>{{datosComercio["nombre"]}}</h2>
+                                        <div class="estrellas">
+                                            <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
+                                            <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p><b>Teléfono:</b> {{datosComercio["telefono"]}}</p>
+                                <p><b>Dirección: </b>{{datosComercio["domicilio"]}}</p>
+                                <p><b>Medio de Pago:</b> Efectivo</p>
+                                <p><b>Horarios:</b> {{datosComercio["horarios"]}}</p>
+                                <p style=" white-space: normal;"> <b>Descripción:</b> {{datosComercio["descripcion"]}}</p>
+                                <img class="full-image" src="img\Descr-Carta\mapa.png">
+                                <button class="button a button-full button-energized" ng-click="modal.show()">Calificar</button>
+                            </center>
+                        </ion-item>
+                    </div>
                 </ion-content>
             </ion-view>
         </ion-tab>
