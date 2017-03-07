@@ -58,7 +58,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         $state.go('principal');
                     })
                 );
-
             }, function() {
                 // not available     
                 $ionicAuth.login('facebook').then(
