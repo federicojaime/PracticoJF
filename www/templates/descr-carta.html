@@ -13,18 +13,18 @@
                             Promos del día
                         </div>
                         <div ng-repeat="promo in promociones" class="item item-thumbnail-left">
-                            <img src={{promo.pathimg}}>
+                            <img src={{promo.pathimg}} style="border-radius: 13%; ">
                             <center>
                                 <h2>{{promo.descripcion}}</h2>
                                 <p style=" white-space: normal;">{{promo.notas}} </p>
                                 <p>${{promo.costo}}</p>
                             </center>
                             <div class="list lista">
-                                <label class="item item-input item-select">                           Cantidad:
-                                            <div class="input-label"></div>
-                                            <select name="mySelect" id="mySelect" style="float:left;" ng-options="option.id for option in numerosCantidadP.availableOptions track by option.id" ng-model="numerosCantidadP.selectedOption"></select>
-                                        </label>
-                                <a class="button button-small button-dark  icon ion-plus-round " style="float:right;" ng-click="crearPedido(promo, numerosCantidadP.selectedOption.id,1)"></a>
+                                <label class="item item-input item-select" style="float: left; display: inline-block; width: 85%;">
+                                    Cantidad:
+                                    <select name="mySelect" id="mySelect" style="display: inline-block; " ng-options="option.id for option in numerosCantidadP.availableOptions track by option.id" ng-model="numerosCantidadP.selectedOption"></select>
+                                </label>
+                                <a class="button button-small button-dark  icon ion-plus-round " style="float: right; display: inline-block; width: 10%;" ng-click="crearPedido(promo, numerosCantidadP.selectedOption.id,1)"></a>
                             </div>
                         </div>
                     </div>

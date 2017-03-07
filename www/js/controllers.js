@@ -834,7 +834,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 })
 
 .controller('datosPedidoCtrl', function($scope, $state) {
-    $scope.toMisPedidos = function() { $state.go('misPedidos'); }
+    $scope.toMisPedidos = function() { $state.go('app.misPedidos'); }
 })
 
 .controller('cambiarClaveCtrl', function($scope, $ionicPopup, $state, $ionicAuth) {
