@@ -46,7 +46,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 .controller('loginCtrl', function($scope, $state, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform, $cordovaAppAvailability) {
     $scope.token = '';
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
-        $cordovaAppAvailability.check('com.facebook.katana')
+        $cordovaAppAvailability.check('com.facebook.katana') //verifica si esta instalada la app de facebook en el dispositivo
             .then(function() {
                 // is available
                 $ionicFacebookAuth.login().then(
@@ -59,7 +59,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                     })
                 );
 
-            }, function() {
+            }, function() { //en caso de no estar instalada la app de facebook, recurre al login por browser
                 // not available     
                 $ionicAuth.login('facebook').then(
                     $ionicPush.register().then(function(t) {
@@ -72,6 +72,10 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                     if ($ionicAuth.isAuthenticated()) {
                         $state.go('principal');
                     } else {
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: "Se produjo un error en tu atenticación, vuelve a intentarlo." //+ err
+                        });
                         $state.go('login');
                     }
                 })
