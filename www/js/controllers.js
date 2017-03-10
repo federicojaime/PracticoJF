@@ -54,7 +54,20 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                         return $ionicPush.saveToken(t);
                     }).then(function(t) {
                         //console.log('Token saved:', t.token);
+
                     }).then(function() {
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Entro',
+                            template: t //+ err
+
+                        });
+                        var full_name = $ionicUser.social.facebook.data.full_name
+                        var profile_picture = $ionicUser.social.facebook.data.profile_picture
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Entro',
+                            template: full_name + " " + profile_picture //+ err
+
+                        });
                         $state.go('principal');
                     })
                 );
