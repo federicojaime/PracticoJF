@@ -140,7 +140,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             return $ionicPush.saveToken(t);
         }).then(function(t) {
             $scope.token = t.token;
-            alert($scope.token);
         }).then(function() {
             var req = {
                 method: "POST",
@@ -156,7 +155,6 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                     token: $scope.token
                 }
             };
-            alert($scope.token);
             $http(req).then(function(response) {
                 if (response.data.err) {
                     response.data.msg.forEach(function(item) {
@@ -200,7 +198,14 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.toFavoritos = function() { $state.go('app.favoritos'); } //Redirecciona a app.favoritos 
     $scope.toMapa = function() { $state.go('mapa2'); } //Redirecciona a mapa2
     $scope.toSomos = function() { $state.go('app.somos'); } //Redirecciona a app.somos 
-    $ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
+    $ionicPlatform.registerBackButtonAction(function(event) {
+        if ($state.current.name == "principal") {
+            navigator.app.exitApp(); //<-- remove this line to disable the exit
+        } else {
+            navigator.app.backHistory();
+        }
+    }, 100);
+    //$ionicPlatform.onHardwareBackButton(function() { $state.go('principal'); }); //Redirecciona a la parte principal de la app. 
 })
 
 .controller('cambiarCdadCtrl', function($scope, $state, $http, $ionicLoading, $ionicPopup) {
