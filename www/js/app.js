@@ -13,7 +13,7 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
         },
         "auth": {
             "facebook": {
-                "scope": ["permission1", "permission2"]
+                "scope": []
             }
         },
         "push": {

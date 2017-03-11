@@ -72,66 +72,50 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
     }) //casi
 
-.controller('loginCtrl', function($scope, $state, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
+.controller('loginCtrl', function($scope, $state, $cordovaAppAvailability, $ionicAuth, $http, $ionicUser, $ionicPush, $ionicPopup, $ionicFacebookAuth, $ionicPlatform) {
     $scope.token = '';
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
-        /* $ionicFacebookAuth.login().then(
-             $ionicPush.register().then(function(t) {
-                 return $ionicPush.saveToken(t);
-             }).then(function(t) {
-                 console.log('Token saved:', t.token);
-             }),
-             console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-             $state.go('principal')
-         ).err*/
-        $ionicAuth.login('facebook').then(
-            $ionicPush.register().then(function(t) {
-                return $ionicPush.saveToken(t);
-            }).then(function(t) {
-                //console.log('Token saved:', t.token);
-            })
-            //console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
-        ).then(function() {
-            if ($ionicAuth.isAuthenticated()) {
-                $state.go('principal');
-            } else {
-                $state.go('login');
-            }
-        })
-    }
-    $scope.details = { 'email': '', 'password': '' };
-    $scope.toPrincipal = function() {
-        $ionicAuth.login('basic', $scope.details).then(function() {
-            $ionicPush.register().then(function(t) {
-                return $ionicPush.saveToken(t);
-            }).then(function(t) {
-                $scope.token = t.token;
+        $cordovaAppAvailability.check('com.facebook.katana') //verifica si esta instalada la app de facebook en el dispositivo
+            .then(function() {
+                // is available
+                $ionicFacebookAuth.login().then(
+                    $ionicPush.register().then(function(t) {
+                        return $ionicPush.saveToken(t);
+                    }).then(function(t) {
+                        //console.log('Token saved:', t.token);
 
-            }).then(function() {
-                var req = {
-                    method: "POST",
-                    dataType: "json",
-                    url: "http://nerdgroups.com/jonyfood/appcalls/adduser.php",
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    data: {
-                        mail: $scope.details['email'],
-                        password: $scope.details['password'],
-                        name: "Nombre",
-                        token: $scope.token
-                    }
-                };
-                $http(req).then(function(response) {
-                    if (response.data.err) {
-                        response.data.msg.forEach(function(item) {
-                            alert(item); //Un alert por cada error
+                    }).then(function() {})
+                ).then(function() {
+                    var full_name = $ionicUser.social.facebook.data.full_name
+                    var profile_picture = $ionicUser.social.facebook.data.profile_picture
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Entro',
+                        template: full_name + " " + profile_picture //+ err
+
+                    });
+                    $state.go('principal');
+                })
+            }, function() { //en caso de no estar instalada la app de facebook, recurre al login por browser
+                // not available     
+                $ionicAuth.login('facebook').then(
+                    $ionicPush.register().then(function(t) {
+                        return $ionicPush.saveToken(t);
+                    }).then(function(t) {
+                        //console.log('Token saved:', t.token);
+                    })
+                    //console.log($ionicUser.social.facebook.data.full_name + " " + $ionicUser.social.facebook.data.uid),
+                ).then(function() {
+                    if ($ionicAuth.isAuthenticated()) {
+                        $state.go('principal');
+                    } else {
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Error',
+                            template: "Se produjo un error en tu atenticación, vuelve a intentarlo." //+ err
                         });
+                        $state.go('login');
                     }
                 });
             })
-
-        });
     }
 
     $scope.details = { 'email': '', 'password': '' };
