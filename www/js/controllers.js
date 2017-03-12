@@ -77,7 +77,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
     $scope.iniciaFacebook = function() { // inicia session en el caso de que eliga el boton de facebook.
         $cordovaAppAvailability.check('com.facebook.katana') //verifica si esta instalada la app de facebook en el dispositivo
             .then(function() {
-                // is available
+                // is availablec
                 $ionicFacebookAuth.login().then(
                     $ionicPush.register().then(function(t) {
                         return $ionicPush.saveToken(t);
