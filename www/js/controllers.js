@@ -301,6 +301,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                 $http(reqprovincias).then(function(response) {
                     if (!response.data.error) {
                         $scope.provincias = response.data.data;
+                        $scope.provincias = $scope.provincias.slice(16, 19);
                         ///////////////////
                         var reqlocalidades = {
                             method: "POST",
@@ -317,8 +318,8 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
                             if (!response.data.error) {
                                 $scope.localidades = response.data.data;
                                 ////////////////////////
-                                $scope.provincias[17].localidades = $scope.localidades.slice(190, 201);
-                                console.log($scope.provincias[17]);
+                                $scope.provincias[1].localidades = $scope.localidades.slice(5292, 5295);
+
                                 ///////////////////////
 
                             } else {
@@ -616,6 +617,54 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
 
 
     //  ↑ ↑ ↑ ↑ CODIGO DEL LOADING  ↑ ↑ ↑ ↑
+    $scope.restaurantes = [];
+    /*$scope.restaurantes = [
+        { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
+        { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
+        { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
+        { nombre: 'ParriPizza', descripcion: 'Pizza - Parrilla', tiempo: '30 min', precioDelivery: '$15', compraMinima: '$350', img: 'img/listRest/logo3.jpg' },
+        { nombre: 'Empanadas Pepe', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '90 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo4.gif' },
+        { nombre: 'Milanesas Jhon Jhon', descripcion: 'Pizzas - Milanesas - Sanguches', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' }
+    ];*/
+    var reqRestaurantes = {
+        method: "POST",
+        dataType: "json",
+        url: "http://nerdgroups.com/jonyfood/appcalls/comercios.php",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        data: {
+            idrubro: 1,
+            idlocalidad: 4282
+        }
+    };
+    $http(reqRestaurantes).then(function(response) {
+        if (!response.data.error) {
+            $scope.restaurantes = response.data.data;
+            ///////////////////
+            $http(reqRestaurantes).then(function(response) {
+                if (!response.data.error) {
+                    $scope.restaurantes = response.data.data;
+                    ////////////////////////
+                    // $scope.provincias[17].localidades = $scope.localidades.slice(190, 201);
+                    console.log($scope.restaurantes);
+                    ///////////////////////
+
+                } else {
+                    $scope.resp.error = 1;
+                    $scope.resp.errormsg = response.data.msg;
+                }
+            });
+
+            ///////////////////
+        } else {
+            $scope.resp.error = 1;
+            $scope.resp.errormsg = response.data.msg;
+        }
+    });
+
+    $scope.cantidadResto = $scope.restaurantes.length;
+
 
     $scope.toPerfilRes = function() { //Redirecciona a la parte principal de la app. 
         $state.go('app.descr-carta');
@@ -632,14 +681,7 @@ angular.module('starter.controllers', ['ngCordova', 'ionic.cloud'])
             $scope.buscar = true;
         }
     }
-    $scope.restaurantes = [
-        { nombre: 'La Farola de Palermo', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' },
-        { nombre: 'Il Panino', descripcion: 'Barrolucos - Milanesas - Parrilla', tiempo: '20 min', precioDelivery: '$20', compraMinima: '$100', img: 'img/listRest/logo 1.jpg' },
-        { nombre: 'Pizzas Juan', descripcion: 'Pizzas', tiempo: '20 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo2.jpg' },
-        { nombre: 'ParriPizza', descripcion: 'Pizza - Parrilla', tiempo: '30 min', precioDelivery: '$15', compraMinima: '$350', img: 'img/listRest/logo3.jpg' },
-        { nombre: 'Empanadas Pepe', descripcion: 'Pizzas - Milanesas - Parrilla', tiempo: '90 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/logo4.gif' },
-        { nombre: 'Milanesas Jhon Jhon', descripcion: 'Pizzas - Milanesas - Sanguches', tiempo: '60 min', precioDelivery: '$10', compraMinima: '$150', img: 'img/listRest/lafarola.jpg' }
-    ];
+
     $scope.estrella = []; //arreglo utilizado para generar el codigo. 
     $scope.estrellaVacias = [];
     $scope.rating = 3;
