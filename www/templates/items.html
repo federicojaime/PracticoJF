@@ -1,0 +1,21 @@
+<ion-modal-view>
+    <ion-content>
+        <div class="item item-dark item-divider">
+            <center>
+                <img class="button button-clear" src="img/Logo.png" ng-click="toSomos()">
+            </center>
+        </div>
+        <div class="item item-dark item-divider">
+            <center>ITEMMMM:</center>
+        </div>
+        <ion-checkbox ng-repeat="item in listaItem" ng-model="option.listaItem[$index]" ng-change='stateChanged(option.listaItem[$index], item.descripcion)'>
+            {{ item.descripcion }}
+        </ion-checkbox>
+    </ion-content>
+    <ion-footer-bar class="bar-stable  button-footer-bar">
+        <div class="button-bar">
+            <a class="button button-dark button-primary" ng-click="modal.hide()">Volver</a>
+            <a class="button button-assertive" ng-click="modal.hide();crearPedido();">Confirmar</a>
+        </div>
+    </ion-footer-bar>
+</ion-modal-view>

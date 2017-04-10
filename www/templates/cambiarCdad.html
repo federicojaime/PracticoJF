@@ -9,19 +9,29 @@
         <div class="item item-dark item-divider">
             <center> Elige tu ciudad</center>
         </div>
-        <ion-list>
+        <!--<ion-list>
             <div ng-repeat="provincia in provincias">
                 <ion-item class="item-stable" ng-click="toggleprovincias(provincia)" ng-class="{active: isprovinciashown(provincia)}">
                     <i class="icon" ng-class="isprovinciashown(provincia) ? 'ion-log-out' : 'ion-log-in'"></i> &nbsp; {{provincia.nombre}}
                 </ion-item>
-                <ion-item class="item-accordion" ng-repeat="localidad in provincia.localidades" ng-show="isprovinciashown(provincia)">
+                <ion-item class="item-accordion" ng-repeat="localidad in localidades" ng-show="isprovinciashown(provincia)">
                     <div class="">
-                        <p><a href="#/mapaLocalidad/82"><b>{{localidad.nombre}}</b></a></p>
-
+                        <p><a href="#/mapaLocalidad/localidad.idprovincia"><b>{{localidad.nombre}}</b></a></p>
                     </div>
                     <br>
                 </ion-item>
             </div>
+        </ion-list>-->
+        <ion-list>
+            <div ng-repeat="provincia in provincias">
+                <ion-item class="item-stable" ng-click="toggleGroup(provincia)" ng-class="{active: isGroupShown(provincia)}">
+                    <i class="icon" ng-class="isGroupShown(provincia) ? 'ion-minus' : 'ion-plus'"></i> &nbsp; {{provincia.nombre}}
+                </ion-item>
+                <ion-item class="item-accordion" ng-repeat="localidad in provincia.localidades" ng-show="isGroupShown(provincia)">
+                    {{localidad.nombre}}
+                </ion-item>
+            </div>
         </ion-list>
+
     </ion-content>
 </ion-view>

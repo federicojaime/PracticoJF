@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.directives', 'starter.controllers', 'starter.services', 'ngCordova', 'ion-cool-profile'])
+angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.directives', 'starter.controllers', 'starter.services', 'ngCordova', 'ionic-ratings', 'ion-cool-profile'])
 
 .config(function($ionicCloudProvider) {
     $ionicCloudProvider.init({
@@ -97,8 +97,30 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
         }
     })
 
+    .state('app.items', {
+            url: '/items',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/items.html',
+                    controller: 'descr-cartaCtrl'
+                }
+            }
+        })
+        .state('app.calificar', {
+            url: '/calificar',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/voto-calificacion.html',
+                    controller: 'descr-cartaCtrl'
+                }
+            }
+        })
+
     .state('app.listadoRestaurantes', { //Pantalla inicio, donde aparecen los restaurantes. 
         url: '/listadoRestaurantes',
+        params: {
+            'id': '0',
+        },
         views: {
             'menuContent': {
                 templateUrl: 'templates/inicio-listadoRestaurantes.html',
@@ -109,6 +131,9 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
 
     .state('app.descr-carta', { //Pantalla inicio, donde aparecen los restaurantes. 
         url: '/descr-carta',
+        params: {
+            'id': 'some default',
+        },
         views: {
             'menuContent': {
                 templateUrl: 'templates/descr-carta.html',
@@ -176,6 +201,8 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
         controller: 'datosPedidoCtrl'
     })
 
+
+
     .state('recuperarClave', { //Pantalla login.
         url: '/recuperarClave',
         templateUrl: 'templates/recuperarClave.html',
@@ -195,4 +222,7 @@ angular.module('starter', ['ionic', 'ionic.cloud', 'ionic-toast', 'starter.direc
     })
 
     $urlRouterProvider.otherwise("/"); // Determina en que templates va a empezar la app.
-})
+});
+
+angular.module('starter').constant("HTTPIP", "http://nerdgroups.com/jonyfood/appcalls/");
+//angular.module('starter').constant("HTTPIP", "http://192.168.0.102/jonyfoodWeb/appcalls/");

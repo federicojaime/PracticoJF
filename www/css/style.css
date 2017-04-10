@@ -174,3 +174,33 @@ body {
     width: 100%;
     height: 100%;
 }
+
+.list .item.item-accordion {
+    line-height: 38px;
+    padding-top: 0;
+    padding-bottom: 0;
+    transition: 0.09s all linear;
+}
+
+.list .item.item-accordion.ng-hide {
+    line-height: 0px;
+}
+
+.list .item.item-accordion.ng-hide-add,
+.list .item.item-accordion.ng-hide-remove {
+    display: block !important;
+}
+
+
+/*VOTO NUEVO CSS */
+
+.ionic_ratings .icon {
+    font-size: 30px;
+}
+
+.ionic_ratings .read_only {
+    pointer-events: none;
+}
+
+
+/*TERMINA VOTO NUEVO CSS*/

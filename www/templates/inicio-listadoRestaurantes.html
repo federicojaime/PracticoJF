@@ -7,63 +7,66 @@
         </center>
     </ion-nav-title>
     <ion-content>
-        <div class="bar bar-header bar-dark">
-            <div style="font-size: 2.8em; padding: 1% 0% 0% 0%; float: left;"> {{cantidadResto}}
-            </div>
-            <div class="title">
-                <img src="img/listRest/delivery.png" height="80%;" width="60%" style="padding: 2% 0% 0% 2%;">
-            </div>
-            <a class="button button-clear" style="padding: 0% 0% 0% 0%; float: right;" href="#/app/cambiarCdad"> Cambiar
-</a>
+        <div ng-if="!hayInternet">
+            <p>No tenes internet, o esta fallando</p>
         </div>
-        <div id="barraBuscar" ng-if="buscar == true">
-            <div class="bar bar-header item-input-inset bar-dark">
-                <label class="item-input-wrapper">
+        <div ng-if="hayInternet">
+            <div class="bar bar-header bar-dark">
+                <div style="font-size: 2.8em; padding: 1% 0% 0% 0%; float: left;"> {{cantidadResto}}
+                </div>
+                <div class="title">
+                    <img src="img/listRest/delivery.png" height="80%;" width="60%" style="padding: 2% 0% 0% 2%;">
+                </div>
+                <a class="button button-clear" style="padding: 0% 0% 0% 0%; float: right;" href="#/app/cambiarCdad"> Cambiar
+</a>
+            </div>
+            <div id="barraBuscar" ng-if="buscar == true">
+                <div class="bar bar-header item-input-inset bar-dark">
+                    <label class="item-input-wrapper">
              <i class="icon ion-ios-search placeholder-icon"></i>
               <input type="search" placeholder="Buscar" ng-model="filtro">
                 </label>
+                </div>
+                <div class="list" style="padding: 1% 0% 0% 0%;">
+                    <ion-list>
+                        <ion-item class="item logoLocal descrip" ng-repeat="restaurante in restaurantes | filter : filtro">
+                            <a style="float:left">
+                                <img ng-click="toPerfilRes()" src={{restaurante.pathimg}}>
+                            </a>
+                            <a class="btnFav button button-small button-light icon " ng-class="{'ion-star  button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked;agregarFav({{restaurante.id}})"></a>
+                            <center>
+                                <h2>{{restaurante.nombre}}</h2>
+                                <div class="estrellas" ng-click="toPerfilRes()">
+                                    <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
+                                    <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
+                                </div>
+                                <p ng-click="toPerfilRes()">{{restaurante.descripcion}}</p>
+                                <p ng-click="toPerfilRes()">${{restaurante.costodelib}} | {{restaurante.horarios}} |{{restaurante.telefono}} </p>
+                            </center>
+                        </ion-item>
+                    </ion-list>
+                </div>
             </div>
-            <div class="list" style="padding: 1% 0% 0% 0%;">
+            <div ng-if="buscar == false" class="list" style="padding: 10% 0% 0% 0%;">
                 <ion-list>
                     <ion-item class="item logoLocal descrip" ng-repeat="restaurante in restaurantes | filter : filtro">
                         <a style="float:left">
-                            <img ng-click="toPerfilRes()" src={{restaurante.pathimg}}>
+                            <img src={{restaurante.pathimg}} ng-click="toPerfilRes(restaurante.id)">
                         </a>
-                        <a class="btnFav button button-small button-light icon " ng-class="{'ion-star button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked">
-                        </a>
+                        <a class="btnFav button button-small button-light icon " ng-class="{'ion-star  button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked;agregarFav({{restaurante.id}})"></a>
                         <center>
-                            <h2>{{restaurante.nombre}}</h2>
+                            <h2 ng-click="toPerfilRes()">{{restaurante.nombre}}</h2>
                             <div class="estrellas" ng-click="toPerfilRes()">
                                 <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
                                 <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
                             </div>
                             <p ng-click="toPerfilRes()">{{restaurante.descripcion}}</p>
-                            <p ng-click="toPerfilRes()">${{restaurante.costodelib}} | {{restaurante.horarios}} |{{restaurante.telefono}} </p>
+                            <p ng-click="toPerfilRes()">Delívery: ${{restaurante.costodelib}}</p>
+                            <p ng-click="toPerfilRes()"> Teléfono: {{restaurante.telefono}}</p>
                         </center>
                     </ion-item>
                 </ion-list>
             </div>
-        </div>
-        <div ng-if="buscar == false" class="list" style="padding: 10% 0% 0% 0%;">
-            <ion-list>
-                <ion-item class="item logoLocal descrip" ng-repeat="restaurante in restaurantes | filter : filtro">
-                    <a style="float:left">
-                        <img src={{restaurante.pathimg}} ng-click="toPerfilRes()">
-                    </a>
-                    <a class="btnFav button button-small button-light icon " ng-class="{'ion-star button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked">
-                    </a>
-                    <center>
-                        <h2 ng-click="toPerfilRes()">{{restaurante.nombre}}</h2>
-                        <div class="estrellas" ng-click="toPerfilRes()">
-                            <i ng-repeat="a in estrella" class="icon icon-full energized ion-star"></i>
-                            <i ng-repeat="a in estrellaVacias" class="icon ion-ios-star-outline"></i>
-                        </div>
-                        <p ng-click="toPerfilRes()">{{restaurante.descripcion}}</p>
-                        <p ng-click="toPerfilRes()">Delivery: ${{restaurante.costodelib}}</p>
-                        <p ng-click="toPerfilRes()"> Telefono: {{restaurante.telefono}}</p>
-                    </center>
-                </ion-item>
-            </ion-list>
         </div>
     </ion-content>
 </ion-view>

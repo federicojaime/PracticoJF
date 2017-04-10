@@ -11,6 +11,8 @@
                 Tus Favoritos:
             </div>
         </div>
+        <ion-refresher on-refresh="doRefresh()">
+        </ion-refresher>
         <div id="barraBuscar" ng-if="buscar == true">
             <div class="bar bar-header item-input-inset bar-dark">
                 <label class="item-input-wrapper">
@@ -31,8 +33,7 @@
                             <a style="float:left">
                                 <img src={{restaurante.img}}>
                             </a>
-                            <a class="btnFav button button-small button-energized icon " ng-class="{'ion-star button-energized': !liked, 'ion-star energized ': liked}" ng-click="liked=!liked">
-                            </a>
+                            <a class="btnFav button button-small button-light icon " ng-class="{'ion-star  button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked;eliminarFav({{restaurante.idcomercio}})"></a>
                             <center>
                                 <h2>{{restaurante.nombre}}</h2>
                                 <div class="estrellas">
@@ -47,7 +48,6 @@
                 </div>
             </div>
         </div>
-
         <div class="list logoLocal" style="padding: 10% 0% 0% 0%;">
             <div ng-if="buscar == false" class="list" style="padding: 5% 0% 0% 0%;">
                 <ion-list>
@@ -55,8 +55,7 @@
                         <a style="float:left">
                             <img src={{restaurante.img}}>
                         </a>
-                        <a class="btnFav button button-small button-energized icon " ng-class="{'ion-star button-energized': !liked, 'ion-star energized ': liked}" ng-click="liked=!liked">
-                        </a>
+                        <a class="btnFav button button-small button-light icon " ng-class="{'ion-star  button-energized': liked, 'ion-star energized ': !liked}" ng-click="liked=!liked;eliminarFav({{restaurante.idcomercio}})"></a>
                         <center>
                             <h2>{{restaurante.nombre}}</h2>
                             <div class="estrellas">
